@@ -28,11 +28,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
   <title>Mark</title>
   <link rel="stylesheet" href="./assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
   <link rel="stylesheet" href="./style.css" type="text/css"/> 
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
 
 </head>
 <body>
@@ -56,13 +52,17 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             <tbody> 
              <?php   
                 while($row1 = $data->fetch_assoc()){
-                       ?>  <tr class="item"> <?php
+                       ?> <tr class="item" >
+                        <?php
                         for($i=0;$i<count($columnArr);$i++)
                         { ?>
-                       <td class="center aligned"> <?php echo $row1[$columnArr[$i]]; ?></td>
+                       <td class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?>> <?php echo $row1[$columnArr[$i]]; ?></td>
                     
                         <?php
-                        }?> </tr> 
+                        }?> 
+                       
+                        </tr> 
+                        
                         <?php
                     }
              ?>
@@ -72,12 +72,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         <div class="ui positive button">OK</div>
     </div>
 <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script  src="./script.js"></script>
 
 </body>
 </html>

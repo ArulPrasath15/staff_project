@@ -103,18 +103,58 @@ function ModoEdicion($row) {
     }
 }
 function rowAcep(but) {
-    //Acepta los cambios de la edición
+
+    var arr=[];
+    var dict1={};
+    
+    var i=0;
     var $row = $(but).parents('tr');  //accede a la fila
-    var $cols = $row.find('td');  //lee campos
+    var $cols = $row.find('td'); 
     if (!ModoEdicion($row)) return;  //Ya está en edición
     //Está en edición. Hay que finalizar la edición
+    
     IterarCamposEdit($cols, function($td) 
     {  //itera por la columnas
+    
+     if(i==0)
+     {
+        console.log($td.text());
+        arr[i]=$td.text();
+        dict1={"roll":arr[i]};
+        i++;
+        
+
+     }
+     else
+     {
       var cont = $td.find('input').val();
-            //lee contenido del input
-      $td.html(cont);  //fija contenido y elimina controles
+      $td.html(cont);
+      arr[i]=cont;
+       i++;
+
+     }
     });
-    console.log("ok")
+
+    var data=$.param($cols.map(function(){
+        return {
+            name: $(this).attr('id'),
+            value:$(this).text().trim()
+        }
+    }));
+
+    $.ajax({
+        url:"handler.php",
+        type:"POST",
+        data:data,
+        success:function(d)
+        {
+         alert(d);
+          
+        }
+    });
+
+    console.log(data)
+    console.log(arr);
     FijModoNormal(but);
     params.onEdit($row);
 }
@@ -132,11 +172,10 @@ function rowCancel(but) {
     FijModoNormal(but);
 }
 
- function rowEdit(but) {
+ function rowEdit(but){
 
     var i=0;
-    console.log("ee")
-    var $row = $(but).parents('tr');  //accede a la fila
+     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td');  //lee campos
     if (ModoEdicion($row)) return;  //Ya está en edición
     //Pone en modo de edición
@@ -144,19 +183,16 @@ function rowCancel(but) {
     IterarCamposEdit($cols, function($td)
      {  //itera por la columnas
 
-        if(i==0){   //for exclude the roll number :)
-
-            var cont = $td.html(); //lee contenido
-            console.log(cont);
+        if(i==0)
+        {   
             i++;
-        
         }
         else{
 
             var cont = $td.html(); //lee contenido
             //console.log(cont)
             var div = '<div style="display: none;">' + cont + '</div>';  //guarda contenido
-            var input = '<div class="ui input"><input maxlength="2"size="02" type="text" value="'+cont+'"></div>';
+            var input = '<div class="ui input"><input maxlength="1"size="02" type="text" value="'+cont+'"></div>';
             $td.html(div + input); 
             i+=1; //fija contenido
         }
@@ -166,17 +202,11 @@ function rowCancel(but) {
      FijModoEdit(but);
 }
 
-$("td").each(function() {
-   
-    if($(this).attr('name')=='button')
-    {
-       console.log("p")
-    }
-    console.log("iu")
 
-});
 
 //apply
 $("#table-list").SetEditable({
         $addButton: $('#add')
     });
+
+
