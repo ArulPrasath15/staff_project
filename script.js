@@ -14,7 +14,7 @@ Bootstable
  '<i class="edit icon"></i>'+
 '</button>'+
 
-
+'<button id="loader"  style="display:none;width:60px;" class="ui small green loading button">Loading</button>'+
 // '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' + 
 // '<span class="glyphicon glyphicon-ok" > </span>'+
 // '</button>'+
@@ -79,10 +79,10 @@ function IterarCamposEdit($cols, tarea) {
     }
 }
 function FijModoNormal(but) {
-    $(but).parent().find('#bAcep').hide();
-    $(but).parent().find('#bCanc').hide();
-    $(but).parent().find('#bEdit').show();
-    $(but).parent().find('#bElim').hide();
+    // $(but).parent().find('#bAcep').hide();
+    // $(but).parent().find('#bCanc').hide();
+    // $(but).parent().find('#bEdit').show();
+    // $(but).parent().find('#bElim').hide();
     var $row = $(but).parents('tr');  //accede a la fila
     $row.attr('id', '');  //quita marca
 }
@@ -106,13 +106,15 @@ function rowAcep(but) {
 
     var arr=[];
     var dict1={};
-    
+    $(but).parent().find('#bAcep').hide();
+    $(but).parent().find('#loader').show();
+    $(but).parent().find('#bEdit').hide();
     var i=0;
     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td'); 
     if (!ModoEdicion($row)) return;  //Ya está en edición
     //Está en edición. Hay que finalizar la edición
-    
+    $(but).parent().find('#bA').hide();
     IterarCamposEdit($cols, function($td) 
     {  //itera por la columnas
     
@@ -142,15 +144,24 @@ function rowAcep(but) {
         }
     }));
 
+    
     $.ajax({
         url:"handler.php",
         type:"POST",
         data:data,
         success:function(d)
         {
-         alert(d);
-          
-        }
+            if(d=="s")
+            {
+                 $(but).parent().find('#loader').hide();
+                $(but).parent().find('#bEdit').show();
+             }
+            else{
+                alert("Error")
+                $(but).parent().find('#loader').hide();
+                $(but).parent().find('#bEdit').show();
+            }
+          }
     });
 
     console.log(data)
@@ -192,19 +203,25 @@ function rowCancel(but) {
             var cont = $td.html(); //lee contenido
             //console.log(cont)
             var div = '<div style="display: none;">' + cont + '</div>';  //guarda contenido
-            var input = '<div class="ui input"><input maxlength="1"size="02" type="text" value="'+cont+'"></div>';
+            var input = '<div class="ui input"><input maxlength="1" size="02" type="text" value='+cont+'></div>';
             $td.html(div + input); 
             i+=1; //fija contenido
         }
             
     });
 
+    $row.keypress(function(event){
+
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            $row.find("#bAcep").click()
+        }
+    });
      FijModoEdit(but);
 }
 
 
 
-//apply
 $("#table-list").SetEditable({
         $addButton: $('#add')
     });
