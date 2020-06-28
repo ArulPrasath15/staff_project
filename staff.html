@@ -1,0 +1,140 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff details</title>
+</head>
+<style>
+    body
+        {
+        font-family: Tahoma,Geneva,sans-serif;
+        color: #fff;
+        background: url("itp.jpg");
+        background-size: cover;
+        }
+        .input
+        {
+        width: 240px;
+        text-align: center;
+        background: transparent;
+        border: none;
+        border-bottom: ipx solid #fff;
+        font-family: 'Play',sans-serif;
+        font-size: 16px;
+        font-weight: 200px;
+        padding: 10px 0;
+        transition: border 0.5s;
+        outline: none;
+        color:#fff;
+        }
+        .box
+    {
+        position:absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        width:400px;
+        padding:40px;
+        background:rgba(0,0,0,.8);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0,0,0,.5);
+        border-radius: 10px;
+    }
+    .box h2
+    {
+        margin: 0 0 30px;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+    }
+    .box .inputBox
+    {
+        position:relative;
+    }
+    .box .inputBox input
+    {
+        width: 100;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+        border: none;
+        border-bottom: 1px solid;
+        outline: none;
+        background: transparent;
+    }
+    .box .inputBox label
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        pointer-events: none;
+        transition: .5s;
+    }
+    .box .inputBox input:focus ~ label,
+    .box .inputBox input:valid ~ label
+    {
+        top: -18px;
+        left: 0;
+        color: #03a9f4;
+        font-size: 12px;
+    }
+    .box input[type="submit"]
+    {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #fff;
+        background: #03a9f4;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    input[type=button]
+    {
+        border:none;
+        width:190px;
+        background:white;
+        color:#000;
+        font-size: 16px;
+        line-height: 25px;
+        padding: 10px 0;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+    input[type=button]:hover
+    {
+        color:white;
+        background-color:black;
+    }
+</style>
+<body>
+    <div class="box">
+        <form >
+        <h2  style="color:white;">WELCOME!</h2><h3>Fill the details</h3>
+        <div class="inputBox">
+        <input type="text" name="course"placeholder="Course" id="course"required="" ><br>
+        <input type="number" name="batch"placeholder="Batch" id="batch"required="" ><br>
+        <input type="text" name="section"placeholder="Section" id="section"required="" ><br>
+        <input type="submit" name="sub1" value="Next" >
+        </div>
+        </form>
+</div>
+<div>
+    <form>
+        <input type="button"name="sub1" value="LOGOUT" id="logout"onclick="myFunction()">
+    </form>
+</div>
+</div>
+<script>
+    function myFunction()
+    {
+        window.location.replace("home.php");
+    }
+</script>
+</body>
+</html>
