@@ -7,6 +7,7 @@ Bootstable
 */
   "use strict";
   //Global variables
+  var key;
   var params = null;  		//Parameters
   var colsEdi =null;
   var newColHtml = 
@@ -27,7 +28,7 @@ Bootstable
 // '</button>'+
     '</div>';
   var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>'; 
-    
+var maxmark;
   $.fn.SetEditable = function (options) {
     var defaults = {
         columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
@@ -155,7 +156,7 @@ function rowAcep(but) {
                  $(but).parent().find('#bEdit').show();
              }
             else{
-                alert(d);
+                alert("Error");
                 $(but).parent().find('#loader').hide();
                 $(but).parent().find('#bEdit').show();
             }
@@ -189,7 +190,7 @@ function rowAcep(but) {
             var cont = $td.html();
             //console.log(cont)
             var div = '<div style="display: none;">' + cont + '</div>';  
-            var input = '<div class="ui input" ><input class="mytest" id="Q'+i+'" type="number" maxlength="1" style="width: 55px;" value='+cont+'></input></div>';
+            var input = '<div class="ui input" ><input class="mytest" id='+i+' type="number" maxlength="1" style="width: 55px;" value='+cont+'></input></div>';
             $td.html(div+input); 
             i+=1; 
         }
@@ -199,34 +200,42 @@ function rowAcep(but) {
 
     function checkLength()
     {
+         var ques=$(this).attr('id');
+         $('#table-list .maxmarkrow').each(function() {
+                maxmark = $(this).find("th").eq(ques).html();
+              // console.log(maxmark)
+        });
+        //console.log($(this).val());
 
-        var ques=$(this).attr('id');
-        console.log($(".th").$("#Q3").val())
+        key=13;
+        if( $(this).val() > parseInt(maxmark) || $(this).val() < 0 )
+        { 
+
+            key=0
+            $cols.find('input').attr('disabled', true);
+            $(this).attr('disabled', false);   
+            $(this).focus();
+            $(this).css("border-color","red"); 
+            $cols.find('#bAcep').prop('disabled', true);
+
+            
         
-
-    
-        if( $(this).val() > 3 || $(this).val() < 0)
-       { 
-        $cols.find('input').attr('disabled', true);
-        $(this).attr('disabled', false);
-        $(this).focus();
-        $(this).css("border-color","red"); 
-        $cols.find('button').attr('disabled', true);
-       
-
-      }
-      else
-      {
-        $cols.find('input').attr('disabled', false);
-        $cols.find('button').attr('disabled', false);
-        $(this).css("border-color","white"); 
-      }
+        }
+        else
+        {
+          key=13;
+          $cols.find('input').attr('disabled', false);
+          $cols.find('button').attr('disabled', false);
+          $(this).css("border-color","#ECECED"); 
+        }
+          
   }
     // Enter to save the data
-      $row.keypress(function(event){
+    $row.keypress(function(event){
 
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
+        if(keycode == key)
+        {
             $row.find("#bAcep").click()
         }
     });
@@ -238,7 +247,5 @@ function rowAcep(but) {
 
 $("#table-list").SetEditable({
         $addButton: $('#add')
-    });
-
-
+});
     

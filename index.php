@@ -56,7 +56,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                         <?php
                         for($i=0;$i<count($maxmark);$i++)
                         { ?>
-                    <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?>> <?php echo $maxmark[$i]; ?></th>
+                    <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
                     
                         <?php
                          }?> 
