@@ -7,7 +7,7 @@ if($con->connect_error)
 }
 
 $count=0;
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='student' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='CAT_1_2020' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -15,12 +15,9 @@ while($row = $data->fetch_assoc()){
 // Array of all column names
 $columnArr = array_column($result, 'COLUMN_NAME');
 
-    $sql="SELECT * from student ORDER BY `rollno` ASC ";
+    $sql="SELECT * from CAT_1_2020 ORDER BY `rollno` ASC ";
     $data=$con->query($sql);
 
-
-    
-                
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -50,8 +47,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                 </tr>
 
                 <?php  
-             $max = $con->query("SELECT * FROM student WHERE  `rollno` like 'Max Mark' ");
-                $maxmark = $max->fetch_row(); ?>
+                    $max = $con->query("SELECT * FROM CAT_1_2020 WHERE  `rollno` like 'Max Mark' ");
+                    $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
                         for($i=0;$i<count($maxmark);$i++)
@@ -68,23 +65,28 @@ $columnArr = array_column($result, 'COLUMN_NAME');
              <?php
 
             while($row1 = $data->fetch_assoc()){
-                       ?> <tr class="item">
-                        <?php
-                        for($i=0;$i<count($columnArr);$i++)
-                        { ?>
-                       <td class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?>> <?php echo $row1[$columnArr[$i]]; ?></td>
+                if($row1[$columnArr[0]]=='Max Mark')
+                {}
+                else{
+                    ?> <tr class="item">
+                    <?php
+                    for($i=0;$i<count($columnArr);$i++)
+                    { ?>
+                    <td class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?>> <?php echo $row1[$columnArr[$i]]; ?></td>
+                
+                    <?php
+                    }?> 
                     
-                        <?php
-                        }?> 
-                       
-                        </tr> 
-                        
-                        <?php
+                    </tr> 
+                    
+                    <?php
                     }
+                }
              ?>
             
             </tbody>
         </table>
+        
     </div>
 
    

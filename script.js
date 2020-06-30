@@ -150,12 +150,14 @@ function rowAcep(but) {
         data:data,
         success:function(d)
         {
+            // alert(d);
             if(d=="s")
             {
                  $(but).parent().find('#loader').hide();
                  $(but).parent().find('#bEdit').show();
              }
-            else{
+            else
+            {
                 alert("Error");
                 $(but).parent().find('#loader').hide();
                 $(but).parent().find('#bEdit').show();
@@ -209,9 +211,10 @@ function rowAcep(but) {
 
         key=13;
         if( $(this).val() > parseInt(maxmark) || $(this).val() < 0 )
-        { 
-
-            key=0
+         { 
+        //     alert($(this).val().length)
+        //     alert(maxmark.length-1);
+            key=0;
             $cols.find('input').attr('disabled', true);
             $(this).attr('disabled', false);   
             $(this).focus();
