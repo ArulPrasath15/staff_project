@@ -1,5 +1,8 @@
-<?php
 
+
+<!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
+
+<?php
 $con=new mysqli("localhost","root","","staff");
 if($con->connect_error)
 {
@@ -25,7 +28,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
   <meta charset="UTF-8">
   <title>Mark</title>
   <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
-  <link rel="stylesheet" href="../css/style.css" type="text/css"/> 
+  <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
   <!-- <script src="semantic/dist/semantic.min.js"></script> -->
   <link
     rel="stylesheet"
@@ -89,16 +92,11 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             
             </tbody>
         </table>
-        
-    </div>
+     </div>
 
    
-<!-- partial -->
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script  src="../Js/script.js"></script>
+<script  src="../js/Table.js"></script>
 
 </body>
 </html>

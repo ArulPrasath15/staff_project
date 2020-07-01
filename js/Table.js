@@ -1,14 +1,11 @@
-//bootstable.js
-/*
-Bootstable
- @description  Javascript library to make HMTL tables editable, using Bootstrap
- @version 1.1
- @autor Tito Hinostroza
-*/
+
+
+
+//  JavaScript File for Mark Entry Table
+
   "use strict";
-  //Global variables
   var key;
-  var params = null;  		//Parameters
+  var params = null;  	
   var colsEdi =null;
   var newColHtml = 
 '<button  id="bEdit" class="ui blue active button"  onclick="rowEdit(this);">'+
