@@ -145,7 +145,7 @@ function rowAcep(but) {
 
     
     $.ajax({
-        url:"handler.php",
+        url:"../Ajax/handler.php",
         type:"POST",
         data:data,
         success:function(d)
