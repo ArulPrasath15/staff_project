@@ -8,8 +8,22 @@
     body
         {
         font-family: Tahoma,Geneva,sans-serif;
-        color: #fff;
-        background: url("itp.jpg");
+    
+        }
+        .bg-image {
+        /* The image used */
+        background-image: url("./Images/itp.jpg");
+        
+        /* Add the blur effect */
+        filter: blur(50px);
+        -webkit-filter: blur(10px);
+        
+        /* Full height */
+        height: 100%; 
+        
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
         background-size: cover;
         }
         .input
@@ -28,7 +42,7 @@
         color:#fff;
         }
         .box
-    {
+     {
         position:absolute;
         top: 50%;
         left: 50%;
@@ -113,6 +127,7 @@
     }
 </style>
 <body>
+    <div class="bg-image"></div>
     <div class="box">
         <form >
         <h2  style="color:white;">WELCOME!</h2><h3>Fill the details</h3>
@@ -126,14 +141,15 @@
 </div>
 <div>
     <form>
-        <input type="button"name="sub1" value="LOGOUT" id="logout"onclick="myFunction()">
+        <input type="button"name="sub1" value="LOGOUT" id="logout" onclick="myFunction()">
     </form>
 </div>
 </div>
+
 <script>
     function myFunction()
     {
-        window.location.replace("home.php");
+        window.location.replace("./login.php");
     }
 </script>
 </body>
