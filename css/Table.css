@@ -1,0 +1,34 @@
+.ui.table>thead>tr>th {
+
+background-color: rgb(65, 65, 65); 
+ color: white;
+} 
+.tablecontent{
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 50px;
+padding-bottom: 50px;
+}
+thead tr th:first-child,
+tbody tr td:first-child {
+ width: 8em;
+ background: grey;
+ font-weight: bold;
+}
+.maxmarkrow{
+    color: red;
+
+}
+td{
+    font-weight: bolder;
+    /* font-size: 12px; */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}

@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/sdnlxedv/repositories/staff_project
+    - /bin/cp $DEPLOYPATH
