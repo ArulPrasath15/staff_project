@@ -35,7 +35,7 @@
         margin:0;
         padding:0;
         font-family: sans-serif;
-        background:url("kec.jpeg") ;
+        background:url("logpic.jpg") ;
         background-size: cover;
     }
     .box
@@ -110,11 +110,11 @@
 <body>
 
     <div class="box">
-        <h2> Staff Login</h2>
+        <h2> ADMIN</h2>
         <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
             <div class="inputBox">
                 <input type="mail" name="mail" id="mail" required="">
-                <label>E-Mail Id</label>
+                <label>Username</label>
             </div>
             <div class="inputBox">
                 <input type="password" name="pass" required="">
