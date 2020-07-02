@@ -1,10 +1,14 @@
 <?php
     session_start();
-    include_once("db.php");
+    $con=new mysqli("localhost","root","","student");
+    if($con->connect_error)
+    {
+        die("Connection failed:".$con->connect_error);
+    }
     if (isset($_POST["sub1"]))
     {
         $mail=$_POST["mail"];
-        $sql="select * from staff where Mail_Id like '$mail'";
+        $sql="select * from staff where mail like '$mail'";
         $res=$con->query($sql);
         $count=$res->num_rows;
         echo $count;
@@ -23,18 +27,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
-    
+    <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <style>
     body
     {
+        margin:0;
+        padding:0;
         font-family: sans-serif;
-        background-image: url('./Images/itp.jpg');
+        background:url("logpic.jpg") ;
         background-size: cover;
-     }
+    }
     .box
     {
         position:absolute;
@@ -104,14 +107,14 @@
     }
     
 </style>
-<body >
-    
+<body>
+
     <div class="box">
-        <h2 class="animate__animated animate__bounce"> Staff Login</h2>
+        <h2> ADMIN</h2>
         <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
             <div class="inputBox">
                 <input type="mail" name="mail" id="mail" required="">
-                <label>E-Mail Id</label>
+                <label>Username</label>
             </div>
             <div class="inputBox">
                 <input type="password" name="pass" required="">
@@ -119,24 +122,20 @@
             </div>
             <input type="submit" name="sub1" value="Submit" onclick="myFunction()"><br><br>
             <a href="#" style="color:blue">Forgot Password?</a>
-        </form>
-   
+</form>
     </div>
-
-
-
-<script>
-    function myFunction()
-    {
-        var mail;
-        mail=document.getElementById("mail").value;
-        if(mail=='')
+    <script>
+        function myFunction()
         {
-        alert('Please enter a valid detail');
-        return false;
+          var mail;
+          mail=document.getElementById("mail").value;
+          if(mail=='')
+          {
+            alert('Please enter a valid detail');
+            return false;
+          }
         }
-    }
-</script>
+    </script>
     
 </body>
 </html>
