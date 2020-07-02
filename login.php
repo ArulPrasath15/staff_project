@@ -1,10 +1,6 @@
 <?php
     session_start();
-    $con=new mysqli("localhost","root","","staff");
-    if($con->connect_error)
-    {
-        die("Connection failed:".$con->connect_error);
-    }
+    include_once("db.php");
     if (isset($_POST["sub1"]))
     {
         $mail=$_POST["mail"];

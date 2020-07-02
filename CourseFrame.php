@@ -1,10 +1,8 @@
 <?php
-    $con=new mysqli("localhost","root","","staff");
-    if($con->connect_error)
-    {
-        die("Database Connection Failed ".$con->connect_error );
-    }
-    if(isset($_POST["pattern"]))
+   
+   include_once("db.php");
+   
+   if(isset($_POST["pattern"]))
     {
         $cnt=0;
         $str="CREATE TABLE CAT1 (ROLL varchar(10) NOT NULL,";
