@@ -53,8 +53,8 @@ $(document).ready(function(){
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
         <a class="active green item" style="font-size:20px">KEC Student +</a>
-        
-        <a  class="item"  style="margin-left:1060px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
+        <a  class="item"  style="margin-left:900px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -65,7 +65,7 @@ $(document).ready(function(){
     <form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
     <br>
         <div class="header"><h2>Assign Faculty</h2></div>
-        <div class="ui divider"></div>
+        <!-- <div class="ui divider"></div> -->
         <?php
             $sql="SELECT * FROM  `course_list` WHERE `cc` LIKE '$_staffid' AND  `code` LIKE '$_code' ";
             $data=$con->query($sql);
@@ -80,7 +80,7 @@ $(document).ready(function(){
                      <tbody>
                         <tr>
                             <td class="center aligned">Course Code</td>
-                            <td class="center aligned"><?php  echo $row['code'];echo $_SESSION['code'];   ?></td>
+                            <td class="center aligned"><?php  echo $row['code'];  ?></td>
                      
                         </tr>
                         <tr>
@@ -342,7 +342,7 @@ $(document).ready(function(){
                     </tfoot>
                  </table>
                     <div class="ui input" style="visibility: hidden">
-                    <input type="text" name='codec' value="<?php echo $_SESSION['code'];   ?>"placeholder="Search...">
+                     <input type="text" name='codec' value="<?php echo $_SESSION['code']; ?>">
                     </div>
 
              <?php

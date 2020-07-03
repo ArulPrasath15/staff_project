@@ -41,7 +41,8 @@ body
       </div>
     </div>
 <!-- Navbar ended -->
-
+<br>
+<center><h2>Welcome ! <?php echo $_SESSION['staffname']; ?></h2></center>
 <!-- Table start -->
 <div class="tablecontent">
 <table class="ui selectable celled inverted table">

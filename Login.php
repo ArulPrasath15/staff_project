@@ -22,6 +22,7 @@ include_once("./db.php");
        if( $count==1)
        {
         $_SESSION["staffid"]=$row['staffid'];
+        $_SESSION["staffname"]=$row['name'];
         header("Location: ./staff/index.php");
        }
        else{
