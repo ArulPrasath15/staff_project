@@ -17,6 +17,7 @@ $_SESSION["staffid"]="CSE023SF";
 body
 {
     background-image: url("../Images/bg.jpg");
+    background-size: cover;
 }
 .tablecontent{
     padding-left: 30px;
@@ -72,8 +73,8 @@ body
             <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
             <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
             <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
-            <td class="center aligned" > <div class="ui button">Frame Patten</div></td>
-            <td class="center aligned" ><div class="ui button">Assign Faculty</div></td>
+            <td class="center aligned" > <div class="ui button" >Frame Patten</div></td>
+            <td class="center aligned" ><div class="ui button" onclick="location.href = 'http:/staff_project/staff/AssignFaculty<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
             <td class="center aligned" ><div class="ui positive button">Activate</div></td>
 
         </tr>  
@@ -112,15 +113,7 @@ body
          }
          else
          {
-            if($norecord==1)
-            {
-           ?>
-           <tr>
-               <td class="center aligned" colspan="6" >No Record</td>
-           </tr>
-            <?php
-            }
-            $norecord+=1;
+          
          }
      }
 ?>
