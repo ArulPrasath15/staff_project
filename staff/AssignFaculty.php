@@ -3,6 +3,7 @@ include_once("../db.php");
 session_start();
 $_staffid=$_GET['cc'];
 $_code=$_GET['code'];
+$_SESSION['code']=$_code;
 ?>
 
 <html lang="en">
@@ -79,7 +80,7 @@ $(document).ready(function(){
                      <tbody>
                         <tr>
                             <td class="center aligned">Course Code</td>
-                            <td class="center aligned"><?php  echo $row['code'];   ?></td>
+                            <td class="center aligned"><?php  echo $row['code'];echo $_SESSION['code'];   ?></td>
                      
                         </tr>
                         <tr>
@@ -340,7 +341,9 @@ $(document).ready(function(){
                         </td>
                     </tfoot>
                  </table>
-                 
+                    <div class="ui input" style="visibility: hidden">
+                    <input type="text" name='codec' value="<?php echo $_SESSION['code'];   ?>"placeholder="Search...">
+                    </div>
 
              <?php
             }
@@ -366,14 +369,14 @@ $(document).ready(function(){
 
 if(isset($_POST['submit']))
 {
-
-    $code=$_SESSION["code"];
+    
     $A=$_POST['Adrop'];
     $B=$_POST['Bdrop'];
     $C=$_POST['Cdrop'];
     $D=$_POST['Ddrop'];
-
-    $sql1=" UPDATE  `course_list` SET  `staff1` = '$A' , `staff2` = '$B', `staff3` = '$C', `staff4` = '$D' WHERE `code` LIKE '$code' ";
+    $ccode=$_POST['codec'];
+    
+    $sql1=" UPDATE  `course_list` SET  `staff1` = '$A' , `staff2` = '$B', `staff3` = '$C', `staff4` = '$D' WHERE `code` LIKE '$ccode' ";
     if($con->query($sql1)==true)
     {
         header("Location: ../staff/index.php");
@@ -383,7 +386,7 @@ if(isset($_POST['submit']))
         header("Location: ../staff/index.php");
     }
 
-}
+ }
 
 ?>
 
