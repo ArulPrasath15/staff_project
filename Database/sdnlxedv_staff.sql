@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2020 at 01:33 PM
+-- Generation Time: Jul 03, 2020 at 09:00 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -33,25 +33,26 @@ CREATE TABLE `course_list` (
   `name` varchar(20) NOT NULL,
   `year` year(4) NOT NULL,
   `batch` year(4) NOT NULL,
-  `sec` varchar(1) NOT NULL,
+  `sem` tinyint(1) NOT NULL,
   `credit` tinyint(1) NOT NULL,
   `cc` varchar(30) NOT NULL,
-  `staff1` varchar(8) NOT NULL,
-  `sec1` varchar(1) NOT NULL,
-  `staff2` varchar(8) NOT NULL,
-  `sec2` varchar(1) NOT NULL,
-  `staff3` varchar(8) NOT NULL,
-  `sec3` varchar(1) NOT NULL,
-  `staff4` varchar(8) NOT NULL,
-  `sec4` varchar(1) NOT NULL
+  `staff1` varchar(8) DEFAULT NULL,
+  `sec1` varchar(1) DEFAULT NULL,
+  `staff2` varchar(8) DEFAULT NULL,
+  `sec2` varchar(1) DEFAULT NULL,
+  `staff3` varchar(8) DEFAULT NULL,
+  `sec3` varchar(1) DEFAULT NULL,
+  `staff4` varchar(8) DEFAULT NULL,
+  `sec4` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `course_list`
 --
 
-INSERT INTO `course_list` (`code`, `name`, `year`, `batch`, `sec`, `credit`, `cc`, `staff1`, `sec1`, `staff2`, `sec2`, `staff3`, `sec3`, `staff4`, `sec4`) VALUES
-('18CST33', 'Data Structures', 2019, 2018, 'A', 4, 'CSE023SF', 'CSE023SF', 'A', 'CSE035SF', 'B', 'CSE025SF', 'C', 'CSE042SF', 'D');
+INSERT INTO `course_list` (`code`, `name`, `year`, `batch`, `sem`, `credit`, `cc`, `staff1`, `sec1`, `staff2`, `sec2`, `staff3`, `sec3`, `staff4`, `sec4`) VALUES
+('18CST33', 'Data Structures', 2019, 2018, 0, 4, 'CSE023SF', 'CSE023SF', 'A', 'CSE035SF', 'B', 'CSE025SF', 'C', 'CSE042SF', 'D'),
+('18CST53', 'DPD', 2019, 2018, 3, 4, 'CSE018SF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
