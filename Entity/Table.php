@@ -2,7 +2,7 @@
 
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
-include_once("db.php");
+include_once("../db.php");
 
 $count=0;
 $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='CAT_1_2020' ";
