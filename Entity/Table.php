@@ -31,6 +31,14 @@ $columnArr = array_column($result, 'COLUMN_NAME');
   />
 </head>
 <body class="animate__animated animate__backInDown">
+
+<div class="ui tablet computer only padded grid">
+      <div class="ui borderless fluid  inverted menu" style="font-size:16px">
+        <a class="active green item" style="font-size:20px">KEC Student +</a>
+        <a  class="item"  style="margin-left:1050px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+      
+      </div>
+    </div>
 <!-- partial:index.partial.html -->
 <div class="tablecontent">
 
