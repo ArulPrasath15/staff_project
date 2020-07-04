@@ -8,7 +8,7 @@ if($con->connect_error)
 $roll=$_POST['ROLLNO'];
 
 
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='CAT_1_2020' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat1' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -19,7 +19,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 $marksarr=array();
 $quesarr=array();
 
-for($i=1;$i<=count($columnArr)-1;$i++)
+for($i=1;$i<=count($columnArr)-2;$i++)
 {
 
   $ques="Q".$i;
@@ -43,21 +43,36 @@ for($i=1;$i<=count($columnArr)-1;$i++)
   }
 }
 
-$sql1='UPDATE CAT_1_2020 SET ';
-for($i=1;$i<=count($columnArr)-1;$i++)
+if($_POST['TOTAL']==strval(0))
 {
-
-  $sql1.=$quesarr[$i] .'='. $marksarr[$i];
-  if($i!=count($columnArr)-1)
+  $marksarr[count($columnArr)-1]=0;
+}
+else
+{
+  if(empty($_POST['TOTAL']))
   {
-    $sql1.=",";
+    $marksarr[count($columnArr)-1]='NULL';
+  //  echo $ques;
   }
   else
   {
-    $sql1.=" ";
+    $marksarr[count($columnArr)-1]=$_POST['TOTAL'];
   }
+  
+}
+
+$sql1='UPDATE cat1 SET ';
+for($i=1;$i<=count($columnArr)-2;$i++)
+{
+
+  $sql1.=$quesarr[$i] .'='. $marksarr[$i];
+  $sql1.=',';
 
 }
+
+$total=count($columnArr)-1;
+$sql1.= 'Total'.'='.$marksarr[$total].' ';
+
 $sql1.= 'WHERE rollno ='."'".$roll."'";
 
 if ($con->query($sql1) === TRUE) {
@@ -65,6 +80,6 @@ if ($con->query($sql1) === TRUE) {
   } 
   else
   {
-    echo 'e';
+    echo $sql1;
   }
 

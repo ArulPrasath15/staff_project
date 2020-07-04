@@ -5,7 +5,7 @@
 include_once("../db.php");
 
 $count=0;
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='CAT_1_2020' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat1' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -13,7 +13,7 @@ while($row = $data->fetch_assoc()){
 // Array of all column names
 $columnArr = array_column($result, 'COLUMN_NAME');
 
-    $sql="SELECT * from CAT_1_2020 ORDER BY `rollno` ASC ";
+    $sql="SELECT * from cat1 ORDER BY `rollno` ASC ";
     $data=$con->query($sql);
 
 ?>
@@ -48,33 +48,83 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                     <?php
                     
                     for($i=0;$i<count($columnArr);$i++){ 
+                        if($i==count($columnArr)-1)
+                        {?>
+
+                           
+                            <th rowspan="4"class="center aligned"><?php echo strtoupper($columnArr[$i]);?> </th> 
+                        <?php 
+                        }
+                        else{
                     ?>
-                    <th class="center aligned"> <?php echo strtoupper($columnArr[$i]);?></th>
-                    <?php  
+
+
+                             <th class="center aligned"> <?php echo strtoupper($columnArr[$i]);?></th>
+
+
+                        <?php } 
                     }
                     ?>
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM CAT_1_2020 WHERE  `rollno` like 'Max Mark' ");
+                    $max = $con->query("SELECT * FROM cat1 WHERE  `rollno` like 'Max Mark' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark);$i++)
+                        for($i=0;$i<count($maxmark)-1;$i++)
+                        { ?>
+                                  <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
+                    
+                        <?php
+                         }?> 
+       
+                    </tr> 
+
+                    <?php  
+                    $max = $con->query("SELECT * FROM cat1 WHERE  `rollno` like 'Exp Mark' ");
+                    $maxmark = $max->fetch_row(); ?>
+                <tr  class="maxmarkrow">
+                        <?php
+                        for($i=0;$i<count($maxmark)-1;$i++)
                         { ?>
                     <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
                     
                         <?php
                          }?> 
        
-                      </tr> 
+                    </tr> 
+
+                    <?php  
+                    $max = $con->query("SELECT * FROM cat1 WHERE  `rollno` like 'Co' ");
+                    $maxmark = $max->fetch_row(); ?>
+                <tr  class="maxmarkrow">
+                        <?php
+                        for($i=0;$i<count($maxmark)-1;$i++)
+                        {   
+                            if($i==0)
+                            {?>
+                             <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo strtoupper($maxmark[$i]); ?>> <?php echo strtoupper($maxmark[$i]);?></th>
+                            <?php
+                             $i++;
+                            }
+
+                            ?>
+                             <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo 'CO'.$maxmark[$i]; ?>> <?php  if(is_numeric($maxmark[$i])){echo 'CO'.$maxmark[$i];}?></th>
+                    
+                        <?php
+                         }?> 
+       
+                    </tr> 
+
+
              </thead>
             <tbody> 
              
              <?php
 
             while($row1 = $data->fetch_assoc()){
-                if($row1[$columnArr[0]]=='Max Mark')
+                if($row1[$columnArr[0]]=='Max Mark' || $row1[$columnArr[0]]=='Exp Mark' ||$row1[$columnArr[0]]=='Co')
                 {}
                 else{
                     ?> <tr class="item">

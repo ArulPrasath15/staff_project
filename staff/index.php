@@ -78,9 +78,9 @@ body
             <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
             <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
             <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
-            <td class="center aligned" > <div class="ui button" >Frame Patten</div></td>
+            <td class="center aligned" > <div class="ui button" onclick="location.href = 'http:/staff_project/CourseFrame'" >Frame Patten</div></td>
             <td class="center aligned" ><div class="ui button" onclick="location.href = 'http:/staff_project/staff/AssignFaculty<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
-            <td class="center aligned" ><div class="ui button">Mark Entry</div></td>
+            <td class="center aligned" ><div class="ui button" onclick="location.href = 'http:/staff_project/Entity/Table'">Mark Entry</div></td>
             <td class="center aligned" ><div class="ui positive button">Activate</div></td>
 
         </tr>  
