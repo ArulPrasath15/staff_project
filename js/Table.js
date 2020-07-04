@@ -147,7 +147,7 @@ function rowAcep(but) {
         data:data,
         success:function(d)
         {
-            // alert(d);
+            //  alert(d);
             if(d=="s")
             {
                  $(but).parent().find('#loader').hide();
@@ -155,7 +155,7 @@ function rowAcep(but) {
              }
             else
             {
-                alert("Error");
+                alert("error");
                 $(but).parent().find('#loader').hide();
                 $(but).parent().find('#bEdit').show();
             }
@@ -202,7 +202,7 @@ function rowAcep(but) {
          var ques=$(this).attr('id');
          $('#table-list .maxmarkrow').each(function() {
                 maxmark = $(this).find("th").eq(ques).html();
-              // console.log(maxmark)
+            //    console.log(maxmark)
         });
         //console.log($(this).val());
 
@@ -218,9 +218,7 @@ function rowAcep(but) {
             $(this).css("border-color","red"); 
             $cols.find('#bAcep').prop('disabled', true);
 
-            
-        
-        }
+         }
         else
         {
           key=13;
@@ -228,8 +226,45 @@ function rowAcep(but) {
           $cols.find('button').attr('disabled', false);
           $(this).css("border-color","#ECECED"); 
         }
-          
-  }
+        //console.log($cols);
+        var $total=0;
+        var $count=1;
+       // console.log($cols);
+       // console.log($($cols).length);
+        $($cols).each(function(){
+            if($count==1 || $count==$($cols).length-1)
+            {
+                if($count==$($cols).length-1)
+                {
+                    $(this).find('.mytest').val($total);
+                    return;
+                }
+                else{
+                    $count+=1;
+                }
+             }
+            else
+            {
+                maxmark = $(this).find('.mytest').val();
+                console.log('find this'+ maxmark);
+                if(maxmark=='' || maxmark==undefined )
+                {
+                    $count+=1;    
+                }
+                else
+                {
+                console.log("vanten");
+                $total=$total+parseInt(maxmark);
+                $count+=1;
+                }
+            }
+        });
+        console.log($total);
+        
+
+
+
+}
     // Enter to save the data
     $row.keypress(function(event){
 
