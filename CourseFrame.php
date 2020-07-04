@@ -5,8 +5,8 @@
    if(isset($_POST["pattern"]))
     {
         $cnt=0;
-        $str="CREATE TABLE CAT1 (ROLL varchar(10) NOT NULL,";
-        $str1="INSERT INTO `cat1`(`ROLL`, ";
+        $str="CREATE TABLE ".($_POST['exam'])." (rollno varchar(10) NOT NULL,";
+        $str1="INSERT INTO `".($_POST['exam'])."`(`rollno`, ";
         $cnt=0;
         for($i=1;$i<=$_POST["i"];$i++)
         {
@@ -23,8 +23,8 @@
             
         }
 
-        $str=substr($str,0,strlen($str)-1);
-        $str.=")";
+        //$str=substr($str,0,strlen($str)-1);
+        $str.=" PRIMARY KEY (rollno))";
         $str1=substr($str1,0,strlen($str1)-1);
         $str1.=") VALUES ('Max Mark',";
         $cnt=0;
@@ -51,7 +51,7 @@
             {
                 
                 //echo "Success";
-                $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat1' ";
+                $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='".($_POST['exam'])."' ";
                 $data=$con->query($sql);
                 while($row = $data->fetch_assoc()){
                     $result[] = $row;
@@ -59,6 +59,8 @@
                 // Array of all column names
                 $columnArr = array_column($result, 'COLUMN_NAME');
                 $str2='<form class="ui form" id="frm2" method="POST" action="SavePage.php">
+                <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
+                <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
                 <table class="ui fixed selectable celled table" id="table-list">
                 <thead>
                     <tr>';
@@ -67,7 +69,7 @@
                             $str2.='<th class="center aligned">'.$columnArr[$i].'</th> ';
                         }
                     $str2.='</tr>';
-                        $sql2 = $con->query("SELECT * FROM CAT1");
+                        $sql2 = $con->query("SELECT * FROM ".($_POST['exam'])."");
                         $res = $sql2->fetch_row();
                     $str2.='<tr>';
                             for($i=0;$i<count($res);$i++)
@@ -134,19 +136,27 @@
     </h2>
     
     <div class="ui raised inverted segment" style="width:94%;margin:3%; id="seg">
+
+    <div class="ui focus input" style="width:10%;margin-left:40%;">
+        <input type="text" style="border-radius:20px;border-color: black;" value="No.of Questions" readonly>
+    </div>
+    <div class="ui focus input" style="width:8%;margin-left:5%;">
+        <input type="text" style="border-radius:20px;border-color: black;" value="Max Mark" readonly>
+    </div>
+
     <button class="ui circular right floated  blue icon button" id="ADD"><i class="add icon"></i></button>
     <form class="ui form" id="frm">   
 
-        
+
 
         <div class="ui raised  container segment" style="width:60%;border-radius:50px;margin-top:3%;">
 
             <span class="ui header" style="font-size:30px;margin-left:10%;">Part &nbsp A</span>
             <div class="ui focus input" style="width:6.5%;margin-left:15%;">
-                <input type="text" style="border-radius:20px" name="cnt1" maxlength:"2">
+                <input type="text" style="border-radius:20px;border-color: black;" name="cnt1" maxlength:"2" required>
             </div>
             <div class="ui focus input" style="width:6.5%;margin-left:15%;">
-                <input type="text" style="border-radius:20px" name="mark1">
+                <input type="text" style="border-radius:20px;border-color: black;" name="mark1" required>
             </div>
 
         </div>
@@ -154,15 +164,24 @@
 
             <span class="ui header" style="font-size:30px;margin-left:10%;">Part &nbsp B</span>
             <div class="ui focus input" style="width:6.5%;margin-left:15%;">
-                <input type="text" style="border-radius:20px" name="cnt2" maxlength:"2">
+                <input type="text" style="border-radius:20px;border-color: black;" name="cnt2" maxlength:"2" required>
             </div>
             <div class="ui focus input" style="width:6.5%;margin-left:15%;">
-                <input type="text" style="border-radius:20px" name="mark2">
+                <input type="text" style="border-radius:20px;border-color: black;" name="mark2" required>
             </div>
 
         </div>
         <div id="content"></div>
-        <center><button class="ui primary  button" type="submit" style="border-radius:40px;margin-top:3%;width:20%"><h2>Finalize</h2></button></center>
+        <div style="width:8.5%;margin-left:45%;margin-top:3%;">
+        <select class="ui fluid search dropdown" name="exam" required>
+            <option Value="">Exam</option>
+            <option Value="cat1">CAT1</option>
+            <option Value="cat2">CAT2</option>
+            <option Value="cat3">CAT3</option>
+        </select>
+        </div>
+        
+        <center><button class="ui primary  button" type="submit" id="b1" style="border-radius:40px;margin-top:3%;width:20%"><h2>Finalize</h2></button></center>
         </form>
         <div id="content1"></div>
     </div>
@@ -178,13 +197,14 @@
         i+=1;      
         var char = String.fromCharCode(64+i);
           
-        var con='<div class="ui raised  container segment" style="width:60%;border-radius:50px;margin-top:3%;"><span class="ui header" style="font-size:30px;margin-left:10%;">Part &nbsp '+char+'</span><div class="ui focus input" style="width:6.5%;margin-left:16%;"><input type="text" style="border-radius:20px" name="cnt'+i+'"></div><div class="ui focus input" style="width:6.5%;margin-left:15%;"><input type="text" style="border-radius:20px"  name="mark'+i+'"></div></div>';
+        var con='<div class="ui raised  container segment" style="width:60%;border-radius:50px;margin-top:3%;"><span class="ui header" style="font-size:30px;margin-left:10%;">Part &nbsp '+char+'</span><div class="ui focus input" style="width:6.5%;margin-left:16%;"><input type="text" style="border-radius:20px;border-color: black;" name="cnt'+i+'" required></div><div class="ui focus input" style="width:6.5%;margin-left:15%;"><input type="text" style="border-radius:20px;border-color: black;"  name="mark'+i+'" required></div></div>';
         document.getElementById("content").innerHTML+=con;
         
       });
 
       
       $("#frm").on("submit",function(){
+        $("#b1").toggle();
         var form=$("#frm").serialize();
         form+="&i="+i+"&pattern=framed";
         $.ajax({  
