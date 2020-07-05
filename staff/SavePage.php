@@ -1,6 +1,9 @@
 <?php
-    include_once("db.php");
-        
+    include_once("../db.php");
+    session_start();  
+
+    if(isset($_POST["create"]))
+    {
         $columnNum =(int)($_POST["size"]);
         $sql1='INSERT INTO `'.strval($_POST["test"]).'`(`rollno`';
         $sql2='INSERT INTO `'.strval($_POST["test"]).'`(`rollno`';
@@ -24,14 +27,35 @@
         {
             if($con->query($sql2))
             {
-                header("Location: staff/index.php");
+                header("Location: ./index.php");
             }
             // header("Location: CourseFrame.php");        
         }
         else
         {
             echo "<script>alert('Problem with Course Framing...')</script>";
-            header("Location: ./staff/index.php");        
+            header("Location: ./index.php");        
         }
         
+    }
+    
+    if(isset($_POST["cancel"]))
+    {
+
+        $exam=$_SESSION['exam'];
+        $sql= "DROP TABLE".' '.$exam;
+        if($con->query($sql)==true)
+        {
+
+            header("Location: ./index.php");
+
+
+        }
+        else
+        {
+            echo "ERROR :(";
+        }
+    }
+
+    
 ?>
