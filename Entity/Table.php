@@ -3,6 +3,7 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
+session_start();
 
 $count=0;
 $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat1' ";
@@ -32,13 +33,16 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 </head>
 <body class="animate__animated animate__backInDown">
 
+<!-- navbar -->
 <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
         <a class="active green item" style="font-size:20px">KEC Student +</a>
-        <a  class="item"  style="margin-left:1050px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
+        <a  class="item"  style="margin-left:900px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
+<!-- navbar end -->
 <!-- partial:index.partial.html -->
 <div class="tablecontent">
 

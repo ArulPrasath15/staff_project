@@ -31,7 +31,7 @@
         else
         {
             echo "<script>alert('Problem with Course Framing...')</script>";
-            header("Location: CourseFrame.php");        
+            header("Location: ./staff/index.php");        
         }
         
 ?>
