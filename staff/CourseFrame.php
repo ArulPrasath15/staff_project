@@ -14,7 +14,7 @@
     if(isset($_POST["pattern"]))
     {
         $cnt=0;
-        // echo $_POST['exam'];
+         $_SESSION['exam']= $_POST['exam'];
         $str="CREATE TABLE ".($_POST['exam'])." (rollno varchar(10) NOT NULL,";
         $str1="INSERT INTO `".($_POST['exam'])."`(`rollno`, ";
         $cnt=0;
@@ -68,7 +68,9 @@
                 }
                 // Array of all column names
                 $columnArr = array_column($result, 'COLUMN_NAME');
-                $str2='<form class="ui form" id="frm2" method="POST" action="SavePage.php">
+                $str2='
+                <div  class="ui raised inverted segment" style="width:94%;margin:3%;">
+                <form class="ui form" id="frm2" method="POST" action="./SavePage.php">
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
                 <table class="ui fixed inverted selectable celled table" id="table-list">
@@ -111,7 +113,7 @@
         
                         for($j=1+$cnt;$j<=$cnt+$_POST[$c];$j++)
                         {
-                            $str2.='<td class="center aligned"><input type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'"/></td>';    
+                            $str2.='<td class="center aligned"><input type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'" required/></td>';    
                         }
                         $cnt+=$_POST[$c];
             
@@ -127,8 +129,10 @@
                     $str2.='</tr>
                 </tbody>
                 </table>
-                <center><button class="ui positive button" type="submit" style="border-radius:5px;"><h2>Confirm</h2></button></center>
-                </form>';
+                <center><button class="ui small positive button" name="create" type="submit" style="border-radius:5px;"><h2>Confirm</h2></button></form>
+                <form class="ui form" id="frm3" method="POST" action="./SavePage.php">
+                   <br> <button class="ui small negative button" name="cancel" type="submit" style="border-radius:5px;"><h2>Cancel</h2></button></center>
+                </form></div>';
                 echo $str2;
             }
         }
@@ -253,7 +257,7 @@ if($count==1)
     </div>
     
     
-    <div class="ui raised inverted segment" style="width:94%;margin:3%"; id="seg">
+    <div  class="ui raised inverted segment" style="width:94%;margin:3%;visibility: hidden;"; id="seg">
     
     <center>
     
@@ -337,6 +341,8 @@ if($count==1)
         <br>
         <button class="ui small primary  button" type="submit" id="b1" style="border-radius:5px;"><h2>Finalize</h2></button></center>
         </form>
+
+        </div>
         <div id="content1"></div>
     </br>
     
@@ -346,18 +352,14 @@ if($count==1)
   var i=2;
   var str = "BCDEF";
   
-
- 
-
-
-
   $(document).ready(function(){
 
 
-    $("#seg").hide();
+    // $("#seg").hide();
 
 
       $('#ADD').click(function(){  
+        i+=1;
         var x=$('table tr:last').find('td:first').html()     
         console.log("Added");
         var char=String.fromCharCode(x.charCodeAt() + 1) 
@@ -376,7 +378,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                //alert(d);
+                // alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });
@@ -408,7 +410,7 @@ if($count==1)
 
 
       console.log(value);
-      $("#seg").show();
+      $("#seg").css('visibility', 'visible');
       $("#seg1").hide();
       $("#cat").text("Exam : "+value.slice(0, 4));
        

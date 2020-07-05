@@ -200,9 +200,15 @@ function rowAcep(but) {
     function checkLength()
     {
          var ques=$(this).attr('id');
+         var i=0;
          $('#table-list .maxmarkrow').each(function() {
-                maxmark = $(this).find("th").eq(ques).html();
-            //    console.log(maxmark)
+             if(i==0)
+             {
+               maxmark = $(this).find("th").eq(ques).html();
+               console.log(maxmark);
+               i+=1;
+            //    alert("Invalid Entry");
+             }
         });
         //console.log($(this).val());
 
@@ -246,20 +252,20 @@ function rowAcep(but) {
             else
             {
                 maxmark = $(this).find('.mytest').val();
-                console.log('find this'+ maxmark);
-                if(maxmark=='' || maxmark==undefined )
+                // console.log('find this'+ maxmark);
+                if(maxmark=='' || maxmark==undefined)
                 {
                     $count+=1;    
                 }
                 else
                 {
-                console.log("vanten");
+                // console.log("vanten");
                 $total=$total+parseInt(maxmark);
                 $count+=1;
                 }
             }
         });
-        console.log($total);
+        // console.log($total);
         
 
 

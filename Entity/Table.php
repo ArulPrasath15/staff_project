@@ -43,6 +43,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
       </div>
     </div>
 <!-- navbar end -->
+
 <!-- partial:index.partial.html -->
 <div class="tablecontent">
 
