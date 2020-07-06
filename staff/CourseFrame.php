@@ -379,7 +379,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                // alert(d);
+                 // alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });
@@ -388,6 +388,7 @@ if($count==1)
 
 
       $('#del').click(function() {
+            i--;
             var totalRowCount = $("table").length;
             var rowCount = $("table td").closest("tr").length;
             var message = "Total Row Count: " + totalRowCount;

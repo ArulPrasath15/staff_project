@@ -66,7 +66,7 @@ $(document).ready(function(){
     <form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
     <br>
         <div class="header"><h2>Assign Faculty</h2></div>
-        <!-- <div class="ui divider"></div> -->
+         <!-- <div class="ui divider"></div> -->
         <?php
             $sql="SELECT * FROM  `course_list` WHERE `cc` LIKE '$_staffid' AND  `code` LIKE '$_code' ";
             $data=$con->query($sql);

@@ -112,7 +112,7 @@ body
             <?php
             }
            ?>         
-            <!-- CAT 3 -->
+            <!--  CAT 3 -->
             <?php 
             $table='CAT3_'.$rows['code'].'_'.$rows['batch'];
             echo $table;

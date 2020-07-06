@@ -13,7 +13,7 @@ include_once("./db.php");
     {
         
         $mail=$_POST["mail"];
-       // echo $mail;
+        // echo $mail;
         $sql="select * from staff where mail like '$mail'";
         $res=$con->query($sql);
         $count=$res->num_rows;

@@ -94,7 +94,7 @@ font-size:16px;
             <td class="center aligned" ><div class="ui button" onclick="location.href = './CourseFrame?code=<?php echo $row1['code']  ?>'" >Frame Pattern</div></td>
             <td class="center aligned" ><div class="ui button" onclick="location.href = './AssignFaculty<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
             <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Entity/MarkEntry?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
-            <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
+             <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
 
         </tr>  
           <?php
