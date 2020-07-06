@@ -8,7 +8,7 @@ if($con->connect_error)
 $roll=$_POST['ROLLNO'];
 
 
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat1' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat_1_2020' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -61,7 +61,7 @@ else
   
 }
 
-$sql1='UPDATE cat1 SET ';
+$sql1='UPDATE cat_1_2020 SET ';
 for($i=1;$i<=count($columnArr)-2;$i++)
 {
 
