@@ -215,7 +215,9 @@ function rowAcep(but) {
         key=13;
         if( $(this).val() > parseInt(maxmark) || $(this).val() < 0 )
          { 
-        //     alert($(this).val().length)
+
+                
+        //    alert($(this).val().length)
         //     alert(maxmark.length-1);
             key=0;
             $cols.find('input').attr('disabled', true);
@@ -233,7 +235,7 @@ function rowAcep(but) {
           $(this).css("border-color","#ECECED"); 
         }
         //console.log($cols);
-        var $total=0;
+        var $total=0.0;
         var $count=1;
        // console.log($cols);
        // console.log($($cols).length);
@@ -260,7 +262,8 @@ function rowAcep(but) {
                 else
                 {
                 // console.log("vanten");
-                $total=$total+parseInt(maxmark);
+                $total=$total+parseFloat(maxmark);
+                // console.log($total);
                 $count+=1;
                 }
             }

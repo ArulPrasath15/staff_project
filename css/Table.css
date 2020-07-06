@@ -10,11 +10,30 @@ padding-top: 50px;
 padding-bottom: 50px;
 }
 thead tr th:first-child,
+tfoot tr th:first-child,
 tbody tr td:first-child {
  width: 8em;
  background: grey;
  font-weight: bold;
 }
+
+
+
+
+.ui.table>tfoot>tr>td, .ui.table>tfoot>tr>th {
+    cursor: auto;
+    border-top: 1px solid rgba(34,36,38,.15);
+    background: #656c73;
+    text-align: inherit;
+    color: rgb(245, 242, 242);
+    padding: .78571429em .78571429em;
+    vertical-align: middle;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: none;
+}
+
+
 .maxmarkrow{
     color: red;
 

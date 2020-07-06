@@ -36,7 +36,8 @@ include_once("./db.php");
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="./assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
+    <link rel="icon" type="image/png" href="./images/logo.png">
+     <link rel="stylesheet" href="./assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
@@ -127,7 +128,7 @@ include_once("./db.php");
         <form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
             <div class="inputBox">
                 <input type="mail" name="mail" id="mail" required="">
-                <label>Username</label>
+                <label>Email</label>
             </div>
             <div class="inputBox">
                 <input type="password" name="pass" required="">
