@@ -102,13 +102,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                          }?> 
        
                     </tr> 
-
-
                   
-       
-
-                    </tr> 
-
 
              </thead>
             <tbody> 
