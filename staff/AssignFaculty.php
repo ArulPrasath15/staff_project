@@ -11,6 +11,7 @@ $_SESSION['code']=$_code;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assign Staff</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
     <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/>
     <script src="../assets/js/jquery.min.js"></script> 
     <script src="../assets/Fomantic/dist/semantic.min.js"></script>
@@ -52,9 +53,9 @@ $(document).ready(function(){
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
-        <a class="active green item" style="font-size:20px">KEC Student +</a>
+      <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:900px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="item"  style="margin-left:1100px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -65,7 +66,7 @@ $(document).ready(function(){
     <form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST">
     <br>
         <div class="header"><h2>Assign Faculty</h2></div>
-        <!-- <div class="ui divider"></div> -->
+         <!-- <div class="ui divider"></div> -->
         <?php
             $sql="SELECT * FROM  `course_list` WHERE `cc` LIKE '$_staffid' AND  `code` LIKE '$_code' ";
             $data=$con->query($sql);
@@ -115,7 +116,7 @@ $(document).ready(function(){
                                 <td class="center aligned"> A  </td>
                                 <td class="center aligned"> 
 
-                                    <select name='Adrop' id='Adropid' class="ui fluid search dropdown" >
+                                    <select name='Adrop' id='Adropid' value="CSE001SF" class="ui fluid search dropdown" >
                                     <option value="">Staff</option>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>

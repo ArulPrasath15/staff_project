@@ -29,7 +29,7 @@
             {
                 header("Location: ./index.php");
             }
-            // header("Location: CourseFrame.php");        
+             // header("Location: CourseFrame.php");        
         }
         else
         {

@@ -207,7 +207,7 @@ function rowAcep(but) {
                maxmark = $(this).find("th").eq(ques).html();
                console.log(maxmark);
                i+=1;
-            //    alert("Invalid Entry");
+               
              }
         });
         //console.log($(this).val());
@@ -215,14 +215,16 @@ function rowAcep(but) {
         key=13;
         if( $(this).val() > parseInt(maxmark) || $(this).val() < 0 )
          { 
-        //     alert($(this).val().length)
-        //     alert(maxmark.length-1);
+
+           
             key=0;
             $cols.find('input').attr('disabled', true);
             $(this).attr('disabled', false);   
             $(this).focus();
             $(this).css("border-color","red"); 
             $cols.find('#bAcep').prop('disabled', true);
+            alert("Invalid Entry");
+            return; 
 
          }
         else
@@ -232,8 +234,8 @@ function rowAcep(but) {
           $cols.find('button').attr('disabled', false);
           $(this).css("border-color","#ECECED"); 
         }
-        //console.log($cols);
-        var $total=0;
+         //console.log($cols);
+        var $total=0.0;
         var $count=1;
        // console.log($cols);
        // console.log($($cols).length);
@@ -260,7 +262,8 @@ function rowAcep(but) {
                 else
                 {
                 // console.log("vanten");
-                $total=$total+parseInt(maxmark);
+                $total=$total+parseFloat(maxmark);
+                // console.log($total);
                 $count+=1;
                 }
             }

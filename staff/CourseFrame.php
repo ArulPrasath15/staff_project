@@ -4,7 +4,7 @@
    session_start();
     if(!isset($_GET['code']))
     {
-        header("Location: ./staff/index.php");
+        header("Location: ./index.php");
 
     }
     $_code=$_GET['code']; 
@@ -124,11 +124,11 @@
                     <th class="center aligned">Co</th>';
                     for($i=1;$i<count($res);$i++)
                     { 
-                        $str2.='<td class="center aligned"><input type = "number" name = "c'.$i.'" min="1" max="5"/></td>';
+                        $str2.='<td class="center aligned"><input type = "number" name = "c'.$i.'" min="1" max="5" required/></td>';
                      }
                     $str2.='</tr>
                 </tbody>
-                </table>
+                </table><br>
                 <center><button class="ui small positive button" name="create" type="submit" style="border-radius:5px;"><h2>Confirm</h2></button></form>
                 <form class="ui form" id="frm3" method="POST" action="./SavePage.php">
                    <br> <button class="ui small negative button" name="cancel" type="submit" style="border-radius:5px;"><h2>Cancel</h2></button></center>
@@ -146,6 +146,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Frame</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.js"></script>
@@ -172,9 +173,9 @@ span{
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
-        <a class="active green item" style="font-size:20px">KEC Student +</a>
+      <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:900px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -378,7 +379,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                // alert(d);
+                 // alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });
@@ -387,6 +388,7 @@ if($count==1)
 
 
       $('#del').click(function() {
+            i--;
             var totalRowCount = $("table").length;
             var rowCount = $("table td").closest("tr").length;
             var message = "Total Row Count: " + totalRowCount;
@@ -426,7 +428,7 @@ else
 {
 
 
-    header("Location: ./staff/index.php");
+    header("Location: ./index.php");
 
 
 }
