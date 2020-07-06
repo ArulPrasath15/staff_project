@@ -4,8 +4,46 @@
 <?php
 include_once("../db.php");
 session_start();
-// $_table=$_GET['mark'];
+$_table=$_SESSION['exam'];
 // echo $_table;
+$_staffid= $_SESSION['staffid'];
+$_code=$_SESSION['ccode'];
+
+$sql="SELECT * FROM `course_list` WHERE  `code`  LIKE  '$_code' ";
+if($con->query($sql)==false)
+{
+    header("Location: ../staff/index.php");
+
+}
+$data=$con->query($sql);
+$rows=$data->fetch_assoc();
+$class;
+   
+if($rows['staff1']==$_staffid)
+{
+    $class='A';
+}
+elseif($rows['staff2']==$_staffid)
+    {
+        $class='B';
+    }
+    elseif($rows['staff3']==$_staffid)
+    {
+        $class='C';
+    }
+    elseif($rows['staff4']==$_staffid)
+    {
+        $class='D';
+    }
+    else
+    {
+        
+        header("Location: ../staff/index.php");
+    }
+
+
+
+
 $range=array();
 $count=0;
 $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat_1_2020' ";
@@ -34,8 +72,23 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
   />
 </head>
-<body class="animate__animated animate__backInDown">
+<style>
+.ui.inverted.card{
 
+
+
+}
+span
+{
+    color:white;
+    font-size:15px;
+
+
+}
+
+</style>
+<!-- <body class="animate__animated animate__backInDown"> -->
+<body>
 <!-- navbar -->
 <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
@@ -46,6 +99,66 @@ $columnArr = array_column($result, 'COLUMN_NAME');
       </div>
     </div>
 <!-- navbar end -->
+
+<br><br>
+<center>
+
+  <div class="ui two column stackable center aligned grid">
+    
+    <div class="middle aligned row">
+      <div class="column">
+
+      <table  style="width:600px;margin-left:80px;" class="ui celled fixed selectable  table">
+                     <tbody>
+                        <tr>
+                            <td class="center aligned">Course Code</td>
+                            <td class="center aligned"><?php  echo $rows['code'].' - '.substr($_table,0,4);  ?></td>
+                     
+                        </tr>
+                        <tr>
+                             <td class="center aligned">Course Name</td>
+                            <td class="center aligned"><?php  echo $rows['name'];   ?></td>
+                        </tr> 
+                        <tr>
+                             <td class="center aligned">Section</td>
+                            <td class="center aligned"><?php  echo $class;   ?></td>
+                        </tr>
+                       
+                        </tbody>
+                     </table>
+
+
+                 </div>
+                  <div class="column">
+                    <table style="width:600px;margin-left:50px;" class="ui celled fixed selectable  table">
+                        <tbody>
+                        <tr>
+                             <td class="center aligned">Semester</td>
+                            <td class="center aligned"><?php  echo $rows['sem'];   ?></td>
+                        </tr>
+                         <tr>
+                             <td class="center aligned">Batch</td>
+                            <td class="center aligned"><?php  echo $rows['batch'];   ?></td>
+                        </tr>
+                        <tr>
+                             <td class="center aligned">Credit</td>
+                            <td class="center aligned"><?php  echo $rows['credit'];   ?></td>
+                        </tr>
+                        
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+
+
+
+</center>
+<br>
+
 
 <!-- partial:index.partial.html -->
 <div class="tablecontent">
@@ -107,7 +220,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                   
        
 
-                    </tr> 
+                     
 
 
              </thead>

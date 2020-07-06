@@ -7,6 +7,7 @@ if(!isset($_GET['code']))
 }
 $_staffid=$_SESSION['staffid'];
 $_code=$_GET['code'];
+$_SESSION['ccode']=$_code;
 $sql="SELECT * FROM `course_list` WHERE  `code`  LIKE  '$_code' ";
 if($con->query($sql)==false)
 {
@@ -15,13 +16,13 @@ if($con->query($sql)==false)
 }
 $data=$con->query($sql);
 $rows=$data->fetch_assoc();
-
 if($rows['staff1']==$_staffid || $rows['staff2']==$_staffid || $rows['staff3']==$_staffid || $rows['staff4']==$_staffid)
 {
 
 }
 else
 {
+    
     header("Location: ../staff/index.php");
 }
 
@@ -74,8 +75,11 @@ body
 <div class="ui raised inverted segment" id="seg1" style="width:94%;margin:3%";><br>
 
 
-<form class="ui form" action="MarkEntryHelper.php" method="POST">
-<center><select class="ui  dropdown"  id="dropd" name="exam" style="width: 250px;" onChange="drop(this.value);" required>
+<form class="ui form" onsubmit=" return check();" action="MarkEntryHelper.php" method="POST">
+
+
+
+<center><select class="ui dropdown"  id="dropd" name="exam" style="width: 250px;"  required>
             <option Value="">Select Exam</option>
 
             <!-- CAT 1 -->
@@ -143,22 +147,22 @@ $(document).ready(function(){
 
 });
 
+
+function check(){
+
+    var dropdownd=$('#dropd').val();
+    console.log(dropdownd);
+    if(dropdownd=='')
+    {
+          return false;
+    }
+
+
+
+}
+
 </script>
 
 
 
 </html>
-
-
-<?php 
-
-if(isset($_POST['submit']))
-{
-
-    echo "hwlo world";
-}
-
-
-
-
-?>

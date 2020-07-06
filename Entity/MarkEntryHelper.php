@@ -4,7 +4,8 @@ session_start();
 if(isset($_POST['submit']))
 {
     
-    header("Location: ../Entity/Table?mark=".$_POST['exam']);
+    $_SESSION['exam']=$_POST['exam'];
+    header("Location: ../Entity/Table");
 
 }
 
