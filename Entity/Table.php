@@ -5,7 +5,7 @@
 include_once("../db.php");
 session_start();
 $_table=$_SESSION['exam'];
-// echo $_table;
+//  echo $_table;
 $_staffid= $_SESSION['staffid'];
 $_code=$_SESSION['ccode'];
 
@@ -46,7 +46,7 @@ elseif($rows['staff2']==$_staffid)
 
 $range=array();
 $count=0;
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat_1_2020' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='$_table' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -54,7 +54,7 @@ while($row = $data->fetch_assoc()){
 // Array of all column names
 $columnArr = array_column($result, 'COLUMN_NAME');
 
-    $sql="SELECT * from cat_1_2020 WHERE `rollno` like '%18CSR%' ORDER BY `rollno` ASC ";
+    $sql="SELECT * from $_table WHERE `sec` like '$class' ORDER BY `rollno` ASC ";
     $data=$con->query($sql);
 
 ?>
@@ -91,6 +91,13 @@ span
 
 
 }
+.ui.table thead tr:first-child > th {
+     position: sticky !important;
+     top: 0;
+     z-index: 2;
+}
+
+
 
 </style>
 <!-- <body class="animate__animated animate__backInDown"> -->
@@ -178,7 +185,7 @@ span
 
 
 </center>
-<br>
+
 
 
 <!-- partial:index.partial.html -->
@@ -186,15 +193,15 @@ span
 
         <table class="ui fixed selectable celled table" id="table-list">
             <thead>
-                <tr  >
+                <tr>
                     <?php
                     
-                    for($i=0;$i<count($columnArr);$i++){ 
-                        if($i==count($columnArr)-1)
+                    for($i=1;$i<count($columnArr);$i++){ 
+                        if($i==count($columnArr))
                         {?>
 
                            
-                            <th rowspan="4"class="center aligned"><?php echo strtoupper($columnArr[$i]);?> </th> 
+                            <th class="center aligned"><?php echo strtoupper($columnArr[$i]);?> </th> 
                         <?php 
                         }
                         else{
@@ -207,34 +214,53 @@ span
                         <?php } 
                     }
                     ?>
+                        
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Max Mark' ");
-                    $maxmark = $max->fetch_row(); ?>
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");
+                    $maxmark = $max->fetch_row();
+                     $maxmarktotal=0;
+                    ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark)-1;$i++)
-                        { ?>
+                        for($i=1;$i<count($maxmark)-1;$i++)
+                        { 
+                            if($i!=1)
+                            {
+                                $maxmarktotal+=$maxmark[$i]; 
+                            }
+                             
+                            ?>
                                   <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
                     
                         <?php
+                           
                          }?> 
-       
+                        <th class="center aligned" ><?php echo $maxmarktotal;  ?> </th>
                     </tr> 
 
                     <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Exp Mark' ");
-                    $maxmark = $max->fetch_row(); ?>
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Exp Mark' ");
+                    $maxmark = $max->fetch_row(); 
+                    $expmarktotal=0;
+                    ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark)-1;$i++)
-                        { ?>
+                        for($i=1;$i<count($maxmark)-1;$i++)
+                        { 
+                            if($i!=1)
+                            {
+                                $expmarktotal+=$maxmark[$i]; 
+                            }
+                            
+                            
+                            ?>
                     <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
                     
                         <?php
                          }?> 
-       
+                        <th class="center aligned" ><?php echo $expmarktotal;  ?> </th>
                     </tr> 
                 
              </thead>
@@ -248,7 +274,7 @@ span
                 else{
                     ?> <tr class="item">
                     <?php
-                    for($i=0;$i<count($columnArr);$i++)
+                    for($i=1;$i<count($columnArr);$i++)
                     { ?>
                     <td class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?>> <?php echo $row1[$columnArr[$i]]; ?></td>
                 
@@ -271,12 +297,12 @@ span
              <tr>
 `
                     <?php  
-                        $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Up2ExpLvl' ");
+                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             <?php
-                            for($i=0;$i<count($maxmark);$i++)
-                            { if($i==0)
+                            for($i=1;$i<count($maxmark);$i++)
+                            { if($i==1)
                                 {?>
                                     <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>No of students scores upto expected level </para></th>
                                     
@@ -294,12 +320,12 @@ span
                     <tr>
 
                     <?php  
-                        $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Up2ExLvl%' ");
+                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             <?php
-                            for($i=0;$i<count($maxmark)-1;$i++)
-                            { if($i==0)
+                            for($i=1;$i<count($maxmark)-1;$i++)
+                            { if($i==1)
                                 {?>
                                     <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above the attainment level, Total appeared for Test</para></th>
                                     
@@ -327,9 +353,9 @@ span
                 <th style="background-color:#dfedf7;color:black;font-size:15px;" colspan="2"><pre>3</pre> </th>
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"colspan="3"><pre>2</pre> </th>
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"colspan="3"><pre>1</pre> </th>
+                <!-- <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>  
+                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>   -->
 
 
 
@@ -337,7 +363,7 @@ span
                 </tr>
                 <?php
                      
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'range' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'range' ");
                     $maxmark = $max->fetch_row();
 
 
@@ -357,9 +383,9 @@ span
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
+                <!-- <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
                 <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> -->
 
  
                 </tr>
@@ -370,12 +396,12 @@ span
                 <tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'ExpAtt' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'ExpAtt' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark);$i++)
-                        { if($i==0)
+                        for($i=1;$i<count($maxmark);$i++)
+                        { if($i==1)
                             {?>
                                 <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Expected attainment for each question</para></th>
                                 
@@ -393,12 +419,12 @@ span
                 <tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'SatAtt' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'SatAtt' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark);$i++)
-                        { if($i==0)
+                        for($i=1;$i<count($maxmark);$i++)
+                        { if($i==1)
                             {?>
                                 <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Satisfaction attainment level based on level indicator</para></th>
                                 
@@ -416,13 +442,13 @@ span
                 <tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Co' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Co' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark);$i++)
+                        for($i=1;$i<count($maxmark);$i++)
                         {   
-                            if($i==0)
+                            if($i==1)
                             {?>
                              <th  style="background-color:grey;color:black;font-size:15px;" class="center aligned" ><para>Mapping with CO </para></th>
                             <?php
@@ -440,12 +466,12 @@ span
                 <tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'AttLvlCo' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
-                        for($i=0;$i<count($maxmark);$i++)
-                        { if($i==0)
+                        for($i=1;$i<count($maxmark);$i++)
+                        { if($i==1)
                             {?>
                                 <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Attainment level of Each CO</para></th>
                                 
@@ -464,7 +490,7 @@ span
                 <tr>
                 
                 <?php
-                $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Attco' ");
+                $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Attco' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <th style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></th>
@@ -486,7 +512,7 @@ span
                
                 $t =count($columnArr)-$j*2;
             //    echo $t;
-               for($i=0;$i<$t;$i++)
+               for($i=1 ;$i<$t;$i++)
                {    ?>
                 <th style="background-color:#dfedf7;color:black;font-size:16px;"></th>
 
@@ -506,16 +532,16 @@ span
         if(isset($_POST["submit"]))
         {
            
-            $exp = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Exp Mark' ");
+            $exp = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Exp Mark' ");
             $expmark = $exp->fetch_row();
-            $max = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Max Mark' ");
+            $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");
             $maxmark = $max->fetch_row();
-            $max1 = $con->query("SELECT * FROM cat_1_2020 WHERE  `rollno` like 'Co' ");
+            $max1 = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Co' ");
             $comark = $max1->fetch_row();
             $exp_tot=0;
             $max_tot=0;
             $exp_att=0; 
-            $sql ="SELECT * FROM cat_1_2020 WHERE  `rollno` like '%18CSR%' ";
+            $sql="SELECT * from $_table WHERE `sec` like '$class' ORDER BY `rollno` ASC ";
             $data1=$con->query($sql);
             $got=array();
             $tot_num=array();
@@ -636,11 +662,11 @@ span
             //    print_r($Co);
             //    print_r($range);
             //    print_r($AttLvlCo);
-            $sql2="UPDATE cat_1_2020 SET ";
-            $sql3="UPDATE cat_1_2020 SET ";
-            $sql4="UPDATE cat_1_2020 SET ";
-            $sql5="UPDATE cat_1_2020 SET ";
-            $sql6="UPDATE cat_1_2020 SET ";
+            $sql2="UPDATE $_table SET ";
+            $sql3="UPDATE $_table SET ";
+            $sql4="UPDATE $_table SET ";
+            $sql5="UPDATE $_table SET ";
+            $sql6="UPDATE $_table SET ";
             for($i=1;$i<count($columnArr)-1;$i++)
             {
             $sql2.=strval($columnArr[$i])."=".$got[$i-1];
@@ -666,6 +692,7 @@ span
             }
             }
             $sql2.= "WHERE rollno like 'Up2ExpLvl'";
+            echo $sql2;
             $con->query($sql2);
             $sql3.= "WHERE rollno like 'Up2ExLvl%'";
             $con->query($sql3);
@@ -677,10 +704,10 @@ span
             $con->query($sql6);
 
 
-            $sql7="UPDATE cat_1_2020 set `Q1` = ".$range[0]." , `Q2`= ".$range[1]." , `Q3`=  ".$range[2].", `Q4`= ".$range[3]." WHERE `rollno` LIKE 'range'";
+            $sql7="UPDATE $_table set `Q1` = ".$range[0]." , `Q2`= ".$range[1]." , `Q3`=  ".$range[2].", `Q4`= ".$range[3]." WHERE `rollno` LIKE 'range'";
             $con->query($sql7);
 
-            $sql8="UPDATE cat_1_2020 set `Q1` = ".$Co[0]." , `Q2`= ".$Co[1]." , `Q3`=  ".$Co[2].", `Q4`= ".$Co[3].",`Q5`= ".$Co[4]." WHERE `rollno` LIKE 'Attco'";
+            $sql8="UPDATE $_table set `Q1` = ".$Co[0]." , `Q2`= ".$Co[1]." , `Q3`=  ".$Co[2].", `Q4`= ".$Co[3].",`Q5`= ".$Co[4]." WHERE `rollno` LIKE 'Attco'";
             $con->query($sql8);
                       
            

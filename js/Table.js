@@ -147,7 +147,7 @@ function rowAcep(but) {
         data:data,
         success:function(d)
         {
-            //  alert(d);
+            //   alert(d);
             if(d=="s")
             {
                  $(but).parent().find('#loader').hide();
