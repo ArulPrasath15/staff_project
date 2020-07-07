@@ -15,7 +15,7 @@
     {
         $cnt=0;
          $_SESSION['exam']= $_POST['exam'];
-        $str="CREATE TABLE ".($_POST['exam'])." (rollno varchar(10) NOT NULL,";
+        $str="CREATE TABLE ".($_POST['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL,";
         $str1="INSERT INTO `".($_POST['exam'])."`(`rollno`, ";
         $cnt=0;
         for($i=1;$i<=$_POST["i"];$i++)
@@ -26,7 +26,7 @@
         
             for($j=1+$cnt;$j<=$cnt+$_POST[$c];$j++)
             {
-               $str.="Q".strval($j)." INT ,";
+               $str.="Q".strval($j)." FLOAT NULL,";
                $str1.="`Q".strval($j)."`,";
             }
             $cnt+=$_POST[$c];
@@ -34,7 +34,7 @@
         }
 
         //$str=substr($str,0,strlen($str)-1);
-        $str.=" PRIMARY KEY (rollno))";
+        $str.="Total FLOAT NULL, PRIMARY KEY (rollno))";
         $str1=substr($str1,0,strlen($str1)-1);
         $str1.=") VALUES ('Max Mark',";
         $cnt=0;
@@ -53,7 +53,7 @@
         
         $str1=substr($str1,0,strlen($str1)-1);
         $str1.=")";
-        // echo $str1;
+        // echo $str;
 
         if($con->query($str))
         {
@@ -76,7 +76,7 @@
                 <table class="ui fixed inverted selectable celled table" id="table-list">
                 <thead>
                     <tr>';
-                        for($i=0;$i<count($columnArr);$i++)
+                        for($i=1;$i<count($columnArr)-1;$i++)
                         { 
 
                             if($i==0)
@@ -95,7 +95,7 @@
                         $sql2 = $con->query("SELECT * FROM ".($_POST['exam'])."");
                         $res = $sql2->fetch_row();
                         $str2.='<tr>';
-                            for($i=0;$i<count($res);$i++)
+                            for($i=1;$i<count($res)-1;$i++)
                             { 
                                 $str2.='<th class="center aligned">'.$res[$i].'</th>';
                              } 
@@ -122,7 +122,7 @@
                     $str2.='</tr>
                     <tr>
                     <th class="center aligned">Co</th>';
-                    for($i=1;$i<count($res);$i++)
+                    for($i=1;$i<count($res)-2;$i++)
                     { 
                         $str2.='<td class="center aligned"><input type = "number" name = "c'.$i.'" min="1" max="5" required/></td>';
                      }
@@ -184,6 +184,8 @@ span{
 $sql="SELECT * FROM `course_list` WHERE code LIKE '$_code' AND cc LIKE '$_staffid' ";
 $res=$con->query($sql);
 $rows=$res->fetch_assoc();
+echo $rows['batch'];
+$_SESSION['batch']=$rows['batch'];
 $count=$res->num_rows;
 if($count==1)
 { ?>

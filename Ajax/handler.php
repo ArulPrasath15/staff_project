@@ -5,10 +5,11 @@ if($con->connect_error)
 {
     die('Connection Error');
 }
+session_start();
 $roll=$_POST['ROLLNO'];
+$_table=$_SESSION['exam'];
 
-
-$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='cat_1_2020' ";
+$sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='$_table' ";
 $data=$con->query($sql);
 while($row = $data->fetch_assoc()){
     $result[] = $row;
@@ -19,7 +20,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 $marksarr=array();
 $quesarr=array();
 
-for($i=1;$i<=count($columnArr)-2;$i++)
+for($i=1;$i<=count($columnArr)-3;$i++)
 {
 
   $ques="Q".$i;
@@ -61,8 +62,8 @@ else
   
 }
 
-$sql1='UPDATE cat_1_2020 SET ';
-for($i=1;$i<=count($columnArr)-2;$i++)
+$sql1='UPDATE '.$_table.' SET ';
+for($i=1;$i<=count($columnArr)-3;$i++)
 {
 
   $sql1.=$quesarr[$i] .'='. $marksarr[$i];
