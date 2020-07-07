@@ -1,23 +1,20 @@
 <?php
     session_start();
-    $con=new mysqli("localhost","root","","student");
-    if($con->connect_error)
-    {
-        die("Connection failed:".$con->connect_error);
-    }
+    include_once("./db.php");
     if (isset($_POST["sub1"]))
     {
         $mail=$_POST["mail"];
-        $sql="select * from staff where mail like '$mail'";
+        $pass=SHA1($_POST["pass"]);
+        $sql="select * from staff where mail like '$mail' and pass like '$pass'";
         $res=$con->query($sql);
         $count=$res->num_rows;
         echo $count;
         //$data=$res->fetch_assoc();
        if( $res->num_rows==1)
        {
-        header("Location: staff.html");
+        header("Location: cco.php");
        }
-       else{
+           else{
 
            echo "<script>alert('Details mismatch');</script>";
        }
