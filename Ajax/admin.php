@@ -9,9 +9,10 @@
         $sem=$_POST["sem"];
         $cred=$_POST["cred"];
         $staff=$_POST["staff"];
-        $sql="insert into course_list values('$code','$name',' $year','$batch',$sem,$cred,'$staff',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)";
+        $sql="insert into course_list (`code`,`name`,`year`,`batch`,`sem`,`credit`,`cc`) values('$code','$name',' $year','$batch',$sem,$cred,'$staff')";
         if($con->query($sql))
             echo "Course created successfuly!";
+            
         else
             echo "Error occurred...Try again!";
      exit();   

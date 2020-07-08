@@ -59,7 +59,7 @@ body
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
       <a href="../staff/index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="right aligned item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
