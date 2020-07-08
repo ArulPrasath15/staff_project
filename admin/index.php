@@ -1,18 +1,19 @@
 <?php
     session_start();
-    include_once("./db.php");
+    include_once("../db.php");
     if (isset($_POST["sub1"]))
     {
         $mail=$_POST["mail"];
-        $pass=SHA1($_POST["pass"]);
-        $sql="select * from staff where mail like '$mail' and pass like '$pass'";
-        $res=$con->query($sql);
-        $count=$res->num_rows;
-        echo $count;
+        // $pass=SHA1($_POST["pass"]);
+        // $sql="select * from staff where mail like '$mail' and pass like '$pass'";
+        // $res=$con->query($sql);
+        // $count=$res->num_rows;
+        // echo $count;
         //$data=$res->fetch_assoc();
-       if( $res->num_rows==1)
+       if( $mail=="admin")
        {
-        header("Location: cco.php");
+        $_SESSION['admin']="yes";
+        header("Location: ./CreateCourse.php");
        }
            else{
 
@@ -27,14 +28,12 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <style>
-    body
+      body
     {
-        margin:0;
-        padding:0;
-        font-family: sans-serif;
-        background:url("logpic.jpg") ;
-        background-size: cover;
+    background-image: url("../Images/bg.jpg");
+    background-size: cover;
     }
+
     .box
     {
         position:absolute;

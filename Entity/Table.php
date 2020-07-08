@@ -57,6 +57,75 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     $sql="SELECT * from $_table WHERE `sec` like '$class' ORDER BY `rollno` ASC ";
     $data=$con->query($sql);
 
+
+
+    if(isset($_POST['absbtn']))
+    {
+
+        $roll=$_POST['rol'];
+        $sqll="SELECT * from ".$_table." WHERE `rollno` LIKE '$roll' AND `sec` LIKE '$class' ";
+        echo $sqll;
+        $data=$con->query($sqll);
+        $rowsA=$data->num_rows;
+        echo $rowsA;
+        if($rowsA!=0)
+        {
+            $sql= "DELETE FROM ".$_table." WHERE `rollno` LIKE '$roll' ";
+            // echo $sql;
+            if($con->query($sql))
+            {
+    
+                //    echo "sucesss"; 
+                   header('Location: '.$_SERVER['REQUEST_URI']);
+    
+            }
+            else{
+               
+                echo '<script> alert("Marked Absent Already.")</script>';
+    
+            }
+
+
+        }
+        else
+        {
+
+            // echo '<script> alert("Roll NO Not Belongs to this class.")</script>';
+            header('Location: '.$_SERVER['REQUEST_URI']);
+        }
+
+        
+
+
+    }
+    if(isset($_POST['prebtn']))
+    {
+        
+        $roll=$_POST['rol'];
+        $sql= "INSERT INTO  ".$_table." ( `rollno`,`sec`) VALUES ('$roll','$class') ";
+        // echo $sql;
+        if($con->query($sql))
+        {
+
+            //    echo "sucesss"; 
+               header('Location: '.$_SERVER['REQUEST_URI']);
+
+        }
+        else{
+
+            echo '<script> alert("Marked Present Already.")</script>';
+
+        }
+
+
+    }
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -101,8 +170,7 @@ span
 
 </style>
 <!-- <body class="animate__animated animate__backInDown"> -->
-<script>
-   
+<!--   
 // function exportF(elem) {
 //     console.log("erfe");
 //   var table = document.getElementById("#table-list");
@@ -111,10 +179,16 @@ span
 //   elem.setAttribute("href", url);
 //   elem.setAttribute("download", "export.xls"); // Choose the file name
 //   return false;
-// }
+// } -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js">
+    
+
+    
+    </script>
 
 
-</script>
 <body>
 
 <!-- navbar -->
@@ -122,7 +196,7 @@ span
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
       <a href="../staff/index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:900px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="right aligned item"  style="margin-left:900px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -182,14 +256,24 @@ span
     </div>
   </div>
 
-
-
 </center>
 
 
 
+<br>
+<form class="ui form"  action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST">
+<div class="abs">
+<div class="ui action input">
+  <input style="margin-left:80px;"type="text" name="rol" maxlength="8" placeholder="Enter Roll" required> 
+  <button name="absbtn" class="ui negative button">Absent</button>
+  <button  name="prebtn" class="ui green button">Present</button>
+</div>
+</div>
+</form>
+
+
 <!-- partial:index.partial.html -->
-<div class="tablecontent">
+<div class="tablecontent" id="t1">
 
         <table class="ui fixed selectable celled table" id="table-list">
             <thead>
@@ -526,7 +610,7 @@ span
              </tfoot>
         </table>
         <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
-        <button id="downloadLink" onclick="exportF(this);">Export to excel</button>
+        <button id="downloadLink" name="export" onclick="Export()">Export to excel</button>
         <?php
 
         if(isset($_POST["submit"]))
@@ -553,7 +637,7 @@ span
             $Co_count=array();
             array_push($Co,0,0,0,0,0);
             array_push($Co_count,0,0,0,0,0);
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
             $exp_tot+=$expmark[$i];
             $max_tot+=$maxmark[$i];
@@ -565,13 +649,13 @@ span
             array_push($AttLvlCo,0);
             }
             while($row1 = $data1->fetch_assoc()){
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
                 if($row1[$columnArr[$i]]!=NULL){
-                $tot_num[$i-1]++;
+                $tot_num[$i-2]++;
                 if($row1[$columnArr[$i]]>=$expmark[$i])
                 {
-                $got[$i-1]++;
+                $got[$i-2]++;
                 }}
             }
             }
@@ -594,60 +678,60 @@ span
             {
             $range[1]+=1;
             }
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
-            $Up2ExpLvl[$i-1]=(($got[$i-1]/$tot_num[$i-1])*100);
-            if($exp_att_arr[$i-1]<=$range[0])
+            $Up2ExpLvl[$i-2]=(($got[$i-2]/$tot_num[$i-2])*100);
+            if($exp_att_arr[$i-2]<=$range[0])
             {
-                $sat_att_arr[$i-1]=1;
+                $sat_att_arr[$i-2]=1;
             }
-            else if($exp_att_arr[$i-1]>$range[0] && $exp_att_arr[$i-1]<=$range[1])
+            else if($exp_att_arr[$i-2]>$range[0] && $exp_att_arr[$i-2]<=$range[1])
             {
-                $sat_att_arr[$i-1]=2;
+                $sat_att_arr[$i-2]=2;
             }
-            else if($exp_att_arr[$i-1]>$range[1] && $exp_att_arr[$i-1]<=$range[2])
+            else if($exp_att_arr[$i-2]>$range[1] && $exp_att_arr[$i-2]<=$range[2])
             {
-                $sat_att_arr[$i-1]=3;
+                $sat_att_arr[$i-2]=3;
             }
-            else if($exp_att_arr[$i-1]>$range[2] && $exp_att_arr[$i-1]<=$range[3])
+            else if($exp_att_arr[$i-2]>$range[2] && $exp_att_arr[$i-2]<=$range[3])
             {
-                $sat_att_arr[$i-1]=4;
+                $sat_att_arr[$i-2]=4;
             }
             else
             {
-                $sat_att_arr[$i-1]=5;
+                $sat_att_arr[$i-2]=5;
             }
             }
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
-            if($Up2ExpLvl[$i-1]<=$range[0])
+            if($Up2ExpLvl[$i-2]<=$range[0])
             {
-                $AttLvlCo[$i-1]=1;
+                $AttLvlCo[$i-2]=1;
             }
-            else if($Up2ExpLvl[$i-1]>$range[0] && $Up2ExpLvl[$i-1]<=$range[1])
+            else if($Up2ExpLvl[$i-2]>$range[0] && $Up2ExpLvl[$i-2]<=$range[1])
             {
-                $AttLvlCo[$i-1]=2;
+                $AttLvlCo[$i-2]=2;
             }
-            else if($Up2ExpLvl[$i-1]>$range[1] && $Up2ExpLvl[$i-1]<=$range[2])
+            else if($Up2ExpLvl[$i-2]>$range[1] && $Up2ExpLvl[$i-2]<=$range[2])
             {
                 $AttLvlCo[$i-1]=3;
             }
-            else if($Up2ExpLvl[$i-1]>$range[2] && $Up2ExpLvl[$i-1]<=$range[3])
+            else if($Up2ExpLvl[$i-2]>$range[2] && $Up2ExpLvl[$i-2]<=$range[3])
             {
-                $AttLvlCo[$i-1]=4;
+                $AttLvlCo[$i-2]=4;
             }
             else
             {
-                $AttLvlCo[$i-1]=5;
+                $AttLvlCo[$i-2]=5;
             }
             }
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
             for($j=1;$j<=5;$j++)
             {
                 if($comark[$i]==$j)
                 {
-                $Co[$j-1]+=$AttLvlCo[$i-1];
+                $Co[$j-1]+=$AttLvlCo[$i-2];
                 $Co_count[$j-1]+=1;
                 }
             }
@@ -667,13 +751,13 @@ span
             $sql4="UPDATE $_table SET ";
             $sql5="UPDATE $_table SET ";
             $sql6="UPDATE $_table SET ";
-            for($i=1;$i<count($columnArr)-1;$i++)
+            for($i=2;$i<count($columnArr)-1;$i++)
             {
-            $sql2.=strval($columnArr[$i])."=".$got[$i-1];
-            $sql3.=strval($columnArr[$i])."=".$Up2ExpLvl[$i-1];
-            $sql4.=strval($columnArr[$i])."=".$exp_att_arr[$i-1];
-            $sql5.=strval($columnArr[$i])."=".$sat_att_arr[$i-1];
-            $sql6.=strval($columnArr[$i])."=".$AttLvlCo[$i-1];
+            $sql2.=strval($columnArr[$i])."=".$got[$i-2];
+            $sql3.=strval($columnArr[$i])."=".$Up2ExpLvl[$i-2];
+            $sql4.=strval($columnArr[$i])."=".$exp_att_arr[$i-2];
+            $sql5.=strval($columnArr[$i])."=".$sat_att_arr[$i-2];
+            $sql6.=strval($columnArr[$i])."=".$AttLvlCo[$i-2];
             if($i!=count($columnArr)-2)
             {
                 $sql2.=",";
@@ -692,7 +776,7 @@ span
             }
             }
             $sql2.= "WHERE rollno like 'Up2ExpLvl'";
-            echo $sql2;
+            // echo $sql2;
             $con->query($sql2);
             $sql3.= "WHERE rollno like 'Up2ExLvl%'";
             $con->query($sql3);

@@ -55,7 +55,7 @@ $(document).ready(function(){
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
       <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:1100px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="right aligned item"  style="margin-left:1100px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -103,7 +103,7 @@ $(document).ready(function(){
                         </tbody>
                      </table>
 
-                     <table class="ui celled  selectable inverted table">
+                     <table class="ui celled padding  selectable inverted table">
                      <thead>
                         <tr>
                             <th  class="center aligned"> Section</th>
@@ -116,8 +116,24 @@ $(document).ready(function(){
                                 <td class="center aligned"> A  </td>
                                 <td class="center aligned"> 
 
-                                    <select name='Adrop' id='Adropid' value="CSE001SF" class="ui fluid search dropdown" >
-                                    <option value="">Staff</option>
+                                    <select name='Adrop' id='Adropid'  class="ui fluid search dropdown" >
+                                    <?php 
+                                    if($row['staff1']==null)
+                                    {?>
+                                        <option value="">Staff</option>
+
+                                    <?php }
+                                    else
+                                    {
+                                        $staff1=$row['staff1'];
+                                        $sql1="SELECT * from  staff  WHERE  `staffid` LIKE '$staff1' ";
+                                        $data=$con->query($sql1);
+                                        $row1=$data->fetch_assoc();
+                                        ?>
+                                        <option value="<?php echo $row['staff1'] ?>"><?php echo $row1['name'];?></option>
+
+                                    <?php }
+                                    ?>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>
                                     <option value="CSE003SF">Dr.K.Kousalya</option>
@@ -173,7 +189,23 @@ $(document).ready(function(){
                                 <td class="center aligned">
                                 
                                 <select name='Bdrop' class="ui fluid search dropdown">
-                                <option value="">Staff</option>
+                                <?php 
+                                    if($row['staff2']==null)
+                                    {?>
+                                        <option value="">Staff</option>
+
+                                    <?php }
+                                    else
+                                    {
+                                        $staff2=$row['staff2'];
+                                        $sql1="SELECT * from  staff  WHERE  `staffid` LIKE '$staff2' ";
+                                        $data=$con->query($sql1);
+                                        $row1=$data->fetch_assoc();
+                                        ?>
+                                        <option value="<?php echo $row['staff2'];?>"><?php echo $row1['name'];?></option>
+
+                                    <?php }
+                                    ?>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>
                                     <option value="CSE003SF">Dr.K.Kousalya</option>
@@ -227,8 +259,24 @@ $(document).ready(function(){
                             <tr>
                                 <td class="center aligned">C</td>
                                 <td class="center aligned">
-                                <select name='Cdrop' class="ui fluid search dropdown">
-                                <option value="">Staff</option>
+                                <select name='Cdrop' style="color:black;" class="ui fluid search dropdown">
+                                <?php 
+                                if($row['staff3']==null)
+                                {?>
+                                    <option value="">Staff</option>
+
+                                <?php }
+                                else
+                                {
+                                    $staff3=$row['staff3'];
+                                    $sql1="SELECT * from  staff  WHERE  `staffid` LIKE '$staff3' ";
+                                    $data=$con->query($sql1);
+                                    $row1=$data->fetch_assoc();
+                                    ?>
+                                    <option value="<?php echo $row['staff3'];?>"><?php echo $row1['name'];?></option>
+
+                                <?php }
+                                ?>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>
                                     <option value="CSE003SF">Dr.K.Kousalya</option>
@@ -284,7 +332,23 @@ $(document).ready(function(){
                                 <td class="center aligned">D</td>
                                 <td class="center aligned">
                                 <select  name='Ddrop' class="ui fluid search dropdown">
-                                <option value="">Staff</option>
+                                <?php 
+                                    if($row['staff4']==null)
+                                    {?>
+                                        <option value="">Staff</option>
+
+                                    <?php }
+                                    else
+                                    {
+                                        $staff4=$row['staff4'];
+                                        $sql1="SELECT * from  staff  WHERE  `staffid` LIKE '$staff4' ";
+                                        $data=$con->query($sql1);
+                                        $row1=$data->fetch_assoc();
+                                        ?>
+                                        <option value="<?php echo $row['staff4'];?>"><?php echo $row1['name'];?></option>
+
+                                    <?php }
+                                    ?>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>
                                     <option value="CSE003SF">Dr.K.Kousalya</option>

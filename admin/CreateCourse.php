@@ -1,17 +1,51 @@
+<?php
 
+include_once("../db.php");
+session_start();
+if(!isset($_SESSION['admin']))
+{
+
+    header("Location: ./index.php");
+
+}
+
+
+
+
+
+?>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Creation</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.js"></script>
+    <link rel="icon" type="image/png" href="../images/logo.png">
+    <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/>
+    <script src="../assets/js/jquery.min.js"></script> 
+    <script src="../assets/Fomantic/dist/semantic.min.js"></script>
 </head>
+<style>
+body
+{
+    background-image: url("../Images/bg.jpg");
+    background-size: cover;
+}
 
+
+</style>
 
 <body>
+ <!-- navbar -->
+ <div class="ui tablet computer only padded grid">
+      <div class="ui borderless fluid  inverted menu" style="font-size:16px">
+      <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
+        <a class="item" href="">Admin</h4></a>
+        <a  class="right aligned item"  style="margin-left:1100px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+      
+      </div>
+    </div>
+<!-- navbar end -->
     <h2 class="ui center aligned icon header" style="margin:3%">
         <i class="edit icon"></i>
         <div class="content">
@@ -29,7 +63,7 @@
                             <h3 class="ui center aligned header" style="margin:3%">Course Code</h3>
                         </div>
                         <div class="twelve wide column">
-                            <input type="text" name="code">
+                            <input type="text" name="code" required>
                         </div>
                     </div>
                 </div>
@@ -40,7 +74,7 @@
                             <h3 class="ui center aligned header" style="margin:3%">Course Name</h3>
                         </div>
                         <div class="twelve wide column">
-                            <input type="text"  name="name">
+                            <input type="text"  name="name" required>
                         </div>
                     </div>
                 </div>
@@ -52,14 +86,14 @@
                             <h3 class="ui center aligned header" style="margin:3%">Batch</h3>
                         </div>
                         <div class="column">
-                            <input type="text" name="batch">
+                            <input type="text" name="batch" required>
                         </div>
                         <div class="column">
                             <h3 class="ui center aligned header" style="margin:3%">Year</h3>
                         </div>
 
                         <div class="column">
-                            <input type="text"  name="year">
+                            <input type="text"  name="year" required>
                         </div>
                     </div>
 
@@ -71,13 +105,13 @@
                             <h3 class="ui center aligned header" style="margin:3%">Semester</h3>
                         </div>
                         <div class="column">
-                            <input type="text"  name="sem">
+                            <input type="text"  name="sem" required>
                         </div>
                         <div class="column">
                             <h3 class="ui center aligned header" style="margin:3%">Credit</h3>
                         </div>
                         <div class="column">
-                            <input type="text"  name="cred">
+                            <input type="text"  name="cred" required>
                         </div>
                     </div>
                 </div>
@@ -95,8 +129,8 @@
                                         
                                     <tr>
                                 
-                                <select name='staff' class="ui fluid search dropdown">
-                                <option value=""></option>
+                                <select name='staff' class="ui fluid search dropdown" id="drop" required>
+                                    <option value="">Select Staff</option>
                                     <option value="CSE001SF">Dr.N.Shanthi</option>
                                     <option value="CSE002SF">Dr.R.R.Rajalaxmi</option>
                                     <option value="CSE003SF">Dr.K.Kousalya</option>
@@ -159,10 +193,12 @@
     </form>
     <script>
         $(document).ready(function(){
+
             $("#frm").on("submit",function(){
               var ans= $("#frm").serialize();
+              console.log(ans);
               $.ajax({
-                url:'./Ajax/admin.php',
+                url:'../Ajax/admin.php',
                 data:ans,
                 type:'POST',
                 success:function(res){
@@ -173,7 +209,9 @@
              
               return false;
             });
+
         });
+        
     </script>
 </body>
 

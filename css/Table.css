@@ -16,7 +16,10 @@ tbody tr td:first-child {
  background: grey;
  font-weight: bold;
 }
-
+.abs
+{
+    padding-right: 50px;
+}
 
 /* 
 

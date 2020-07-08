@@ -175,7 +175,7 @@ span{
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
       <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
         <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+        <a  class="right aligned item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       
       </div>
     </div>
@@ -184,7 +184,7 @@ span{
 $sql="SELECT * FROM `course_list` WHERE code LIKE '$_code' AND cc LIKE '$_staffid' ";
 $res=$con->query($sql);
 $rows=$res->fetch_assoc();
-echo $rows['batch'];
+// echo $rows['batch'];
 $_SESSION['batch']=$rows['batch'];
 $count=$res->num_rows;
 if($count==1)
