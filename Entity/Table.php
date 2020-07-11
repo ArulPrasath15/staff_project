@@ -1,5 +1,3 @@
-
-
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
@@ -121,76 +119,114 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     }
 
 
-
-
-
-
-
 ?>
-<!DOCTYPE html>
-<html lang="en" >
+
+
+
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Mark</title>
-  <link rel="icon" type="image/png" href="../images/logo.png">
-  <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark</title>
+    <link rel="icon" type="image/png" href="../images/logo.png">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.semanticui.min.css">
   <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
-  <!--- <script src="semantic/dist/semantic.min.js"></script> -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-  />
 
-  <!-- <link
-    rel="stylesheet"
-    href="  https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css"
-  /> -->
-  
-  
+
+
+
+<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src = "https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src = "https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+<script src = "https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.semanticui.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 </head>
+
+<script>
+
+// alert($('#table-list').columnCount());
+$(document).ready(function() {
+
+  var colcount=$($('#table-list thead tr')[0]).find('th').length;
+    col=[];
+    var i=0;
+    for(i=0;i<colcount-1;i++)
+    {
+      col[i]=i;
+    }
+    console.log(col)
+
+  
+
+    $('#table-list').DataTable( {
+        dom: 'Bfrtip',
+        "sort": false,
+        "searching": false,
+        "paging": false,
+        "info": false,
+        buttons: [
+            { extend: 'excelHtml5', 
+                text:'Export as Excel',
+                exportOptions: {
+                columns: col
+            }
+            },
+            { extend: 'pdfHtml5', footer: true ,
+                text:'Export as Pdf',
+              exportOptions: {
+                columns: col
+            }
+            
+            }
+        ]
+    } );
+
+    table.buttons().container().appendTo( $('div.eight.column:eq(0)', table.table().container()) );
+   
+
+} );
+
+</script>
+
+
 <style>
-span
-{
-    color:white;
-    font-size:15px;
+
+  span
+  {
+      color:white;
+      font-size:15px;
 
 
-}
-.ui.table thead tr:first-child > th {
-     position: sticky !important;
-     top: 0;
-     z-index: 2;
-}
+  }
+  .ui.table thead tr:first-child > th {
+      position: sticky !important;
+      top: 0;
+      z-index: 2;
+  }
+  .ui.basic.buttons .button {
+    background: #767676 none!important;
+  }
+ .dt-buttons.ui.basic.buttons{
+
+    margin-left:80%;
+    
+  }
 
 
 
 </style>
-<!-- <body class="animate__animated animate__backInDown"> -->
-<!--   
-// function exportF(elem) {
-//     console.log("erfe");
-//   var table = document.getElementById("#table-list");
-//   var html = table.outerHTML;
-//   var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
-//   elem.setAttribute("href", url);
-//   elem.setAttribute("download", "export.xls"); // Choose the file name
-//   return false;
-// } -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js">
-    
-
-    
-    </script>
 
 
 <body>
-
 <!-- navbar -->
 <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
@@ -202,6 +238,7 @@ span
     </div>
 <!-- navbar end -->
 
+<!-- two cards -->
 <br><br>
 <center>
 
@@ -257,9 +294,9 @@ span
   </div>
 
 </center>
+<!-- end of two cards -->
 
-
-
+<!-- pre/abs  -->
 <br>
 <form class="ui form"  action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST">
 <div class="abs">
@@ -270,13 +307,18 @@ span
 </div>
 </div>
 </form>
+<!-- end of pre/abs  -->
 
 
-<!-- partial:index.partial.html -->
-<div class="tablecontent" id="t1">
 
-        <table class="ui fixed selectable celled table" id="table-list">
-            <thead>
+
+
+
+<!-- <div class="ui grid"> -->
+  <!-- <div id="buttons-menu" class="two wide column"></div> -->
+  <div class="tablecontent" id="t1">
+    <table id="table-list" class="ui fixed selectable celled table"  >
+    <thead>
                 <tr>
                     <?php
                     
@@ -301,7 +343,13 @@ span
                         
                 </tr>
 
-                <?php  
+                
+                
+             </thead>
+     
+      <tbody> 
+             
+      <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");
                     $maxmark = $max->fetch_row();
                      $maxmarktotal=0;
@@ -316,12 +364,14 @@ span
                             }
                              
                             ?>
-                                  <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
+                                  <td class="center aligned"  style="background-color:#d5f0dc;color:black;" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></td>
                     
                         <?php
                            
                          }?> 
-                        <th class="center aligned" ><?php echo $maxmarktotal;  ?> </th>
+                        <td class="center aligned"  style="background-color:#d5f0dc;color:black;" ><?php echo $maxmarktotal;  ?> </td>
+                        <td class="center aligned"  style="background-color:#d5f0dc;color:black;"  ></td>
+
                     </tr> 
 
                     <?php  
@@ -340,19 +390,20 @@ span
                             
                             
                             ?>
-                    <th class="center aligned" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></th>
+                                   <td class="center aligned"  style="background-color:#f9fae1;color:black;" id=<?php echo strtoupper($columnArr[$i]);?> value=<?php echo $maxmark[$i]; ?>> <?php echo $maxmark[$i]; ?></td>
                     
                         <?php
                          }?> 
-                        <th class="center aligned" ><?php echo $expmarktotal;  ?> </th>
-                    </tr> 
-                
-             </thead>
-            <tbody> 
-             
+                        <td class="center aligned"  style="background-color:#f9fae1;color:black;"  ><?php echo $expmarktotal;  ?> </td>
+                        <td class="center aligned"  style="background-color:#f9fae1;color:black;"  ></td>
+
+                    </tr>        
+
+
+
              <?php
 
-            while($row1 = $data->fetch_assoc()){
+             while($row1 = $data->fetch_assoc()){
                 if($row1[$columnArr[0]]=='Max Mark' || $row1[$columnArr[0]]=='Exp Mark' ||$row1[$columnArr[0]]=='Co')
                 {}
                 else{
@@ -371,15 +422,9 @@ span
                     }
                 }
              ?>
-            
-            </tbody>
-    
 
-             <tfoot >
+   
 
-
-             <tr>
-`
                     <?php  
                         $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
                         $maxmark = $max->fetch_row(); ?>
@@ -388,20 +433,20 @@ span
                             for($i=1;$i<count($maxmark);$i++)
                             { if($i==1)
                                 {?>
-                                    <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>No of students scores upto expected level </para></th>
+                                    <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>No of students scores upto expected level </para></td>
                                     
                                <?php }else{   
 
 
                                 ?>
-                                    <th style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></th>
+                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
                         
                             <?php
                    } }?>
-                    <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                     </tr>
 
-                    <tr>
+                   
 
                     <?php  
                         $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
@@ -411,75 +456,86 @@ span
                             for($i=1;$i<count($maxmark)-1;$i++)
                             { if($i==1)
                                 {?>
-                                    <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above the attainment level, Total appeared for Test</para></th>
+                                    <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above tde attainment level, Total appeared for Test</para></td>
                                     
                                <?php }else{   
 
 
                                 ?>
-                                    <th style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo number_format($maxmark[$i],2); ?></th>
+                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo number_format($maxmark[$i],2); ?></td>
                         
                             <?php
                    } }?>
 
-                    <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
-                    <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
 
                     </tr>
 
+                    <tr >    
 
-
-
-                <tr >    
-                <th style="background-color:grey;color:black;font-size:15px;"></th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;" colspan="2"><pre>5 </pre> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;" colspan="3"><center>4</center> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;" colspan="2"><pre>3</pre> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"colspan="3"><pre>2</pre> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"colspan="3"><pre>1</pre> </th>
-                <!-- <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>   -->
-
-
-
-
-                </tr>
+                  <?php  $i=0;  ?> 
+                <td style="background-color:grey;color:black;font-size:15px;"></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>5 </pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><center>4</center></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>3</pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>2</pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>1</pre></td><?php $i++; ?>
                 <?php
-                     
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'range' ");
-                    $maxmark = $max->fetch_row();
 
+                $t =count($columnArr)-$i+1;
+                //    echo $t;
+                for($i=1 ;$i<$t;$i++)
+                {    ?>
+                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
+
+                    <?php
+                }
+   
+             ?>
+
+
+                
+            </tr>
+
+            <?php
+                     
+                     $max = $con->query("SELECT * FROM  $_table  WHERE  `rollno` like 'range' ");
+                     $maxmark = $max->fetch_row();
+ 
+ 
+                 ?>
+                 <tr >    <?php  $i=0;  ?> 
+                 <td style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"> </td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><pre>></pre> </td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[5]  ?> </td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[4]  ?></td> <?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[3]  ?></td> <?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[2]  ?></td> <?php $i++; ?> 
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><</th><?php $i++; ?>
+                 
+                 <?php
+
+                $t =count($columnArr)-$i+1;
+                //    echo $t;
+                for($i=1 ;$i<$t;$i++)
+                {    ?>
+                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
+
+                    <?php
+                }
 
                 ?>
-                <tr >    
-                <th style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><pre>></pre> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[4]  ?> </th>
-                <th style="background-color:#dfedf7;color:black;font-size:20px;">-</th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[3]  ?></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:20px;">-</th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[2]  ?></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:20px;">-</th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[1]  ?></th>  
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"><</th>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <!-- <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> 
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th> -->
 
  
-                </tr>
-                
+  
+                 </tr>
 
-                
-
-                <tr>
-
-                <?php  
+                 <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'ExpAtt' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
@@ -487,20 +543,18 @@ span
                         for($i=1;$i<count($maxmark);$i++)
                         { if($i==1)
                             {?>
-                                <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Expected attainment for each question</para></th>
+                                <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Expected attainment for each question</para></td>
                                 
                            <?php }else{   
 
 
                             ?>
-                                <th style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></th>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
                     
                         <?php
                } }?>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 </tr>
-
-                <tr>
 
                 <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'SatAtt' ");
@@ -510,20 +564,19 @@ span
                         for($i=1;$i<count($maxmark);$i++)
                         { if($i==1)
                             {?>
-                                <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Satisfaction attainment level based on level indicator</para></th>
+                                <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Satisfaction attainment level based on level indicator</para></td>
                                 
                            <?php }else{   
 
 
                             ?>
-                                <th style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></th>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
                     
                         <?php
                } }?>
-                <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 </tr>
 
-                <tr>
 
                 <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Co' ");
@@ -534,20 +587,20 @@ span
                         {   
                             if($i==1)
                             {?>
-                             <th  style="background-color:grey;color:black;font-size:15px;" class="center aligned" ><para>Mapping with CO </para></th>
+                             <td  style="background-color:grey;color:black;font-size:15px;" class="center aligned" ><para>Mapping with CO </para></td>
                             <?php
                              $i++;
                             }
 
                             ?>
-                             <th  style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php  if(is_numeric($maxmark[$i])){echo 'CO'.$maxmark[$i];}?></th>
+                             <td  style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php  if(is_numeric($maxmark[$i])){echo 'CO'.$maxmark[$i];}?></td>
                     
                         <?php
                         }?>  
-                        <th style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                        <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 </tr>
 
-                <tr>
+
 
                 <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
@@ -557,27 +610,25 @@ span
                         for($i=1;$i<count($maxmark);$i++)
                         { if($i==1)
                             {?>
-                                <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Attainment level of Each CO</para></th>
+                                <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Attainment level of Each CO</para></td>
                                 
                            <?php }else{   
 
 
                             ?>
-                                <th style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></th>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
                     
                         <?php
                } }?>
-                <th style="background-color:#dfedf7;color:black;font-size:16px;"></th>
+                <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
                 </tr> 
 
 
-                <tr>
-                
                 <?php
                 $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Attco' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
-                <th style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></th>
+                <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
                         <?php
                         $j=0;
                         for($i=1;$i<count($maxmark);$i++)
@@ -589,16 +640,16 @@ span
                            {   $j++;
                             ?>
                                 
-                                <th style="background-color:#dfedf7;color:black;font-size:15px;" colspan="2" class="center aligned" > <?php echo "CO".$i.' = '.$maxmark[$i]; ?></th>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO".$i.' = '.$maxmark[$i]; ?></td>
                     
                         <?php
                } }
                
-                $t =count($columnArr)-$j*2;
+                $t =count($columnArr)-$j*1;
             //    echo $t;
                for($i=1 ;$i<$t;$i++)
                {    ?>
-                <th style="background-color:#dfedf7;color:black;font-size:16px;"></th>
+                <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
 
                 <?php
                }
@@ -607,10 +658,23 @@ span
 
              </tr>
 
-             </tfoot>
-        </table>
-        <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
-        <button id="downloadLink" name="export" onclick="Export()">Export to excel</button>
+
+
+              
+
+                
+
+
+                  
+
+
+            </tbody>
+           
+    </table>
+
+    <br>
+    <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
+        
         <?php
 
         if(isset($_POST["submit"]))
@@ -799,18 +863,13 @@ span
     }
 
      ?>
-       </div>
-
-
-   
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<!-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script scr="https://cdn.datatables.net/1.10.21/js/dataTables.semanticui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script> -->
-
-<script  src="../js/Table.js"></script>
+       
+  </div>
+  
 
 
 
+  <script  src="../js/Table.js"></script>
+    
 </body>
 </html>

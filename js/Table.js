@@ -37,7 +37,7 @@ var maxmark;
     };
     params = $.extend(defaults, options);
     this.find('thead tr').append('<th/>');  //encabezado vacío
-    this.find('tbody tr').append(colEdicHtml);
+    this.find('.item').append(colEdicHtml);
 	var $tabedi = this;   //Read reference to the current table, to resolve "this" here.
     //Process "addButton" parameter
     // if (params.$addButton != null) {
