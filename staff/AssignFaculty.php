@@ -15,6 +15,24 @@ $_SESSION['code']=$_code;
     <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/>
     <script src="../assets/js/jquery.min.js"></script> 
     <script src="../assets/Fomantic/dist/semantic.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css" type="text/css"/>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script> -->
+
+
+
+
+
 </head>
 
 <style>
@@ -44,7 +62,16 @@ $(document).ready(function(){
   $('.ui.dropdown')
   .dropdown();
 
+  $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons:[
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+
 });
+
+
 
 
 </script>
@@ -77,7 +104,14 @@ $(document).ready(function(){
             if($count==1)
             { ?>
                 
-                <table class="ui celled fixed selectable inverted table">
+                <table class="ui celled fixed selectable inverted table" id="example">
+                        <thead>
+                            <tr>
+                                <th>Hi</th>
+                                <th>there</th>
+                            
+                            </tr>
+                        </thead>
                      <tbody>
                         <tr>
                             <td class="center aligned">Course Code</td>
@@ -101,9 +135,9 @@ $(document).ready(function(){
                             <td class="center aligned"><?php  echo $row['credit'];   ?></td>
                         </tr>
                         </tbody>
-                     </table>
+                     </table><br>
 
-                     <table class="ui celled padding  selectable inverted table">
+                     <table class="ui celled selectable inverted table">
                      <thead>
                         <tr>
                             <th  class="center aligned"> Section</th>
@@ -113,10 +147,10 @@ $(document).ready(function(){
                      </thead>
                      <tbody>
                               <tr>
-                                <td class="center aligned"> A  </td>
+                                <td class="center aligned"><pre>            A            </pre>   </td>
                                 <td class="center aligned"> 
 
-                                    <select name='Adrop' id='Adropid'  class="ui fluid search dropdown" >
+                                    <select name='Adrop' id='Adropid'  class="ui search dropdown" >
                                     <?php 
                                     if($row['staff1']==null)
                                     {?>
@@ -188,7 +222,7 @@ $(document).ready(function(){
                                 <td class="center aligned">B</td>
                                 <td class="center aligned">
                                 
-                                <select name='Bdrop' class="ui fluid search dropdown">
+                                <select name='Bdrop' class="ui search dropdown">
                                 <?php 
                                     if($row['staff2']==null)
                                     {?>
@@ -259,7 +293,7 @@ $(document).ready(function(){
                             <tr>
                                 <td class="center aligned">C</td>
                                 <td class="center aligned">
-                                <select name='Cdrop' style="color:black;" class="ui fluid search dropdown">
+                                <select name='Cdrop' style="color:black;" class="ui search dropdown">
                                 <?php 
                                 if($row['staff3']==null)
                                 {?>
@@ -331,7 +365,7 @@ $(document).ready(function(){
                             <tr>
                                 <td class="center aligned">D</td>
                                 <td class="center aligned">
-                                <select  name='Ddrop' class="ui fluid search dropdown">
+                                <select  name='Ddrop' class="ui search dropdown">
                                 <?php 
                                     if($row['staff4']==null)
                                     {?>
