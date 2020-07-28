@@ -1,6 +1,7 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
+include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 session_start();
 $_table=$_SESSION['exam'];
 //  echo $_table;
@@ -118,6 +119,151 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 
     }
 
+    if(isset($_POST['importsubmit']))
+    {
+        $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='$_table' ";
+        $data=$con->query($sql);
+        while($row = $data->fetch_assoc()){
+            $result1[] = $row;
+        }
+        // Array of all column names
+        $columnArr1 = array_column($result1, 'COLUMN_NAME');
+
+        echo count($columnArr1)-1;
+        // echo $_FILES['ifile']['tmp_name'];
+        echo '<h1>Parse books.xslx</h1><pre>';
+        if ( $xlsx = SimpleXLSX::parse( $_FILES['ifile']['tmp_name'] ) )
+        {
+        list( $num_cols, $num_row) = $xlsx->dimension();
+        echo $num_cols."     ";
+            if( $num_cols==count($columnArr1)-1)
+            {
+
+                foreach ( $xlsx->rows() as $k => $r ) {
+                    $marksarr=array();
+                    $quesarr=array();
+                    $sql="SELECT * FROM `$_table` WHERE rollno LIKE '$r[0]' ";
+                     $res=$con->query($sql);
+                    if($res->num_rows!=0) 
+                    {
+                        for ( $i = 1; $i < count($columnArr1)-2; $i ++ ) {
+
+                        
+                            
+                            $ques="Q".$i;
+                            // echo $ques;
+                            $quesarr[$i]=$ques;
+                            // echo $r[$i];
+                            if($r[$i]==strval(0))
+                            {
+                                $marksarr[$i]=0;
+                            }
+                            else
+                            {
+                                if(empty($r[$i]))
+                                {
+                                $marksarr[$i]='NULL';
+                                //  echo $ques;
+                                }
+                                else
+                                {
+                                $marksarr[$i]=$r[$i];
+                                }
+                                
+                            }
+
+                        }
+
+                        $quesarr[count($columnArr1)-2]='TOTAL';
+                        if($r[count($columnArr1)-2]==strval(0))
+                        {
+                            $marksarr[count($columnArr)-2]=0;
+                            }
+                            else
+                            {
+                            if(empty($r[count($columnArr1)-2]))
+                            {
+                                $marksarr[count($columnArr)-2]='NULL';
+                            //  echo $ques;
+                            }
+                            else
+                            {
+                                $marksarr[count($columnArr)-2]=$r[count($columnArr1)-2];
+                            }
+                        
+                         }
+                        print_r($quesarr);
+                        print_r($marksarr);
+                        $sql1='UPDATE '.$_table.' SET ';
+                        for($i=1;$i<=count($columnArr)-3;$i++)
+                        {
+
+                            $sql1.=$quesarr[$i] .'='. $marksarr[$i];
+                            $sql1.=',';
+
+                        }
+
+                        $total=count($columnArr)-2;
+                        $sql1.= 'Total'.'='.$marksarr[$total].' ';
+
+                        $sql1.= 'WHERE rollno ='."'".$r[0]."'";
+
+                        if ($con->query($sql1) === TRUE) {
+                            echo "ss";
+                        } 
+                        else
+                        {
+                            echo $sql1;
+                        }
+
+                        
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                     else 
+                    {
+                    echo "EERRR";
+                    }
+                // echo $r[$i];
+
+                }
+            
+            }
+            else
+            {
+                echo "Invalid COlumn";
+                
+            }
+        } else 
+            {
+                echo SimpleXLSX::parseError();
+            }
+        echo '<pre>';
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
 
@@ -151,12 +297,28 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 </head>
 
+
 <script>
 
 // alert($('#table-list').columnCount());
 $(document).ready(function() {
 
-  var colcount=$($('#table-list thead tr')[0]).find('th').length;
+
+    // file restrict
+var file = document.getElementById('inputfile');
+console.log(file);
+file.onchange = function(e) {
+  var ext = this.value.match(/\.([^\.]+)$/)[1];
+  switch (ext) {
+    case 'xlsx':
+       break;
+    default:
+      alert('Not allowed');
+      this.value = '';
+  }
+};
+
+var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
     var i=0;
     for(i=0;i<colcount-1;i++)
@@ -165,7 +327,6 @@ $(document).ready(function() {
     }
     console.log(col)
 
-    $('#table-list').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
    
     $('#table-list').DataTable( {
         dom: 'Bfrtip',
@@ -200,7 +361,7 @@ $(document).ready(function() {
                     title: 'CAT Mark Export',
                     messageTop: function(){
                             
-                     return "Staff Name     : " + "<?php  echo $_SESSION['staffname'] ?>"+"\n"+"Course Code  : "+ "<?php  echo $rows['code'].' - '.substr($_table,0,4);    ?>"+"\n"+"Course Name : "+"<?php echo $rows['name']   ?>"+"\n "+"Section            : "+"<?php  echo $class ?>"+"\n"+"Semester        : "+" <?php echo $rows['sem'] ?>"+"\n"+"Batch               : "+"<?php echo $rows['batch']   ?>"+"\n";
+                     return "Staff Name     :   " + "<?php  echo $_SESSION['staffname'] ?>"+"\n"+"Course Code  :   "+ "<?php  echo $rows['code'].' - '.substr($_table,0,4);    ?>"+"\n"+"Course Name :   "+"<?php echo $rows['name']   ?>"+"\n "+"Section            :   "+"<?php  echo $class ?>"+"\n"+"Semester        :   "+" <?php echo $rows['sem'] ?>"+"\n"+"Batch               :   "+"<?php echo $rows['batch']   ?>"+"\n";
 
 
                         
@@ -244,6 +405,7 @@ $(document).ready(function() {
 
     table.buttons().container().appendTo( $('div.eight.column:eq(0)', table.table().container()) );
    
+
 
 } );
 
@@ -359,6 +521,18 @@ $(document).ready(function() {
 </div>
 </div>
 </form>
+
+
+
+
+
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
+
+<input type="file" id="inputfile" name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+<button class="ui positive button" name="importsubmit"> Import</button>
+
+</form>
+
 <!-- end of pre/abs  -->
 
 
@@ -406,7 +580,7 @@ $(document).ready(function() {
                     $maxmark = $max->fetch_row();
                      $maxmarktotal=0;
                     ?>
-                <tr  class="maxmarkrow">
+                <tr  class="max">
                         <?php
                         for($i=1;$i<count($maxmark)-1;$i++)
                         { 

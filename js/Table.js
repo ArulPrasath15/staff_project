@@ -200,12 +200,13 @@ function rowAcep(but) {
     function checkLength()
     {
          var ques=$(this).attr('id');
+        //  console.log(ques);
          var i=0;
-         $('#table-list .maxmarkrow').each(function() {
+         $('#table-list .max').each(function() {
              if(i==0)
              {
-               maxmark = $(this).find("th").eq(ques).html();
-               console.log(maxmark);
+               maxmark = $(this).find("td").eq(ques).html();
+            //    console.log(maxmark);
                i+=1;
                
              }
