@@ -1,6 +1,10 @@
 <?php 
 include_once("../db.php");
 session_start();
+if(!isset($_GET['cc']) || !isset($_GET['code']))
+{
+    header("Location: ../staff/index.php");
+}
 $_staffid=$_GET['cc'];
 $_code=$_GET['code'];
 $_SESSION['code']=$_code;
@@ -62,13 +66,6 @@ $(document).ready(function(){
   $('.ui.dropdown')
   .dropdown();
 
-  $('#example').DataTable( {
-        dom: 'Bfrtip',
-        buttons:[
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-
 });
 
 
@@ -105,13 +102,7 @@ $(document).ready(function(){
             { ?>
                 
                 <table class="ui celled fixed selectable inverted table" id="example">
-                        <thead>
-                            <tr>
-                                <th>Hi</th>
-                                <th>there</th>
-                            
-                            </tr>
-                        </thead>
+            
                      <tbody>
                         <tr>
                             <td class="center aligned">Course Code</td>
@@ -478,6 +469,7 @@ if(isset($_POST['submit']))
     $sql1=" UPDATE  `course_list` SET  `staff1` = '$A' , `staff2` = '$B', `staff3` = '$C', `staff4` = '$D' WHERE `code` LIKE '$ccode' ";
     if($con->query($sql1)==true)
     {
+        
         header("Location: ../staff/index.php");
     }
     else{

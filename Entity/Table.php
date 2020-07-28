@@ -2,6 +2,7 @@
 <?php
 include_once("../db.php");
 include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+include_once('../assets/notiflix.php'); 
 session_start();
 $_table=$_SESSION['exam'];
 //  echo $_table;
@@ -129,13 +130,13 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         // Array of all column names
         $columnArr1 = array_column($result1, 'COLUMN_NAME');
 
-        echo count($columnArr1)-1;
+        // echo count($columnArr1)-1;
         // echo $_FILES['ifile']['tmp_name'];
-        echo '<h1>Parse books.xslx</h1><pre>';
+        
         if ( $xlsx = SimpleXLSX::parse( $_FILES['ifile']['tmp_name'] ) )
         {
         list( $num_cols, $num_row) = $xlsx->dimension();
-        echo $num_cols."     ";
+        // echo $num_cols."     ";
             if( $num_cols==count($columnArr1)-1)
             {
 
@@ -192,8 +193,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                             }
                         
                          }
-                        print_r($quesarr);
-                        print_r($marksarr);
+                        // print_r($quesarr);
+                        // print_r($marksarr);
                         $sql1='UPDATE '.$_table.' SET ';
                         for($i=1;$i<=count($columnArr)-3;$i++)
                         {
@@ -209,7 +210,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                         $sql1.= 'WHERE rollno ='."'".$r[0]."'";
 
                         if ($con->query($sql1) === TRUE) {
-                            echo "ss";
+                            echo "<body><script> Notiflix.Report.Success('Import Successfull','Please check the Table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+
                         } 
                         else
                         {
@@ -218,19 +220,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 
                         
                     
-
-
-
-
-
-
-
-
-
-
-
-
-                    }
+                  }
                      else 
                     {
                     echo "EERRR";
@@ -242,14 +232,16 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             }
             else
             {
-                echo "Invalid COlumn";
+
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
                 
             }
-        } else 
+        }
+         else 
             {
                 echo SimpleXLSX::parseError();
             }
-        echo '<pre>';
+       
     }
 
 
@@ -279,9 +271,6 @@ $columnArr = array_column($result, 'COLUMN_NAME');
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.semanticui.min.css">
   <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
-
-
-
 
 <script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src = "https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -630,9 +619,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
              <?php
 
              while($row1 = $data->fetch_assoc()){
-                if($row1[$columnArr[0]]=='Max Mark' || $row1[$columnArr[0]]=='Exp Mark' ||$row1[$columnArr[0]]=='Co')
-                {}
-                else{
+                
                     ?> <tr class="item">
                     <?php
                     for($i=1;$i<count($columnArr);$i++)
@@ -645,8 +632,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                     </tr> 
                     
                     <?php
-                    }
-                }
+                    
+             }
              ?>
 
    
