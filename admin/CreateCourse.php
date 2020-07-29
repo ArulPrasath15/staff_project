@@ -9,10 +9,6 @@ if(!isset($_SESSION['admin']))
 
 }
 
-
-
-
-
 ?>
 <html lang="en">
 
@@ -48,7 +44,7 @@ body
 <!-- navbar end -->
     <h2 class="ui center aligned icon header" style="margin:3%">
         <i class="edit icon"></i>
-        <div class="content">
+        <div style="color:#ffd700" class="content">
             Course Creation
             <div class="sub header">Creating the courses.</div>
         </div>

@@ -62,7 +62,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     if(isset($_POST['absbtn']))
     {
 
-        $roll=$_POST['rol'];
+        $roll=strtoupper($_POST['rol']);
         $sqll="SELECT * from ".$_table." WHERE `rollno` LIKE '$roll' AND `sec` LIKE '$class' ";
         echo $sqll;
         $data=$con->query($sqll);
@@ -75,13 +75,14 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             if($con->query($sql))
             {
     
-                //    echo "sucesss"; 
+                    echo '<script>alert("fwfw")</script>'; 
                    header('Location: '.$_SERVER['REQUEST_URI']);
     
             }
-            else{
+            else
+            {
                
-                echo '<script> alert("Marked Absent Already.")</script>';
+                echo "<body><script> Notiflix.Notify.Success('Marked Absent Already');</script></body>";
     
             }
 
@@ -90,7 +91,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         else
         {
 
-            // echo '<script> alert("Roll NO Not Belongs to this class.")</script>';
+            //  echo '<script> alert("Roll NO Not Belongs to this class.")</script>';
             header('Location: '.$_SERVER['REQUEST_URI']);
         }
 
@@ -101,7 +102,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     if(isset($_POST['prebtn']))
     {
         
-        $roll=$_POST['rol'];
+        $roll=strtoupper($_POST['rol']);
         $sql= "INSERT INTO  ".$_table." ( `rollno`,`sec`) VALUES ('$roll','$class') ";
         // echo $sql;
         if($con->query($sql))
@@ -113,7 +114,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         }
         else{
 
-            echo '<script> alert("Marked Present Already.")</script>';
+            echo "<body><script> Notiflix.Notify.Success('Marked Present Already');</script></body>";
 
         }
 
@@ -210,7 +211,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                         $sql1.= 'WHERE rollno ='."'".$r[0]."'";
 
                         if ($con->query($sql1) === TRUE) {
-                            echo "<body><script> Notiflix.Report.Success('Import Successfull','Please check the Table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                            echo "<body><script> Notiflix.Report.Success('Imported Successfull','Please check the Table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
 
                         } 
                         else
@@ -239,7 +240,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         }
          else 
             {
-                echo SimpleXLSX::parseError();
+              
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
             }
        
     }
@@ -504,7 +506,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 <form class="ui form"  action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST">
 <div class="abs">
 <div class="ui action input">
-  <input style="margin-left:80px;"type="text" name="rol" maxlength="8" placeholder="Enter Roll" required> 
+  <input style="margin-left:80px;" size="20"type="text" name="rol" maxlength="8" placeholder="Enter Roll" required> 
   <button name="absbtn" class="ui negative button">Absent</button>
   <button  name="prebtn" class="ui green button">Present</button>
 </div>
@@ -515,12 +517,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
 
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
 
-<input type="file" id="inputfile" name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-<button class="ui positive button" name="importsubmit"> Import</button>
-
-</form>
 
 <!-- end of pre/abs  -->
 
@@ -532,6 +529,13 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
+
+    <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+    <button class="ui blue button" name="importsubmit"> Import</button>
+
+</form>
     <table id="table-list" class="ui fixed selectable celled table"  >
     <thead>
                 <tr>

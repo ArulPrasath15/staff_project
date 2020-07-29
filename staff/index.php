@@ -58,7 +58,7 @@ font-size:16px;
     </div>
 <!-- Navbar ended -->
 <br><br><br>
-<center><h2 class="animate__animated animate__fadeInDownBig">Welcome ! <?php echo $_SESSION['staffname']; ?></h2></center><br>
+<center><h2 style="color:#ffd700" class="animate__animated animate__fadeInDownBig">Welcome ! <?php echo $_SESSION['staffname']; ?></h2></center><br>
 <!-- Table start -->
 <div class="animate__animated animate__fadeInUpBig">
 <div class="tablecontent" >
