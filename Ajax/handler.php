@@ -1,10 +1,6 @@
 <?php
 
-$con=new mysqli("localhost","root","","staff");
-if($con->connect_error)
-{
-    die('Connection Error');
-}
+include_once("../db.php");
 session_start();
 $roll=$_POST['ROLLNO'];
 $_table=$_SESSION['exam'];

@@ -20,23 +20,6 @@ $_SESSION['code']=$_code;
     <script src="../assets/js/jquery.min.js"></script> 
     <script src="../assets/Fomantic/dist/semantic.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" type="text/css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css" type="text/css"/>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script> -->
-
-
-
-
-
 </head>
 
 <style>
@@ -57,9 +40,22 @@ h2
     color:white;
 
 }
+
 </style>
 
 <script>
+
+document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+}; 
+
+
 
 $(document).ready(function(){
 
@@ -74,6 +70,8 @@ $(document).ready(function(){
 </script>
 
 <body>
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
@@ -431,9 +429,9 @@ $(document).ready(function(){
                         </td>
                     </tfoot>
                  </table>
-                    <div class="ui input" style="visibility: hidden">
-                     <input type="text" name='codec' value="<?php echo $_SESSION['code']; ?>">
-                    </div>
+                    
+                     <input type="hidden" name='codec' value="<?php echo $_SESSION['code']; ?>">
+                   
 
              <?php
             }
@@ -459,7 +457,7 @@ $(document).ready(function(){
 
 if(isset($_POST['submit']))
 {
-    
+    session_start();
     $A=$_POST['Adrop'];
     $B=$_POST['Bdrop'];
     $C=$_POST['Cdrop'];

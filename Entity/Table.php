@@ -294,6 +294,17 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 // alert($('#table-list').columnCount());
 $(document).ready(function() {
 
+    document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+}; 
+
+
 
     // file restrict
 var file = document.getElementById('inputfile');
@@ -432,6 +443,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
 <body>
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
 <!-- navbar -->
 <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">

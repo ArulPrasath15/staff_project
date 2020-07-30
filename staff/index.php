@@ -4,7 +4,7 @@ include_once("../db.php");
 session_start();
 if(!isset($_SESSION["staffid"]))
 {
-  header("Location: ../Login.php");
+  header("Location: ../index.php");
 }
 
 
@@ -42,10 +42,16 @@ th{
 
 font-size:16px;
 }
-</style>
+
+</style> 
     
 
 <body>
+
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
+
+
 <!-- Navbar start -->
   <!-- <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div> -->
     <div class="ui tablet computer only padded grid">
@@ -91,9 +97,9 @@ font-size:16px;
             <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
             <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
             <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
-            <td class="center aligned" ><div class="ui button" onclick="location.href = './CourseFrame?code=<?php echo $row1['code']  ?>'" >Frame Pattern</div></td>
-            <td class="center aligned" ><div class="ui button" onclick="location.href = './AssignFaculty<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
-            <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Entity/MarkEntry?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+            <td class="center aligned" ><div class="ui button" onclick="location.href = './CourseFrame.php?code=<?php echo $row1['code']  ?>'" >Frame Pattern</div></td>
+            <td class="center aligned" ><div class="ui button" onclick="location.href = './AssignFaculty.php<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
+            <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
              <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
 
         </tr>  
@@ -146,7 +152,18 @@ font-size:16px;
 </div>
 
 
+<script> 
+      document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+}; 
 
+ </script> 
 
 
 
