@@ -13,6 +13,9 @@ $_table=$_SESSION['exam'];
 $_staffid= $_SESSION['staffid'];
 $_code=$_SESSION['ccode'];
 
+
+
+
 $sql="SELECT * FROM `course_list` WHERE  `code`  LIKE  '$_code' ";
 if($con->query($sql)==false)
 {
@@ -60,7 +63,6 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 
     $sql="SELECT * from $_table WHERE `sec` like '$class' ORDER BY `rollno` ASC ";
     $data=$con->query($sql);
-
 
 
     if(isset($_POST['absbtn']))
@@ -142,93 +144,142 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         {
         list( $num_cols, $num_row) = $xlsx->dimension();
         // echo $num_cols."     ";
+        $maxmark=array(); 
+        $error=0;
+        $success=0;
+        $maxfailedroll=array(); 
+        $sql1="SELECT * FROM `$_table` WHERE rollno LIKE 'Max Mark'";
+        $data1=$con->query($sql1);
+        $res=$data1->fetch_assoc();
+        for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
+        {
+            $ques="Q".$i;
+            $maxmark[$i]=$res[$ques];
+
+        }
+        // print_r($maxmark);     
+
+
+
+
             if( $num_cols==count($columnArr1)-1)
             {
 
                 foreach ( $xlsx->rows() as $k => $r ) {
+                    
                     $marksarr=array();
                     $quesarr=array();
                     $sql="SELECT * FROM `$_table` WHERE rollno LIKE '$r[0]' ";
-                     $res=$con->query($sql);
+                    $res=$con->query($sql);
+                    
                     if($res->num_rows!=0) 
-                    {
-                        for ( $i = 1; $i < count($columnArr1)-2; $i ++ ) {
+                     {
+                        $maxcheck=0;
+                        $j=0;
+                        for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
+                        {
 
-                        
-                            
-                            $ques="Q".$i;
-                            // echo $ques;
-                            $quesarr[$i]=$ques;
-                            // echo $r[$i];
-                            if($r[$i]==strval(0))
+                            if($r[$i]<=$maxmark[$i])
                             {
-                                $marksarr[$i]=0;
                             }
                             else
                             {
-                                if(empty($r[$i]))
+
+                                $maxcheck++;
+                                $maxfailedroll[$j]=$r[0];
+                                $j++;
+                             }
+
+
+
+                        }
+                        if($maxcheck==0)
+                        {
+                            for ( $i = 1; $i < count($columnArr1)-2; $i ++ ) {
+                                $ques="Q".$i;
+                                // echo $ques;
+                                $quesarr[$i]=$ques;
+                                // echo $r[$i];
+                                if($r[$i]==strval(0))
                                 {
-                                $marksarr[$i]='NULL';
+                                    $marksarr[$i]=0;
+                                }
+                                else
+                                {
+                                    if(empty($r[$i]))
+                                    {
+                                    $marksarr[$i]='NULL';
+                                    //  echo $ques;
+                                    }
+                                    else
+                                    {
+                                    $marksarr[$i]=$r[$i];
+                                    }
+                                    
+                                }
+    
+                            }
+    
+                            $quesarr[count($columnArr1)-2]='TOTAL';
+                            if($r[count($columnArr1)-2]==strval(0))
+                            {
+                                $marksarr[count($columnArr)-2]=0;
+                                }
+                                else
+                                {
+                                if(empty($r[count($columnArr1)-2]))
+                                {
+                                    $marksarr[count($columnArr)-2]='NULL';
                                 //  echo $ques;
                                 }
                                 else
                                 {
-                                $marksarr[$i]=$r[$i];
+                                    $marksarr[count($columnArr)-2]=$r[count($columnArr1)-2];
                                 }
-                                
+                            
+                             }
+                            // print_r($quesarr);
+                            // print_r($marksarr);
+                            $sql1='UPDATE '.$_table.' SET ';
+                            for($i=1;$i<=count($columnArr)-3;$i++)
+                            {
+    
+                                $sql1.=$quesarr[$i] .'='. $marksarr[$i];
+                                $sql1.=',';
+    
                             }
+    
+                            $total=count($columnArr)-2;
+                            $sql1.= 'Total'.'='.$marksarr[$total].' ';
+    
+                            $sql1.= 'WHERE rollno ='."'".$r[0]."'";
+    
+                            if ($con->query($sql1) === TRUE) {
+                                if(count($maxfailedroll)==0)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    $error++;
 
-                        }
-
-                        $quesarr[count($columnArr1)-2]='TOTAL';
-                        if($r[count($columnArr1)-2]==strval(0))
-                        {
-                            $marksarr[count($columnArr)-2]=0;
-                            }
+                                }
+    
+                            } 
                             else
                             {
-                            if(empty($r[count($columnArr1)-2]))
-                            {
-                                $marksarr[count($columnArr)-2]='NULL';
-                            //  echo $ques;
+                                echo $sql1;
                             }
-                            else
-                            {
-                                $marksarr[count($columnArr)-2]=$r[count($columnArr1)-2];
-                            }
-                        
-                         }
-                        // print_r($quesarr);
-                        // print_r($marksarr);
-                        $sql1='UPDATE '.$_table.' SET ';
-                        for($i=1;$i<=count($columnArr)-3;$i++)
-                        {
+    
 
-                            $sql1.=$quesarr[$i] .'='. $marksarr[$i];
-                            $sql1.=',';
+
 
                         }
-
-                        $total=count($columnArr)-2;
-                        $sql1.= 'Total'.'='.$marksarr[$total].' ';
-
-                        $sql1.= 'WHERE rollno ='."'".$r[0]."'";
-
-                        if ($con->query($sql1) === TRUE) {
-                            echo "<body><script> Notiflix.Report.Success('Imported Successfull','Please check the Table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
-
-                        } 
-                        else
-                        {
-                            echo $sql1;
-                        }
-
-                        
-                    
+     
                   }
                      else 
                     {
-                    echo "EERRR";
+                    // echo "EERRR";
                     }
                 // echo $r[$i];
 
@@ -239,8 +290,23 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             {
 
                 echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
-                
+                // for column count
             }
+
+
+            if($error==0)
+            {
+                echo "<body><script> Notiflix.Report.Success('Imported Successfully ','Please Check the table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+
+            }
+            else
+            {
+                echo "<body><script> Notiflix.Report.Warning('Import Sucessfully ','Please Check the Number ','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+
+            }
+
+
+
         }
          else 
             {
