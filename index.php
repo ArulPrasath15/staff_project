@@ -1,5 +1,10 @@
 <?php
 include_once("./db.php");
+session_start();
+if(isset($_SESSION["staffid"]))
+{
+  header("Location: ./staff/index.php");
+}
 ?>
 
 <?php
@@ -16,7 +21,7 @@ include_once("./db.php");
         $row=$res->fetch_assoc();        //$data=$res->fetch_assoc();
        if( $count==1)
        {
-             session_start();
+             
             $_SESSION["staffid"]=$row['staffid'];
             $_SESSION["staffname"]=$row['name'];
             header("Location: ./staff/index.php");

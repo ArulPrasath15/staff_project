@@ -10,7 +10,7 @@ if(isset($_SESSION["staffid"]))
      
     
 }
-header("Location: ./Login.php");
+header("Location: ./index.php");
 
 
 ?>
