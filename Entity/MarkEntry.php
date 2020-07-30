@@ -65,12 +65,12 @@ body
     </div>
 <!-- navbar end -->
 <h2 class="ui center aligned icon header" style="margin:3%">
-<i class="edit icon"></i>
-    <div class="content">
+<i class="yellow edit icon"></i>
+    <div style="color:#ffd700" class="content">
         Exam Mark Entry
-        <div class="sub header">Select the Exam to Enter the Mark.</div>
+        <div style="color:#ffd700" class="sub header">Select the Exam to Enter the Mark.</div>
     </div>
-</h2>
+</h2><br>
 
 <div class="ui raised inverted segment" id="seg1" style="width:94%;margin:3%";><br>
 

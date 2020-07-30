@@ -1,6 +1,8 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
+include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+include_once('../assets/notiflix.php'); 
 session_start();
 $_table=$_SESSION['exam'];
 //  echo $_table;
@@ -60,7 +62,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     if(isset($_POST['absbtn']))
     {
 
-        $roll=$_POST['rol'];
+        $roll=strtoupper($_POST['rol']);
         $sqll="SELECT * from ".$_table." WHERE `rollno` LIKE '$roll' AND `sec` LIKE '$class' ";
         echo $sqll;
         $data=$con->query($sqll);
@@ -73,13 +75,14 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             if($con->query($sql))
             {
     
-                //    echo "sucesss"; 
+                    echo '<script>alert("fwfw")</script>'; 
                    header('Location: '.$_SERVER['REQUEST_URI']);
     
             }
-            else{
+            else
+            {
                
-                echo '<script> alert("Marked Absent Already.")</script>';
+                echo "<body><script> Notiflix.Notify.Success('Marked Absent Already');</script></body>";
     
             }
 
@@ -88,7 +91,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         else
         {
 
-            // echo '<script> alert("Roll NO Not Belongs to this class.")</script>';
+            //  echo '<script> alert("Roll NO Not Belongs to this class.")</script>';
             header('Location: '.$_SERVER['REQUEST_URI']);
         }
 
@@ -99,7 +102,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     if(isset($_POST['prebtn']))
     {
         
-        $roll=$_POST['rol'];
+        $roll=strtoupper($_POST['rol']);
         $sql= "INSERT INTO  ".$_table." ( `rollno`,`sec`) VALUES ('$roll','$class') ";
         // echo $sql;
         if($con->query($sql))
@@ -111,12 +114,149 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         }
         else{
 
-            echo '<script> alert("Marked Present Already.")</script>';
+            echo "<body><script> Notiflix.Notify.Success('Marked Present Already');</script></body>";
 
         }
 
 
     }
+
+    if(isset($_POST['importsubmit']))
+    {
+        $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='$_table' ";
+        $data=$con->query($sql);
+        while($row = $data->fetch_assoc()){
+            $result1[] = $row;
+        }
+        // Array of all column names
+        $columnArr1 = array_column($result1, 'COLUMN_NAME');
+
+        // echo count($columnArr1)-1;
+        // echo $_FILES['ifile']['tmp_name'];
+        
+        if ( $xlsx = SimpleXLSX::parse( $_FILES['ifile']['tmp_name'] ) )
+        {
+        list( $num_cols, $num_row) = $xlsx->dimension();
+        // echo $num_cols."     ";
+            if( $num_cols==count($columnArr1)-1)
+            {
+
+                foreach ( $xlsx->rows() as $k => $r ) {
+                    $marksarr=array();
+                    $quesarr=array();
+                    $sql="SELECT * FROM `$_table` WHERE rollno LIKE '$r[0]' ";
+                     $res=$con->query($sql);
+                    if($res->num_rows!=0) 
+                    {
+                        for ( $i = 1; $i < count($columnArr1)-2; $i ++ ) {
+
+                        
+                            
+                            $ques="Q".$i;
+                            // echo $ques;
+                            $quesarr[$i]=$ques;
+                            // echo $r[$i];
+                            if($r[$i]==strval(0))
+                            {
+                                $marksarr[$i]=0;
+                            }
+                            else
+                            {
+                                if(empty($r[$i]))
+                                {
+                                $marksarr[$i]='NULL';
+                                //  echo $ques;
+                                }
+                                else
+                                {
+                                $marksarr[$i]=$r[$i];
+                                }
+                                
+                            }
+
+                        }
+
+                        $quesarr[count($columnArr1)-2]='TOTAL';
+                        if($r[count($columnArr1)-2]==strval(0))
+                        {
+                            $marksarr[count($columnArr)-2]=0;
+                            }
+                            else
+                            {
+                            if(empty($r[count($columnArr1)-2]))
+                            {
+                                $marksarr[count($columnArr)-2]='NULL';
+                            //  echo $ques;
+                            }
+                            else
+                            {
+                                $marksarr[count($columnArr)-2]=$r[count($columnArr1)-2];
+                            }
+                        
+                         }
+                        // print_r($quesarr);
+                        // print_r($marksarr);
+                        $sql1='UPDATE '.$_table.' SET ';
+                        for($i=1;$i<=count($columnArr)-3;$i++)
+                        {
+
+                            $sql1.=$quesarr[$i] .'='. $marksarr[$i];
+                            $sql1.=',';
+
+                        }
+
+                        $total=count($columnArr)-2;
+                        $sql1.= 'Total'.'='.$marksarr[$total].' ';
+
+                        $sql1.= 'WHERE rollno ='."'".$r[0]."'";
+
+                        if ($con->query($sql1) === TRUE) {
+                            echo "<body><script> Notiflix.Report.Success('Imported Successfull','Please check the Table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+
+                        } 
+                        else
+                        {
+                            echo $sql1;
+                        }
+
+                        
+                    
+                  }
+                     else 
+                    {
+                    echo "EERRR";
+                    }
+                // echo $r[$i];
+
+                }
+            
+            }
+            else
+            {
+
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                
+            }
+        }
+         else 
+            {
+              
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+            }
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
@@ -134,9 +274,6 @@ $columnArr = array_column($result, 'COLUMN_NAME');
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.semanticui.min.css">
   <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
 
-
-
-
 <script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src = "https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src = "https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
@@ -151,12 +288,39 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 </head>
 
+
 <script>
 
 // alert($('#table-list').columnCount());
 $(document).ready(function() {
 
-  var colcount=$($('#table-list thead tr')[0]).find('th').length;
+    document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+}; 
+
+
+
+    // file restrict
+var file = document.getElementById('inputfile');
+console.log(file);
+file.onchange = function(e) {
+  var ext = this.value.match(/\.([^\.]+)$/)[1];
+  switch (ext) {
+    case 'xlsx':
+       break;
+    default:
+      alert('Not allowed');
+      this.value = '';
+  }
+};
+
+var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
     var i=0;
     for(i=0;i<colcount-1;i++)
@@ -165,7 +329,6 @@ $(document).ready(function() {
     }
     console.log(col)
 
-    $('#table-list').append('<caption style="caption-side: bottom">A fictional company\'s staff table.</caption>');
    
     $('#table-list').DataTable( {
         dom: 'Bfrtip',
@@ -200,7 +363,7 @@ $(document).ready(function() {
                     title: 'CAT Mark Export',
                     messageTop: function(){
                             
-                     return "Staff Name     : " + "<?php  echo $_SESSION['staffname'] ?>"+"\n"+"Course Code  : "+ "<?php  echo $rows['code'].' - '.substr($_table,0,4);    ?>"+"\n"+"Course Name : "+"<?php echo $rows['name']   ?>"+"\n "+"Section            : "+"<?php  echo $class ?>"+"\n"+"Semester        : "+" <?php echo $rows['sem'] ?>"+"\n"+"Batch               : "+"<?php echo $rows['batch']   ?>"+"\n";
+                     return "Staff Name     :   " + "<?php  echo $_SESSION['staffname'] ?>"+"\n"+"Course Code  :   "+ "<?php  echo $rows['code'].' - '.substr($_table,0,4);    ?>"+"\n"+"Course Name :   "+"<?php echo $rows['name']   ?>"+"\n "+"Section            :   "+"<?php  echo $class ?>"+"\n"+"Semester        :   "+" <?php echo $rows['sem'] ?>"+"\n"+"Batch               :   "+"<?php echo $rows['batch']   ?>"+"\n";
 
 
                         
@@ -245,6 +408,7 @@ $(document).ready(function() {
     table.buttons().container().appendTo( $('div.eight.column:eq(0)', table.table().container()) );
    
 
+
 } );
 
 </script>
@@ -279,6 +443,8 @@ $(document).ready(function() {
 
 
 <body>
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
 <!-- navbar -->
 <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
@@ -353,12 +519,19 @@ $(document).ready(function() {
 <form class="ui form"  action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST">
 <div class="abs">
 <div class="ui action input">
-  <input style="margin-left:80px;"type="text" name="rol" maxlength="8" placeholder="Enter Roll" required> 
+  <input style="margin-left:80px;" size="20"type="text" name="rol" maxlength="8" placeholder="Enter Roll" required> 
   <button name="absbtn" class="ui negative button">Absent</button>
   <button  name="prebtn" class="ui green button">Present</button>
 </div>
 </div>
 </form>
+
+
+
+
+
+
+
 <!-- end of pre/abs  -->
 
 
@@ -369,6 +542,13 @@ $(document).ready(function() {
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
+
+    <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
+    <button class="ui blue button" name="importsubmit"> Import</button>
+
+</form>
     <table id="table-list" class="ui fixed selectable celled table"  >
     <thead>
                 <tr>
@@ -406,7 +586,7 @@ $(document).ready(function() {
                     $maxmark = $max->fetch_row();
                      $maxmarktotal=0;
                     ?>
-                <tr  class="maxmarkrow">
+                <tr  class="max">
                         <?php
                         for($i=1;$i<count($maxmark)-1;$i++)
                         { 
@@ -456,9 +636,7 @@ $(document).ready(function() {
              <?php
 
              while($row1 = $data->fetch_assoc()){
-                if($row1[$columnArr[0]]=='Max Mark' || $row1[$columnArr[0]]=='Exp Mark' ||$row1[$columnArr[0]]=='Co')
-                {}
-                else{
+                
                     ?> <tr class="item">
                     <?php
                     for($i=1;$i<count($columnArr);$i++)
@@ -471,8 +649,8 @@ $(document).ready(function() {
                     </tr> 
                     
                     <?php
-                    }
-                }
+                    
+             }
              ?>
 
    

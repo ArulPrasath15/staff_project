@@ -192,12 +192,13 @@ if($count==1)
    
   
 <h2 class="ui center aligned icon header" style="margin:3%">
-    <i class="settings icon"></i>
-    <div class="content">
+    <i class="inverted yellow settings icon"></i>
+    <div style="color:#ffd700" class="content">
         Exam Pattern Framer
-        <div class="sub header">Frame the Upcoming Exam Design.</div>
+        <div style="color:#ffd700" class="sub header">Frame the Upcoming Exam Design.</div>
     </div>
     </h2>
+    <br>
     <form class="ui form" id="frm">  
 
     <div class="ui raised inverted segment" id="seg1" style="width:94%;margin:3%";>
