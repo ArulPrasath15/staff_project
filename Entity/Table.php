@@ -4,8 +4,12 @@ include_once("../db.php");
 include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
+if(!isset($_SESSION["staffid"]))
+{
+  header("Location: ../index.php");
+}
+
 $_table=$_SESSION['exam'];
-//  echo $_table;
 $_staffid= $_SESSION['staffid'];
 $_code=$_SESSION['ccode'];
 

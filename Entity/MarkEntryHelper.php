@@ -2,6 +2,10 @@
 
 include_once("../db.php");
 session_start();
+if(!isset($_SESSION["staffid"]))
+{
+  header("Location: ../index.php");
+}
 if(isset($_POST['submit']))
 {
      
