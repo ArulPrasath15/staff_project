@@ -948,7 +948,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                            {   $j++;
                             ?>
                                 
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO".$i.' = '.$maxmark[$i]; ?></td>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO".($i-1).' = '.$maxmark[$i]; ?></td>
                     
                         <?php
                } }

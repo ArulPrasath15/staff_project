@@ -14,6 +14,7 @@
     }
     $_code=$_GET['code']; 
     $_staffid= $_SESSION['staffid'];
+    $_SESSION['code']=$_GET['code'];
     // echo $_staffid;
     // echo $_code;
     if(isset($_POST["pattern"]))
@@ -191,6 +192,7 @@ $res=$con->query($sql);
 $rows=$res->fetch_assoc();
 // echo $rows['batch'];
 $_SESSION['batch']=$rows['batch'];
+$_SESSION['cname']=$rows['name'];
 $count=$res->num_rows;
 if($count==1)
 { ?>
@@ -254,6 +256,51 @@ if($count==1)
             }else
             {?>
                  <option Value=CAT3_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>CAT 3</option>
+
+            <?php
+            }
+           ?>  
+           <!-- Assignment -->
+           <?php 
+            $table='Assignment_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val !== FALSE)
+            {
+            }else
+            {?>
+                 <option Value=Assignment_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>Assignment</option>
+
+            <?php
+            }
+           ?>  
+           <!-- OtherAssesment -->
+           <?php 
+            $table='OtherAssesment_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val !== FALSE)
+            {
+            }else
+            {?>
+                 <option Value=OtherAssesment_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OtherAssesment</option>
+
+            <?php
+            }
+           ?>  
+           <!-- SEM -->
+           <?php 
+            $table='SEM_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val !== FALSE)
+            {
+            }else
+            {?>
+                 <option Value=SEM_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>SEM</option>
 
             <?php
             }
@@ -422,7 +469,13 @@ if($count==1)
       console.log(value);
       $("#seg").css('visibility', 'visible');
       $("#seg1").hide();
-      $("#cat").text("Exam : "+value.slice(0, 4));
+      if(value.slice(0, 3)=="CAT")
+      {
+        $("#cat").text("Exam : "+value.slice(0, 4));
+      }
+      else{
+          window.location.href='CF2.php?exam='+value;
+      }
        
 
 
