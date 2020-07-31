@@ -175,6 +175,8 @@ span{
 
 
 </style>
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
 <body>
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
@@ -405,10 +407,26 @@ if($count==1)
 
     </div>
   <script>
+
+
+
+document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+}; 
+
+
   var i=2;
   var str = "BCDEF";
   
   $(document).ready(function(){
+
+    
 
 
     // $("#seg").hide();
@@ -467,13 +485,21 @@ if($count==1)
 
 
       console.log(value);
-      $("#seg").css('visibility', 'visible');
-      $("#seg1").hide();
+   
+      if(value=="<?php echo 'CAT3_'.$rows['code'].'_'.$rows['batch'];?>" || value=="<?php echo 'CAT2_'.$rows['code'].'_'.$rows['batch'];?>" || value=="<?php echo 'CAT1_'.$rows['code'].'_'.$rows['batch'];?>")
+      { 
+       
+        $("#seg").css('visibility', 'visible');
+        $("#seg1").hide();
+
+      }
+     
       if(value.slice(0, 3)=="CAT")
       {
         $("#cat").text("Exam : "+value.slice(0, 4));
       }
-      else{
+      else
+      {
           window.location.href='CF2.php?exam='+value;
       }
        
