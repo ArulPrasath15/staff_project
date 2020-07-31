@@ -164,7 +164,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 
             if( $num_cols==count($columnArr1)-1)
             {
-
+                $j=0;
                 foreach ( $xlsx->rows() as $k => $r ) {
                     
                     $marksarr=array();
@@ -175,7 +175,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                     if($res->num_rows!=0) 
                      {
                         $maxcheck=0;
-                        $j=0;
+                        
                         for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
                         {
 
@@ -301,7 +301,15 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             }
             else
             {
-                echo "<body><script> Notiflix.Report.Warning('Import Sucessfully ','Please Check the Number ','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                $string='';
+                for($i=0;$i<count($maxfailedroll);$i++)
+                {
+                    $string.=strval($maxfailedroll[$i]);
+                    $string.=' , ';
+
+                }
+                // print_r($maxfailedroll);
+                echo "<body><script> Notiflix.Report.Warning('Imported Sucessfully ','Please Check the below Rollno $string which their Marks Exceed the Maximum Mark.','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
 
             }
 
