@@ -72,9 +72,8 @@ $(document).ready(function(){
 
 
 </script>
-
-<body>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+<body>
 
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
