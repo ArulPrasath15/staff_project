@@ -53,11 +53,11 @@
                 $con->query($sql6);
                 $con->query($sql7);
                 $con->query($sql8);
-                $con->query($sql9);
+                // $con->query($sql9);
                
 
-                    $sql10='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.$batch.' ';
-                    if($con->query($sql10))
+                //     $sql10='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.$batch.' ';
+                    if($con->query($sql9))
                     {
 
                         header("Location: ./index.php");
@@ -81,6 +81,45 @@
         
     }
     
+    if(isset($_POST["create-assign"]))
+    {
+
+        $str="CREATE TABLE ".strval($_SESSION['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL, mark FLOAT NULL, PRIMARY KEY (rollno))";
+        $sql1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Max Mark","'.strval($_POST["max1"]).'")';
+        $sql2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Exp Mark","'.strval($_POST["exp1"]).'")';
+        $sql3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvl")';
+        $sql4='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%")';
+        $sql5='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAtt")';
+        $sql6='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAtt")';
+        $sql7='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCo")';
+        $sql8='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range")';
+        $sql9='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Attco")';
+        if($con->query($str) and $con->query($sql1) and $con->query($sql2))
+        {
+                // $con->query($sql1);
+                // $con->query($sql2);
+                echo "hai...";
+                $con->query($sql3);
+                $con->query($sql4);
+                $con->query($sql5);
+                $con->query($sql6);
+                $con->query($sql7);
+                $con->query($sql8);
+                if($con->query($sql9))
+                {
+                    header("Location: ./index.php");
+                }
+                else
+                {
+                    echo "<script>alert('Problem with Course Framing...')</script>";
+                }
+        }
+        else
+        {
+            echo "<script>alert('Problem with Course Framing...')</script>";
+        }
+    }
+
     if(isset($_POST["cancel"]))
     {
 
