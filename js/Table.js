@@ -16,7 +16,7 @@
 // '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' + 
 // '<span class="glyphicon glyphicon-ok" > </span>'+
 // '</button>'+
-'<button  id="bAcep" class="ui green active button" style="display:none;" onclick="rowAcep(this);">'+
+'<button id="bAcep" class="ui green active button" style="display:none;" onclick="rowAcep(this);">'+
  '<i class="save icon"></i>'+
 '</button>'+
 
