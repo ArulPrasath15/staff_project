@@ -148,7 +148,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         $error=0;
         $success=0;
         $maxfailedroll=array(); 
-        $sql1="SELECT * FROM `$_table` WHERE rollno LIKE 'Max Mark'";
+        $sql1="SELECT * FROM `$_table` WHERE rollno LIKE 'Max Mark' ";
         $data1=$con->query($sql1);
         $res=$data1->fetch_assoc();
         for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
@@ -301,6 +301,9 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             }
             else
             {
+                $maxfailedroll=array_flip($maxfailedroll);
+                $maxfailedroll=array_flip($maxfailedroll);
+                $maxfailedroll=array_values($maxfailedroll);
                 $string='';
                 for($i=0;$i<count($maxfailedroll);$i++)
                 {
@@ -308,7 +311,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                     $string.=' , ';
 
                 }
-                // print_r($maxfailedroll);
+                //  print_r($maxfailedroll);
                 echo "<body><script> Notiflix.Report.Warning('Imported Sucessfully ','Please Check the below Rollno $string which their Marks Exceed the Maximum Mark.','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
 
             }
