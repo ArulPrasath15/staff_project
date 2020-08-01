@@ -126,7 +126,7 @@ body
             echo $table;
             $sql='select * from '.$table. '';
             $val = $con->query($sql);
-            if($val == FALSE)
+            if($val === FALSE)
             {
             }else
             {?>
@@ -134,8 +134,60 @@ body
 
             <?php
             }
+           ?>
+
+
+
+            <?php 
+            $table='ASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val == FALSE)
+            {
+            }else
+            {?>
+                 <option Value=ASSIGNMENT_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>ASSIGNMENT</option>
+
+            <?php
+            }
            ?>  
+           <!-- asses -->
+           <?php 
+            $table='OTHERASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val === FALSE)
+            {
+            }else
+            {?>
+                 <option Value=OTHERASSIGNMENT_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OTHER ASSIGNMENT</option>
+
+            <?php
+            }
+           ?>
+            <!--  other asses -->
+            <?php 
+            $table='SEM_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val === FALSE)
+            {
+            }else
+            {?>
+                 <option Value=SEM_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>SEMESTER</option>
+
+            <?php
+            }
+           ?>
+           
             
+           
+           
+
+
         </select><br><br>
         <button class="ui positive button" type="submit" name="submit"> Entry Mark</button>
         
