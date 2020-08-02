@@ -139,7 +139,7 @@ body
 
 
             <?php 
-            $table='ASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            $table='Assignment_'.$rows['code'].'_'.$rows['batch'];
             echo $table;
             $sql='select * from '.$table. '';
             $val = $con->query($sql);
@@ -154,7 +154,7 @@ body
            ?>  
            <!-- asses -->
            <?php 
-            $table='OTHERASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            $table='otherassesment_'.$rows['code'].'_'.$rows['batch'];
             echo $table;
             $sql='select * from '.$table. '';
             $val = $con->query($sql);
@@ -162,7 +162,7 @@ body
             {
             }else
             {?>
-                 <option Value=OTHERASSIGNMENT_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OTHER ASSIGNMENT</option>
+                 <option Value=otherassesment_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OTHER ASSIGNMENT</option>
 
             <?php
             }

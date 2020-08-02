@@ -81,7 +81,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             if($con->query($sql))
             {
     
-                    echo '<script>alert("fwfw")</script>'; 
+                   echo '<script>alert("fwfw")</script>'; 
                    header('Location: '.$_SERVER['REQUEST_URI']);
     
             }

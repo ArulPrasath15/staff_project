@@ -279,7 +279,7 @@ if($count==1)
            ?>  
            <!-- OtherAssesment -->
            <?php 
-            $table='OtherAssesment_'.$rows['code'].'_'.$rows['batch'];
+            $table='Otherassesment_'.$rows['code'].'_'.$rows['batch'];
             echo $table;
             $sql='select * from '.$table. '';
             $val = $con->query($sql);
@@ -287,7 +287,7 @@ if($count==1)
             {
             }else
             {?>
-                 <option Value=OtherAssesment_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OtherAssesment</option>
+                 <option Value=Otherassesment_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OtherAssesment</option>
 
             <?php
             }
