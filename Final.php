@@ -33,12 +33,13 @@
         position:relative;
         top:50%;
         left: 50%;
-        transform:translate(-650px,-300px);
+        transform:translate(-650px,50px);
         width:1300px;
         background:white;
         box-sizing: border-box;
         box-shadow: 0 15px 25px rgba(0,0,0,.5);
         border-radius: 10px;
+        padding:3%;
     }
     table
     {
@@ -54,16 +55,18 @@
     }
 </style>
 <body>
+<div id="fun">
 <!-- Navbar start -->
     <!-- <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div> -->
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
         <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
-        <!--  <a  class="right align item"  style="margin-left:1220px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>-->
+        <a  class="right align item"  style="margin-left:1220px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
       </div>
     </div>
 <!-- Navbar ended -->
     <div class="card">
+    <Button onclick="Export2Doc('fun','CO-PO Mapping');" variant="contained" color="primary" class="right align item"  style="margin-left:1100px;color:black;"   style="font-size:20px">Export2Doc</Button>
     <div class="topic">
         <h1 style="font-size:40px"><center>CO-PO MAPPING</center></h1>
     </div>
@@ -260,4 +263,43 @@
     </tr>
     </table>
     </div>
+    </div>
+    <script>
+    function Export2Doc(element, filename = ''){
+    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    var postHtml = "</body></html>";
+    var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+    var blob = new Blob(['\ufeff', html], {
+        type: 'application/msword'
+    });
+    
+    // Specify link url
+    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+    
+    // Specify file name
+    filename = filename?filename+'.doc':'document.doc';
+    
+    // Create download link element
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+        
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+    
+    document.body.removeChild(downloadLink);
+}
+    </script>
 </body>
+</html>
