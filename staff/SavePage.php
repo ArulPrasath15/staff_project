@@ -53,11 +53,11 @@
                 $con->query($sql6);
                 $con->query($sql7);
                 $con->query($sql8);
-                // $con->query($sql9);
+                $con->query($sql9);
                
 
-                //     $sql10='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.$batch.' ';
-                    if($con->query($sql9))
+                    $sql10='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.$batch.' ';
+                    if($con->query($sql10))
                     {
 
                         header("Location: ./index.php");
@@ -94,6 +94,7 @@
         $sql7='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCo")';
         $sql8='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range")';
         $sql9='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Attco")';
+        $sql10='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.($_SESSION['batch']).' ';
         if($con->query($str) and $con->query($sql1) and $con->query($sql2))
         {
                 // $con->query($sql1);
@@ -105,7 +106,8 @@
                 $con->query($sql6);
                 $con->query($sql7);
                 $con->query($sql8);
-                if($con->query($sql9))
+                $con->query($sql9);
+                if($con->query($sql10))
                 {
                     header("Location: ./index.php");
                 }
