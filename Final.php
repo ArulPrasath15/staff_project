@@ -19,6 +19,9 @@
         background:url("./Images/bg.jpg") ;
         background-size: cover;
     }
+
+
+    
     .topic
     {
         font-family:"Times New Roman", Times, serif;
