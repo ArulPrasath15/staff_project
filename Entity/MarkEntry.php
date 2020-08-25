@@ -58,6 +58,9 @@ body
 
 </style>
 
+
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
 <body>
    <!-- navbar -->
    <div class="ui tablet computer only padded grid">
@@ -123,7 +126,7 @@ body
             echo $table;
             $sql='select * from '.$table. '';
             $val = $con->query($sql);
-            if($val == FALSE)
+            if($val === FALSE)
             {
             }else
             {?>
@@ -131,8 +134,60 @@ body
 
             <?php
             }
+           ?>
+
+
+
+            <?php 
+            $table='ASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val == FALSE)
+            {
+            }else
+            {?>
+                 <option Value=ASSIGNMENT_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>ASSIGNMENT</option>
+
+            <?php
+            }
            ?>  
+           <!-- asses -->
+           <?php 
+            $table='OTHERASSIGNMENT_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val === FALSE)
+            {
+            }else
+            {?>
+                 <option Value=OTHERASSIGNMENT_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>OTHER ASSIGNMENT</option>
+
+            <?php
+            }
+           ?>
+            <!--  other asses -->
+            <?php 
+            $table='SEM_'.$rows['code'].'_'.$rows['batch'];
+            echo $table;
+            $sql='select * from '.$table. '';
+            $val = $con->query($sql);
+            if($val === FALSE)
+            {
+            }else
+            {?>
+                 <option Value=SEM_<?php echo strtoupper($rows['code']).'_'.$rows['batch']  ?>>SEMESTER</option>
+
+            <?php
+            }
+           ?>
+           
             
+           
+           
+
+
         </select><br><br>
         <button class="ui positive button" type="submit" name="submit"> Entry Mark</button>
         
@@ -144,6 +199,15 @@ body
 </div>
 </body>
 <script>
+document.onreadystatechange = function() { 
+	if (document.readyState !== "complete") { 
+		document.querySelector("body").style.visibility = "hidden"; 
+		document.querySelector(".preloader").style.visibility = "visible"; 
+	} else { 
+		document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	} 
+};
 
 $(document).ready(function(){
 

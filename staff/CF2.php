@@ -53,7 +53,11 @@ span{
 
 
 </style>
+<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+
 <body>
+
+
     <!-- navbar -->
     <div class="ui tablet computer only padded grid">
       <div class="ui borderless fluid  inverted menu" style="font-size:16px">
@@ -134,6 +138,19 @@ span{
 
 
 
+
+<script> 
+        document.onreadystatechange = function() { 
+        if (document.readyState !== "complete") { 
+        document.querySelector("body").style.visibility = "hidden"; 
+        document.querySelector(".preloader").style.visibility = "visible"; 
+        } else { 
+        document.querySelector(".preloader").style.display = "none"; 
+		document.querySelector("body").style.visibility = "visible"; 
+	    } 
+        }; 
+
+ </script> 
 
 </body>
 </html>
