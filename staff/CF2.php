@@ -12,6 +12,16 @@
         header("Location: ./index.php");
 
     }
+    else
+    {
+        $str1='Assignment_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
+        $str2='OtherAssesment_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
+        $str3='SEM_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
+        if(!((strval($_GET['exam'])==$str1) or (strval($_GET['exam'])==$str2) or (strval($_GET['exam'])==$str3)))
+        {
+            header("Location: ./index.php");
+        }
+    }
     $_SESSION['exam']=$_GET['exam']; 
     
 ?>
