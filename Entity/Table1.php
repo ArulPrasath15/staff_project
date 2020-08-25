@@ -1,5 +1,6 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
+
 include_once("../db.php");
 include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
@@ -81,7 +82,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             if($con->query($sql))
             {
     
-                    echo '<script>alert("fwfw")</script>'; 
+                   echo '<script>alert("fwfw")</script>'; 
                    header('Location: '.$_SERVER['REQUEST_URI']);
     
             }

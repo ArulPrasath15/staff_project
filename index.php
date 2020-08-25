@@ -1,27 +1,36 @@
 <?php
 include_once("./db.php");
 session_start();
-if(isset($_SESSION["staffid"]))
+if(isset($_SESSION['staffid']))
 {
-  header("Location: ./staff/index.php");
+    header("Location: ./staff/index.php");
+
 }
+
+
+
 ?>
 
 <?php
     
+    $con=new mysqli("localhost","root","","staff");
+    if($con->connect_error)
+    {
+        die("Connection failed:".$con->connect_error);
+    }
     if (isset($_POST["sub1"]))
     {
         
         $mail=$_POST["mail"];
+        $pass=sha1($_POST["pass"]);
         // echo $mail;
-        $sql="select * from staff where mail like '$mail'";
+        $sql="select * from staff where mail like '$mail' and pass like '$pass'";
         $res=$con->query($sql);
         $count=$res->num_rows;
         echo $count;
         $row=$res->fetch_assoc();        //$data=$res->fetch_assoc();
        if( $count==1)
        {
-             
             $_SESSION["staffid"]=$row['staffid'];
             $_SESSION["staffname"]=$row['name'];
             header("Location: ./staff/index.php");
@@ -148,6 +157,12 @@ if(isset($_SESSION["staffid"]))
             alert('Please enter a valid detail');
             return false;
           }
+       //   var pass;
+        //  pass=document.getElementById("pass").value;
+        //  if(pass=='pass')
+          //{
+            //window.location.replace("index.php"); 
+          //}
         }
     </script>
     
