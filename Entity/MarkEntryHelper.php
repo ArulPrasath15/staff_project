@@ -11,17 +11,22 @@ if(isset($_POST['submit']))
      
     $_SESSION['exam']=$_POST['exam'];
     $exam=substr($_POST['exam'],0,3); 
-    if($exam=="SEM" || $exam=="oth" || $exam=="ASS")
+    if( $exam=="oth" || $exam=="ASS")
     {
 
       header("Location: ../Entity/Table1.php");
 
     }
-    else
+    else if($exam=="SEM")
     {
 
-      header("Location: ../Entity/Table.php");
+      header("Location: ../Entity/Sem.php");
 
+    }
+    else
+    {
+      header("Location: ../Entity/Table1.php");
+      
     }
 
 
