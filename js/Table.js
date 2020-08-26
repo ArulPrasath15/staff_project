@@ -12,7 +12,7 @@
  '<i class="edit icon"></i>'+
 '</button>'+
 
-'<button id="loader"  style="display:none;width:60px;" class="ui small green loading button">Loading</button>'+
+'<button id="loader"  style="display:none;width:30px;" class="ui small green loading button">Loading</button>'+
 // '<button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;" onclick="rowAcep(this);">' + 
 // '<span class="glyphicon glyphicon-ok" > </span>'+
 // '</button>'+
