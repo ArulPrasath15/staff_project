@@ -57,7 +57,8 @@ $range=array();
 $count=0;
 $sql="SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS` WHERE `TABLE_SCHEMA`='staff' AND `TABLE_NAME`='$_table' ";
 $data=$con->query($sql);
-while($row = $data->fetch_assoc()){
+while($row = $data->fetch_assoc())
+{
     $result[] = $row;
 }
 // Array of all column names

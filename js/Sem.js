@@ -186,15 +186,33 @@ function rowEdit(but){
       }
       else{
 
-          var cont = $td.html();
-          //console.log(cont)
-          var div = '<div style="display: none;">' + cont + '</div>';  
-          var input = '<div class="ui input" ><input class="mytest" id="name-input" type="text" maxlength="2" style="width: 65px;" value='+cont+' ></input></div>';
-          $td.html(div+input); 
-          i+=1; 
+          if(i==1)
+          {
+            var cont = $td.html();
+            //console.log(cont)
+            var div = '<div style="display: none;">' + cont + '</div>';  
+            var input = '<div class="ui input" ><input class="mytest" autofocus id="name-input" type="text" maxlength="2" style="width: 65px;" value='+cont+' ></input></div>';
+            $td.html(div+input); 
+            i+=1; 
+
+          }
+          else
+          {
+
+            var cont = $td.html();
+            //console.log(cont) 
+            var div = '<div style="display: none;">' + cont + '</div>';  
+            var input = '<div class="ui input" ><input class="mytest1" id="name-input" type="text" maxlength="2" style="width: 65px;" value='+cont+' ></input></div>';
+            $td.html(div+input); 
+            i+=1; 
+
+          }
+         
       }
   });
   
+  $("input.mytest").focus();
+  $("input.mytest1").attr('readonly', 'true');
   $("input.mytest").keyup( checkLength );
 
   function checkLength()
@@ -235,7 +253,8 @@ function rowEdit(but){
           {
               if($count==$($cols).length-1)
               {
-                  $(this).find('.mytest').val($total);
+
+                  $(this).find('.mytest1').val($total);
                   return;
               }
               else{
