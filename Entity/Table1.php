@@ -715,7 +715,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
    
 
-                    <!-- <?php  
+                     <?php  
                         $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
