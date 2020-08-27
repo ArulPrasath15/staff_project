@@ -1,9 +1,13 @@
 # CO PO Mapping Automation Project
 
 Members:
-Arul Prasath V (Arch.)
-Gowtham Krishnan S (Facilitator)
-Deepti R (Backend Engineer)
-
+<ul>
+<li>Arul Prasath V (Arch.)</li>
+<li>Gowtham Krishnan S (Facilitator)</li>
+<li>Deepti R (Backend Engineer)</li>
+</ul><br/>
 Mentorship:
-Abinash S, Ajay R
+<ul>
+  <li>Abinash S</li>
+ <li>Ajay R</li>
+</ul>
