@@ -1,6 +1,6 @@
 <?php 
 include_once("../db.php");
-session_start();
+include_once("./nav.php");
 if(!isset($_SESSION["staffid"]))
 {
   header("Location: ../index.php");
@@ -20,10 +20,7 @@ $_SESSION['code']=$_code;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assign Staff</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
-    <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/>
-    <script src="../assets/js/jquery.min.js"></script> 
-    <script src="../assets/Fomantic/dist/semantic.min.js"></script>
-
+    
 </head>
 
 <style>
@@ -49,18 +46,6 @@ h2
 
 <script>
 
-document.onreadystatechange = function() { 
-	if (document.readyState !== "complete") { 
-		document.querySelector("body").style.visibility = "hidden"; 
-		document.querySelector(".preloader").style.visibility = "visible"; 
-	} else { 
-		document.querySelector(".preloader").style.display = "none"; 
-		document.querySelector("body").style.visibility = "visible"; 
-	} 
-}; 
-
-
-
 $(document).ready(function(){
 
   $('.ui.dropdown')
@@ -74,17 +59,6 @@ $(document).ready(function(){
 </script>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
 <body>
-
-    <!-- navbar -->
-    <div class="ui tablet computer only padded grid">
-      <div class="ui borderless fluid  inverted menu" style="font-size:16px">
-      <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
-        <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="right aligned item"  style="margin-left:1100px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
-      
-      </div>
-    </div>
-<!-- navbar end -->
 <br><br>
 <center>
     <div class="ui inverted card">

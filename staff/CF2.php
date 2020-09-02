@@ -1,7 +1,7 @@
 <?php
    
    include_once("../db.php");
-   session_start();
+   include_once("./nav.php");
    if(!isset($_SESSION["staffid"]))
 {
   header("Location: ../index.php");
@@ -31,9 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Frame</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.js"></script>
+    
 
 </head>
 <style>
@@ -57,18 +55,7 @@ span{
 
 <body>
 
-
-    <!-- navbar -->
-    <div class="ui tablet computer only padded grid">
-      <div class="ui borderless fluid  inverted menu" style="font-size:16px">
-      <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
-        <a class="item" href=""><h4> <?php echo $_SESSION['staffname']; ?></h4></a>
-        <a  class="right aligned item"  style="margin-left:1100px;"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
-      
-      </div>
-    </div>
-<!-- navbar end -->
-<h2 class="ui center aligned icon header" style="margin:3%">
+  <h2 class="ui center aligned icon header" style="margin:3%">
     <i class="inverted yellow settings icon"></i>
     <div style="color:#ffd700" class="content">
         Exam Pattern Framer
@@ -137,20 +124,6 @@ span{
         </div>
 
 
-
-
-<script> 
-        document.onreadystatechange = function() { 
-        if (document.readyState !== "complete") { 
-        document.querySelector("body").style.visibility = "hidden"; 
-        document.querySelector(".preloader").style.visibility = "visible"; 
-        } else { 
-        document.querySelector(".preloader").style.display = "none"; 
-		document.querySelector("body").style.visibility = "visible"; 
-	    } 
-        }; 
-
- </script> 
 
 </body>
 </html>

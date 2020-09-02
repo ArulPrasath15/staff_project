@@ -514,8 +514,13 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
   }
  .dt-buttons.ui.basic.buttons{
 
-    margin-left:80%;
+    margin-left:62%;
     
+  }
+  .ui.table
+  {
+    table-layout: auto;
+    width: 80%; 
   }
 
 
@@ -630,7 +635,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     <button class="ui blue button" name="importsubmit"> Import</button>
 
 </form>
-    <table id="table-list" class="ui fixed selectable celled table"  >
+  <center>
+    <table id="table-list" class="ui selectable celled table">
     <thead>
                 <tr>
                     <?php
@@ -660,7 +666,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 
              </thead>
      
-      <tbody> 
+             <tbody> 
              
 
 
@@ -685,76 +691,50 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
              }
              ?>
 
-   
 
-                    <!-- <?php  
-                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
+        <?php  
+                        $max = $con->query("SELECT `points` FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
-                            <?php
-                            for($i=1;$i<count($maxmark);$i++)
-                            { if($i==1)
-                                {?>
+                            
                                     <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>No of students scores upto expected level </para></td>
                                     
-                               <?php }else{   
-
-
-                                ?>
-                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
+                               
+                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[0]; ?></td>
                         
-                            <?php
-                   } }?>
+                            
                     <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
                     </tr>
 
                    
 
                     <?php  
-                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
+                        $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
-                            <?php
-                            for($i=1;$i<count($maxmark)-1;$i++)
-                            { if($i==1)
-                                {?>
+                            
                                     <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above tde attainment level, Total appeared for Test</para></td>
                                     
-                               <?php }else{   
-
-
-                                ?>
-                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo number_format($maxmark[$i],2); ?></td>
+                               
+                                    <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo number_format($maxmark[0],2); ?></td>
                         
-                            <?php
-                   } }?>
+                            
 
                     <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
-                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
 
                     </tr>
 
                     <tr >    
 
                   <?php  $i=0;  ?> 
-                <td style="background-color:grey;color:black;font-size:15px;"></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>5 </pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><center>4</center></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>3</pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>2</pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>1</pre></td><?php $i++; ?>
-                <?php
+                <td style="background-color:grey;color:black;font-size:15px;"></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" ><pre>       5 >       < 4      >       3 >       2 >       1  </pre></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" ></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
 
-                $t =count($columnArr)-$i+1;
-                //    echo $t;
-                for($i=1 ;$i<$t;$i++)
-                {    ?>
-                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
-
-                    <?php
-                }
-   
-             ?>
+                
 
 
                 
@@ -762,367 +742,202 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
             <?php
                      
-                     $max = $con->query("SELECT * FROM  $_table  WHERE  `rollno` like 'range' ");
+                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range' ");
                      $maxmark = $max->fetch_row();
+                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range1' ");
+                     $maxmark1 = $max->fetch_row();
  
  
                  ?>
-                 <tr >    <?php  $i=0;  ?> 
-                 <td style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><pre>></pre> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[5]  ?> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[4]  ?></td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[3]  ?></td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo $maxmark[2]  ?></td> <?php $i++; ?> 
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><</th><?php $i++; ?>
-                 
-                 <?php
-
-                $t =count($columnArr)-$i+1;
-                //    echo $t;
-                for($i=1 ;$i<$t;$i++)
-                {    ?>
-                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
-
-                    <?php
-                }
-
-                ?>
-
+                 <tr > <?php    ?> 
+                 <td style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></td>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><pre><?php echo "       ".substr($maxmark1[0],3,2)."         ".substr($maxmark1[0],0,2)."        ".substr($maxmark[0],3,2)."         ".substr($maxmark[0],0,2)  ?></pre> </td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+            
  
   
                  </tr>
 
                  <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'ExpAtt' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'ExpAtt' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
-                        <?php
-                        for($i=1;$i<count($maxmark);$i++)
-                        { if($i==1)
-                            {?>
+                        
                                 <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Expected attainment for each question</para></td>
                                 
-                           <?php }else{   
-
-
-                            ?>
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
+                           
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[0]; ?></td>
                     
-                        <?php
-               } }?>
+                        
                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'SatAtt' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'SatAtt' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
-                        <?php
-                        for($i=1;$i<count($maxmark);$i++)
-                        { if($i==1)
-                            {?>
+                        
                                 <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Satisfaction attainment level based on level indicator</para></td>
                                 
-                           <?php }else{   
-
-
-                            ?>
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
+                           
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[0]; ?></td>
                     
-                        <?php
-               } }?>
+                        
                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
                 </tr>
 
 
                 <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Co' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
-                        <?php
-                        for($i=1;$i<count($maxmark);$i++)
-                        {   
-                            if($i==1)
-                            {?>
-                             <td  style="background-color:grey;color:black;font-size:15px;" class="center aligned" ><para>Mapping with CO </para></td>
-                            <?php
-                             $i++;
-                            }
-
-                            ?>
-                             <td  style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php  if(is_numeric($maxmark[$i])){echo 'CO'.$maxmark[$i];}?></td>
-                    
-                        <?php
-                        }?>  
-                        <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
-                </tr>
-
-
-
-                <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
-                    $maxmark = $max->fetch_row(); ?>
-                <tr  class="maxmarkrow">
-                        <?php
-                        for($i=1;$i<count($maxmark);$i++)
-                        { if($i==1)
-                            {?>
+                        
                                 <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Attainment level of Each CO</para></td>
                                 
-                           <?php }else{   
-
-
-                            ?>
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[$i]; ?></td>
+                           
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $maxmark[0]; ?></td>
                     
-                        <?php
-               } }?>
+                        
                 <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
                 </tr> 
 
 
                 <?php
-                $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Attco' ");
+                $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Attco' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
-                        <?php
-                        $j=0;
-                        for($i=1;$i<count($maxmark);$i++)
-                        { if($maxmark[$i]==0)
-                            {?>
-                                <!-- <th style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Attainment level of Each CO</para></th> -->
+                        
                                 
-                           <?php }else
-                           {   $j++;
-                            ?>
-                                
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO".($i-1).' = '.$maxmark[$i]; ?></td>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO1, CO2, CO3, CO4, CO5 = ".$maxmark[0]; ?></td>
                     
-                        <?php
-               } }
+                        
                
-                $t =count($columnArr)-$j*1;
-            //    echo $t;
-               for($i=1 ;$i<$t;$i++)
-               {    ?>
-                <!-- <td style="background-color:#dfedf7;color:black;font-size:16px;"></td> -->
+                <td style="background-color:#dfedf7;color:black;font-size:16px;"></td> 
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+                </tr>
 
-                <?php
-               }
-               
-                 ?>
+   
 
-             </tr> -->
-
-
-
-              
-
-                
-
-
-                  
 
 
             </tbody>
            
     </table>
+    </center>
 
     <br>
     <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
         
         <?php
 
-        if(isset($_POST["submit"]))
-        {
-           
-            $exp = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Exp Mark' ");
-            $expmark = $exp->fetch_row();
-            $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");
-            $maxmark = $max->fetch_row();
-            $max1 = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Co' ");
-            $comark = $max1->fetch_row();
-            $exp_tot=0;
-            $max_tot=0;
-            $exp_att=0; 
-            $sql="SELECT * from $_table WHERE `sec` like '$class' ORDER BY `rollno` ASC ";
-            $data1=$con->query($sql);
-            $got=array();
-            $tot_num=array();
-            $exp_att_arr=array(); 
-            $sat_att_arr=array(); 
-            $Up2ExpLvl=array();
-            $AttLvlCo=array();
-            $Co=array();
-            $Co_count=array();
-            array_push($Co,0,0,0,0,0);
-            array_push($Co_count,0,0,0,0,0);
-            for($i=2;$i<count($columnArr)-1;$i++)
+if(isset($_POST["submit"]))
+{
+       
+    $exp = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Exp Mark' ");
+    $expmark = 3;
+    echo $expmark[0];
+    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Max Mark' ");
+    $maxmark = 10;
+    echo $maxmark[0];
+    $sql="SELECT points from $_table WHERE `sec` like 'A' ORDER BY `rollno` ASC ";
+    $data1=$con->query($sql);
+    $tot_num=0;
+    $got=0;
+    while($row1 = $data1->fetch_assoc()){
+        if($row1['points']!=NULL){
+            $tot_num++;
+            if($row1['points']>=$expmark[0])
             {
-            $exp_tot+=$expmark[$i];
-            $max_tot+=$maxmark[$i];
-            array_push($exp_att_arr,(int)(($expmark[$i]/$maxmark[$i])*100));
-            array_push($sat_att_arr,0);   
-            array_push($got,0);
-            array_push($tot_num,0);
-            array_push($Up2ExpLvl,0);
-            array_push($AttLvlCo,0);
+                echo $row1['points'];
+            $got++;
             }
-            while($row1 = $data1->fetch_assoc()){
-            for($i=2;$i<count($columnArr)-1;$i++)
-            {
-                if($row1[$columnArr[$i]]!=NULL){
-                $tot_num[$i-2]++;
-                if($row1[$columnArr[$i]]>=$expmark[$i])
-                {
-                $got[$i-2]++;
-                }}
-            }
-            }
-            $exp_att=(int)(($exp_tot/$max_tot)*100);
-            //  $range=array();
-            //array_push($range,$exp_att);
-            $temp=(int)(($exp_att-50)/3);
-            array_push($range,50,50+$temp,$exp_att-$temp,$exp_att);
-            //  $range[0]=50;
-            //  $range[1]=50+$temp;
-            //  $range[2]=$exp_att-$temp;
-            //  $range[3]=$exp_att;
-            $temp_rem=($exp_att-50)-($temp*3);
-            if($temp_rem==2)
-            {
-            $range[1]+=1;
-            $range[3]-=1;
-            }
-            else if($temp_rem==1)
-            {
-            $range[1]+=1;
-            }
-            for($i=2;$i<count($columnArr)-1;$i++)
-            {
-            $Up2ExpLvl[$i-2]=(($got[$i-2]/$tot_num[$i-2])*100);
-            if($exp_att_arr[$i-2]<=$range[0])
-            {
-                $sat_att_arr[$i-2]=1;
-            }
-            else if($exp_att_arr[$i-2]>$range[0] && $exp_att_arr[$i-2]<=$range[1])
-            {
-                $sat_att_arr[$i-2]=2;
-            }
-            else if($exp_att_arr[$i-2]>$range[1] && $exp_att_arr[$i-2]<=$range[2])
-            {
-                $sat_att_arr[$i-2]=3;
-            }
-            else if($exp_att_arr[$i-2]>$range[2] && $exp_att_arr[$i-2]<=$range[3])
-            {
-                $sat_att_arr[$i-2]=4;
-            }
-            else
-            {
-                $sat_att_arr[$i-2]=5;
-            }
-            }
-            for($i=2;$i<count($columnArr)-1;$i++)
-            {
-            if($Up2ExpLvl[$i-2]<=$range[0])
-            {
-                $AttLvlCo[$i-2]=1;
-            }
-            else if($Up2ExpLvl[$i-2]>$range[0] && $Up2ExpLvl[$i-2]<=$range[1])
-            {
-                $AttLvlCo[$i-2]=2;
-            }
-            else if($Up2ExpLvl[$i-2]>$range[1] && $Up2ExpLvl[$i-2]<=$range[2])
-            {
-                $AttLvlCo[$i-1]=3;
-            }
-            else if($Up2ExpLvl[$i-2]>$range[2] && $Up2ExpLvl[$i-2]<=$range[3])
-            {
-                $AttLvlCo[$i-2]=4;
-            }
-            else
-            {
-                $AttLvlCo[$i-2]=5;
-            }
-            }
-            for($i=2;$i<count($columnArr)-1;$i++)
-            {
-            for($j=1;$j<=5;$j++)
-            {
-                if($comark[$i]==$j)
-                {
-                $Co[$j-1]+=$AttLvlCo[$i-2];
-                $Co_count[$j-1]+=1;
-                }
-            }
-            }
-            for($i=0;$i<5;$i++)
-            {
-            if($Co_count[$i]!=0)
-            {
-                $Co[$i]=(float)($Co[$i]/$Co_count[$i]);
-            }
-            }
-            //    print_r($Co);
-            //    print_r($range);
-            //    print_r($AttLvlCo);
-            $sql2="UPDATE $_table SET ";
-            $sql3="UPDATE $_table SET ";
-            $sql4="UPDATE $_table SET ";
-            $sql5="UPDATE $_table SET ";
-            $sql6="UPDATE $_table SET ";
-            for($i=2;$i<count($columnArr)-1;$i++)
-            {
-            $sql2.=strval($columnArr[$i])."=".$got[$i-2];
-            $sql3.=strval($columnArr[$i])."=".$Up2ExpLvl[$i-2];
-            $sql4.=strval($columnArr[$i])."=".$exp_att_arr[$i-2];
-            $sql5.=strval($columnArr[$i])."=".$sat_att_arr[$i-2];
-            $sql6.=strval($columnArr[$i])."=".$AttLvlCo[$i-2];
-            if($i!=count($columnArr)-2)
-            {
-                $sql2.=",";
-                $sql3.=",";
-                $sql4.=",";
-                $sql5.=",";
-                $sql6.=",";
-            }
-            else
-            {
-                $sql2.=" ";
-                $sql3.=" ";
-                $sql4.=" ";
-                $sql5.=" ";
-                $sql6.=" ";
-            }
-            }
-            $sql2.= "WHERE rollno like 'Up2ExpLvl'";
-            // echo $sql2;
-            $con->query($sql2);
-            $sql3.= "WHERE rollno like 'Up2ExLvl%'";
-            $con->query($sql3);
-            $sql4.= "WHERE rollno like 'ExpAtt'";
-            $con->query($sql4);
-            $sql5.= "WHERE rollno like 'SatAtt'";
-            $con->query($sql5);
-            $sql6.= "WHERE rollno like 'AttLvlCo'";
-            $con->query($sql6);
-
-
-            $sql7="UPDATE $_table set `Q1` = ".$range[0]." , `Q2`= ".$range[1]." , `Q3`=  ".$range[2].", `Q4`= ".$range[3]." WHERE `rollno` LIKE 'range'";
-            $con->query($sql7);
-
-            $sql8="UPDATE $_table set `Q1` = ".$Co[0]." , `Q2`= ".$Co[1]." , `Q3`=  ".$Co[2].", `Q4`= ".$Co[3].",`Q5`= ".$Co[4]." WHERE `rollno` LIKE 'Attco'";
-            $con->query($sql8);
-                      
-           
-
+        }
     }
+    $Up2ExpLvl=(int)(($got/$tot_num)*100);
+    $exp_att1=(3/10)*100;
+    $exp_att=(int)((3/10)*100);
+    $sat_att=0;
+    $AttLvlCo=0;
+    $temp=(int)(($exp_att-50)/3);
+    $range=[];
+    array_push($range,50,50+$temp,$exp_att-$temp,$exp_att);
+    $temp_rem=($exp_att-50)-($temp*3);
+    if($temp_rem==2)
+    {
+        $range[1]+=1;
+        $range[3]-=1;
+    }
+    else if($temp_rem==1)
+    {
+        $range[1]+=1;
+    }
+    if($exp_att<=$range[0])
+    {
+        $sat_att=1;
+    }
+    else if($exp_att>$range[0] && $exp_att<=$range[1])
+    {
+        $sat_att=2;
+    }
+    else if($exp_att>$range[1] && $exp_att<=$range[2])
+    {
+        $sat_att=3;
+    }
+    else if($exp_att>$range[2] && $exp_att<=$range[3])
+    {
+        $sat_att=4;
+    }
+    else
+    {
+        $sat_att=5;
+    }
+    if($Up2ExpLvl<=$range[0])
+    {
+        $AttLvlCo=1;
+    }
+    else if($Up2ExpLvl>$range[0] && $Up2ExpLvl<=$range[1])
+    {
+        $AttLvlCo=2;
+    }
+    else if($Up2ExpLvl>$range[1] && $Up2ExpLvl<=$range[2])
+    {
+        $AttLvlCo=3;
+    }
+    else if($Up2ExpLvl>$range[2] && $Up2ExpLvl<=$range[3])
+    {
+        $AttLvlCo=4;
+    }
+    else
+    {
+        $AttLvlCo=5;
+    }
+    $range_str1=$range[0].'0'.$range[1];
+    $range_str2=$range[2].'0'.$range[3];
+    //echo "....".$range_str;
+    $sql2="UPDATE $_table SET points =".$got." WHERE rollno like 'Up2ExpLvl'";
+    $sql3="UPDATE $_table SET points =".$Up2ExpLvl." WHERE rollno like 'Up2ExLvl%'";
+    $sql4="UPDATE $_table SET points =".$exp_att1." WHERE rollno like 'ExpAtt'";
+    $sql5="UPDATE $_table SET points =".$sat_att." WHERE rollno like 'SatAtt'";
+    $sql6="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'AttLvlCo'";
+    $sql7="UPDATE $_table SET points =".intval($range_str1)." WHERE `rollno` LIKE 'range'";
+    $sql8="UPDATE $_table SET points =".intval($range_str2)." WHERE `rollno` LIKE 'range1'";
+    $sql9="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'Attco'";
+    $con->query($sql2);
+    $con->query($sql3);
+    $con->query($sql4);
+    $con->query($sql5);
+    $con->query($sql6);
+    $con->query($sql7);
+    $con->query($sql8);
+    $con->query($sql9);
+
+}
+
 
      ?>
        

@@ -25,7 +25,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-      header("Location: ../Entity/Table1.php");
+      header("Location: ../Entity/Table.php");
       
     }
 

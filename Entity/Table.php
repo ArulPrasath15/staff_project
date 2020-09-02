@@ -1,7 +1,7 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
-include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+// include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
 if(!isset($_SESSION["staffid"]))
@@ -350,23 +350,23 @@ $columnArr = array_column($result, 'COLUMN_NAME');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mark</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.semanticui.min.css">
-  <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="../css/Table.css" type="text/css"/> 
 
-<script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src = "https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src = "https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
-<script src = "https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.semanticui.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src = "https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src = "https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+    <script src = "https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.semanticui.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 </head>
 
 
@@ -609,15 +609,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
 
-
-
-
-
 <!-- end of pre/abs  -->
-
-
-
-
 
 
 <!-- <div class="ui grid"> -->
