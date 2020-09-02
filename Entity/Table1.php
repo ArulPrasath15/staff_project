@@ -503,19 +503,25 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
       color:white;
       font-size:15px;
 
-
+  }
+  .ui.table
+  {
+    
+    table-layout: auto;
+    width: 50%; 
   }
   .ui.table thead tr:first-child > th {
       position: sticky !important;
       top: 0;
       z-index: 2;
+      
   }
   .ui.basic.buttons .button {
     background: #767676 none!important;
   }
  .dt-buttons.ui.basic.buttons{
 
-    margin-left:80%;
+    margin-left:32%;
     
   }
 
@@ -547,7 +553,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     <div class="middle aligned row">
       <div class="column">
 
-             <table  style="width:600px;margin-left:80px;" class="ui celled fixed selectable table">
+             <table  style="width:600px;margin-left:80px;" class="ui celled selectable table">
                      <tbody>
                         <tr>
                             <td class="center aligned">Course Code</td>
@@ -631,7 +637,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     <button class="ui blue button" name="importsubmit"> Import</button>
 
 </form>
-    <table id="table-list" class="ui fixed selectable celled table"  >
+<center>
+    <table id="table-list" class="ui selectable celled table" >
     <thead>
                 <tr>
                     <?php
@@ -671,7 +678,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                       <tr  class="max">
                     <td class="center aligned"style="background-color:#d5f0dc;color:black;"  >Max Mark</td>
                     <td class="center aligned"  style="background-color:#d5f0dc;color:black;" id=<?php echo strtoupper($columnArr[0]);?> value=<?php echo $maxmark[2]; ?>> <?php echo $maxmark[2]; ?></td>
-                    <td class="center aligned"style="background-color:#d5f0dc;color:black;"  ></td>
+                    <td class="center aligned"style="background-color:#d5f0dc;color:black;;width:10px;"  ></td>
                         
 
                     </tr> 
@@ -744,31 +751,17 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                             
 
                     <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
-                    <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
 
                     </tr>
 
                     <tr >    
 
                   <?php  $i=0;  ?> 
-                <td style="background-color:grey;color:black;font-size:15px;"></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>5 </pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><center>4</center></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>3</pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>2</pre></td><?php $i++; ?>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>1</pre></td><?php $i++; ?>
-                <?php
+                <td style="background-color:grey;color:black;font-size:15px;"></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" ><pre>       5 >       < 4      >       3 >       2 >       1  </pre></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" ></td>
 
-                $t =count($columnArr)-$i+1;
-                //    echo $t;
-                for($i=1 ;$i<$t;$i++)
-                {    ?>
-                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
-
-                    <?php
-                }
-   
-             ?>
+                
 
 
                 
@@ -783,32 +776,11 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
  
  
                  ?>
-                 <tr >    <?php  $i=0;  ?> 
-                 <td style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><pre>></pre> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo substr($maxmark1[0],3,2)  ?> </td><?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo substr($maxmark1[0],0,2)  ?></td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo substr($maxmark[0],3,2)  ?></td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:20px;">-</td> <?php $i++; ?>
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><?php echo substr($maxmark[0],0,2)  ?></td> <?php $i++; ?> 
-                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><</th><?php $i++; ?>
-                 
-                 <?php
-
-                $t =count($columnArr)-$i+1;
-                //    echo $t;
-                for($i=1 ;$i<$t;$i++)
-                {    ?>
-                    <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
-
-                    <?php
-                }
-
-                ?>
-
+                 <tr > <?php    ?> 
+                 <td style="background-color:grey;color:black;font-size:15px;"><para>Range of attainment</para></td>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"><pre><?php echo "       ".substr($maxmark1[0],3,2)."         ".substr($maxmark1[0],0,2)."        ".substr($maxmark[0],3,2)."         ".substr($maxmark[0],0,2)  ?></pre> </td><?php $i++; ?>
+                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></th>
+            
  
   
                  </tr>
@@ -871,19 +843,10 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 <td style="background-color:#dfedf7;color:black;font-size:16px;"></td> 
                 </tr>
 
-
-
-              
-
-                
-
-
-                  
-
-
             </tbody>
            
     </table>
+    </center>
 
     <br>
     <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
