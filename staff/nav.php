@@ -8,6 +8,7 @@ session_start();
       <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no"/>
      <?php include_once('../assets/notiflix.php'); ?>
+     <link rel="icon" type="image/png" href="../Images/logo.png">
       <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css" />
       <script src="../assets/jquery.min.js"></script>
       <script src="../assets/Fomantic/dist/semantic.min.js"></script>
