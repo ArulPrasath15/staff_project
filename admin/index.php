@@ -13,7 +13,7 @@
        if( $mail=="admin")
        {
         $_SESSION['admin']="yes";
-        header("Location: ./CreateCourse.php");
+        header("Location: ./cc.php");
        }
            else{
 
