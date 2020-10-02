@@ -100,7 +100,28 @@
         {
                 // $con->query($sql1);
                 // $con->query($sql2);
-                echo "hai...";
+                //echo "hai...";
+                if(substr(strval($_SESSION['exam']),0,5)=="Other")
+                {
+                    $co="";
+                    if(isset($_POST['co1'])){
+                        $co.="1";
+                    }
+                    if(isset($_POST['co2'])){
+                        $co.="2";
+                    }
+                    if(isset($_POST['co3'])){
+                        $co.="3";
+                    }
+                    if(isset($_POST['co4'])){
+                        $co.="4";
+                    }
+                    if(isset($_POST['co5'])){
+                        $co.="5";
+                    }
+                    $sql_co='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("CO","'.$co.'")';
+                    $con->query($sql_co);    
+                }
                 $con->query($sql3);
                 $con->query($sql4);
                 $con->query($sql5);
