@@ -2,7 +2,7 @@
 <?php
 
 include_once("../db.php");
-include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+// include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
 if(!isset($_SESSION["staffid"]))
@@ -389,18 +389,18 @@ $(document).ready(function() {
 
 
     // file restrict
-var file = document.getElementById('inputfile');
-console.log(file);
-file.onchange = function(e) {
-  var ext = this.value.match(/\.([^\.]+)$/)[1];
-  switch (ext) {
-    case 'xlsx':
-       break;
-    default:
-      alert('Not allowed');
-      this.value = '';
-  }
-};
+// var file = document.getElementById('inputfile');
+// console.log(file);
+// file.onchange = function(e) {
+//   var ext = this.value.match(/\.([^\.]+)$/)[1];
+//   switch (ext) {
+//     case 'xlsx':
+//        break;
+//     default:
+//       alert('Not allowed');
+//       this.value = '';
+//   }
+// };
 
 var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
@@ -630,13 +630,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
+  <!-- <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> -->
 
-    <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-
-    <button class="ui blue button" name="importsubmit"> Import</button>
-
-</form>
 <center>
     <table id="table-list" class="ui selectable celled table" >
     <thead>
@@ -813,6 +808,34 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 </tr>
 
+                <tr  class="maxmarkrow">
+                        
+                                <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Mapping with CO</para></td>
+                                <?php
+                                    if(substr(strval($_SESSION['exam']),0,5)=="Other")
+                                    {
+                                        $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'CO' ");
+                                        $maxmark = $max->fetch_row();   
+                                        $co_v=$maxmark[0];
+                                        $co_str="";
+                                        for($i=0;$i<strlen($co_v);$i++)
+                                        {
+                                            $co_str.=" CO".$co_v[$i].",";
+                                        }
+                                        $co_str_f=substr($co_str,0,strlen($co_str)-1);
+                                ?>
+                           
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $co_str_f; ?></td>
+
+                                <?php }
+                                      else{
+                                ?>
+                                <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo "CO1, CO2, CO3, CO4, CO5"; ?> </td>
+                                <?php }?>
+                    
+                        
+                <td style="background-color:#dfedf7;color:black;font-size:16px;"></td>
+                </tr> 
 
                 <?php  
                     $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
@@ -834,10 +857,17 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
-                        
-                                
-                                <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO1, CO2, CO3, CO4, CO5 = ".$maxmark[0]; ?></td>
-                    
+                <?php
+                    if(substr(strval($_SESSION['exam']),0,5)=="Other")
+                    {    
+                     ?> 
+                     <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $co_str_f." = ".$maxmark[0]; ?></td>
+
+                <?php }
+                      else{
+                      ?>          
+                    <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0" class="center aligned" > <?php echo "CO1, CO2, CO3, CO4, CO5 = ".$maxmark[0]; ?></td>
+                <?php }?>
                         
                
                 <td style="background-color:#dfedf7;color:black;font-size:16px;"></td> 

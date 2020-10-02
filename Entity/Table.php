@@ -1,7 +1,7 @@
 <!-- THIS PAGE IS FOR MARK ENTRY TABLE -->
 <?php
 include_once("../db.php");
-// include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
 if(!isset($_SESSION["staffid"]))
@@ -138,9 +138,9 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         $columnArr1 = array_column($result1, 'COLUMN_NAME');
 
         // echo count($columnArr1)-1;
-        // echo $_FILES['ifile']['tmp_name'];
+        // echo $_FILES['chooseFile']['tmp_name'];
         
-        if ( $xlsx = SimpleXLSX::parse( $_FILES['ifile']['tmp_name'] ) )
+        if ( $xlsx = SimpleXLSX::parse( $_FILES['chooseFile']['tmp_name'] ) )
         {
         list( $num_cols, $num_row) = $xlsx->dimension();
         // echo $num_cols."     ";
@@ -327,19 +327,6 @@ $columnArr = array_column($result, 'COLUMN_NAME');
        
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
 
 
@@ -388,7 +375,7 @@ $(document).ready(function() {
 
 
     // file restrict
-var file = document.getElementById('inputfile');
+var file = document.getElementById('chooseFile');
 console.log(file);
 file.onchange = function(e) {
   var ext = this.value.match(/\.([^\.]+)$/)[1];
@@ -400,6 +387,19 @@ file.onchange = function(e) {
       this.value = '';
   }
 };
+
+$('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen..."); 
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+  }
+});
+
 
 var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
@@ -514,9 +514,117 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
   }
  .dt-buttons.ui.basic.buttons{
 
-    margin-left:80%;
+    margin-left:81%;
     
   }
+
+
+  .file-upload {
+  display: block;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  width:350px;
+}
+.file-upload .file-select {
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select .file-select-button {
+  background: #dce4ec;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+.file-upload .file-select:hover {
+  border-color: #34495e;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+  background: #34495e;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select {
+  border-color: #3fa46a;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+  background: #3fa46a;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+.file-upload .file-select.file-select-disabled:hover {
+  cursor: default;
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+  background: #dce4ec;
+  color: #666666;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+.importcontent
+{
+    margin-left:58px;
+}
 
 
 
@@ -612,17 +720,27 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 <!-- end of pre/abs  -->
 
 
+
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">    
 
-    <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+    <div class="importcontent">
+    <div class="file-upload">
+     <div class="file-select">
+        <div class="file-select-button" id="fileName">Choose File</div>
+        <div class="file-select-name" id="noFile">No file chosen...</div> 
+         <input type="file" name="chooseFile" id="chooseFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        
+      </div>
+    </div>
 
-    <button class="ui blue button" name="importsubmit"> Import</button>
+    <button style="padding-left:150px;padding-right:158px;" class="ui blue button" name="importsubmit"> Import</button>
+    </div>
 
 </form>
-    <table id="table-list" class="ui fixed selectable celled table"  >
+    <table id="table-list" class="ui fixed selectable celled table" >
     <thead>
                 <tr>
                     <?php

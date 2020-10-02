@@ -3,7 +3,7 @@
 <?php
 
 include_once("../db.php");
-include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+// include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
 if(!isset($_SESSION["staffid"]))
@@ -388,18 +388,18 @@ $(document).ready(function() {
 
 
     // file restrict
-var file = document.getElementById('inputfile');
-console.log(file);
-file.onchange = function(e) {
-  var ext = this.value.match(/\.([^\.]+)$/)[1];
-  switch (ext) {
-    case 'xlsx':
-       break;
-    default:
-      alert('Not allowed');
-      this.value = '';
-  }
-};
+// var file = document.getElementById('inputfile');
+// console.log(file);
+// file.onchange = function(e) {
+//   var ext = this.value.match(/\.([^\.]+)$/)[1];
+//   switch (ext) {
+//     case 'xlsx':
+//        break;
+//     default:
+//       alert('Not allowed');
+//       this.value = '';
+//   }
+// };
 
 var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
@@ -628,13 +628,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">
-
-    <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-
-    <button class="ui blue button" name="importsubmit"> Import</button>
-
-</form>
+ 
   <center>
     <table id="table-list" class="ui selectable celled table">
     <thead>

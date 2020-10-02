@@ -14,9 +14,9 @@
     }
     else
     {
-        $str1='Assignment_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
-        $str2='OtherAssesment_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
-        $str3='SEM_'.strval($_SESSION['code']).'_'.strval($_SESSION['batch']);
+        $str1='Assignment_'.strtoupper(strval($_SESSION['code'])).'_'.strtoupper(strval($_SESSION['batch']));
+        $str2='OtherAssesment_'.strtoupper(strval($_SESSION['code'])).'_'.strtoupper(strval($_SESSION['batch']));
+        $str3='SEM_'.strtoupper(strval($_SESSION['code'])).'_'.strtoupper(strval($_SESSION['batch']));
         if(!((strval($_GET['exam'])==$str1) or (strval($_GET['exam'])==$str2) or (strval($_GET['exam'])==$str3)))
         {
             header("Location: ./index.php");
@@ -108,12 +108,55 @@ span{
 
     </tr>
 
+    <?php 
+    $str='OtherAssesment_'.strtoupper(strval($_SESSION['code'])).'_'.strtoupper(strval($_SESSION['batch']));
+    if(strval($_SESSION['exam'])==$str)
+    {
+    ?>
+
+    <tr>    
+    <td class="center aligned" >CO</td>
+    <td class="center aligned">
+    <!-- <select name="co" class="ui fluid multiple search selection dropdown">
+        <option value="">Co</option>
+        <option value="co1">Co1</option>
+        <option value="co2">Co2</option>
+        <option value="co3">Co3</option>
+        <option value="co4">Co4</option>
+        <option value="co5">Co5</option>
+    </select> -->
+    <div class="ui checkbox">
+        <input type="checkbox" name="co1" value="co1">
+        <label>Co1 </label>
+    </div>
+    <div class="ui checkbox">
+        <input type="checkbox" name="co2" value="co2">
+        <label>Co2 </label>
+    </div>
+    <div class="ui checkbox">
+        <input type="checkbox" name="co3" value="co3">
+        <label>Co3 </label>
+    </div>
+    <div class="ui checkbox">
+        <input type="checkbox" name="co4" value="co4">
+        <label>Co4 </label>
+    </div>
+    <div class="ui checkbox">
+        <input type="checkbox" name="co5" value="co5">
+        <label>Co5 </label>
+    </div>
+    </td>
+    </tr>
+    <?php
+    }
+    ?>
 
 
     
   </tbody>
   
 </table>
+
 
 <div class="ui divider"></div>
      <center>
