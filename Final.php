@@ -1,3 +1,52 @@
+<?php
+
+include_once("./db.php");
+include_once('./assets/notiflix.php'); 
+session_start();
+if(!isset($_SESSION["staffid"]))
+{
+  header("Location: ../index.php");
+}
+
+//$_table=$_SESSION['exam'];
+$_staffid= $_SESSION['staffid'];
+$_code=$_GET['code'];
+
+
+
+
+$sql="SELECT * FROM `course_list` WHERE  `code`  LIKE  '$_code' ";
+if($con->query($sql)==false)
+{
+    header("Location: ./staff/index.php");
+
+}
+$data=$con->query($sql);
+$rows=$data->fetch_assoc();
+$class;
+   
+if($rows['staff1']==$_staffid)
+{
+    $class='A';
+}
+elseif($rows['staff2']==$_staffid)
+    {
+        $class='B';
+    }
+    elseif($rows['staff3']==$_staffid)
+    {
+        $class='C';
+    }
+    elseif($rows['staff4']==$_staffid)
+    {
+        $class='D';
+    }
+    else
+    {
+        
+        header("Location: ./staff/index.php");
+    }
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,6 +118,42 @@
     <div class="topic">
         <h1 style="font-size:40px"><center>CO-PO MAPPING</center></h1>
     </div>
+    <?php 
+        $sql = $con->query("SELECT * FROM `cat1_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $cat1_co=[];
+        array_push($cat1_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
+        $sql = $con->query("SELECT * FROM `cat2_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $cat2_co=[];
+        array_push($cat2_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
+        $sql = $con->query("SELECT * FROM `cat3_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $cat3_co=[];
+        array_push($cat3_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
+        $sql = $con->query("SELECT * FROM `assignment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $assignment_co=$res[2];
+        $sql = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $otherassesment_co=$res[2];
+        $sql = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'CO' ");
+        $res = $sql->fetch_row();
+        $otherassesment_co_map=strval($res[2]);
+        $sql = $con->query("SELECT * FROM `sem_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
+        $res = $sql->fetch_row();
+        $sem_co=$res[3];
+        $sql = $con->query("SELECT * FROM `copo` WHERE  `code` like '".$rows['code']."' ");
+        $po_res = $sql->fetch_assoc();
+        $poco=[];
+        $poco[0]=explode(":",$po_res['co1']);$poco[1]=explode(":",$po_res['co2']);$poco[2]=explode(":",$po_res['co3']);$poco[3]=explode(":",$po_res['co4']);$poco[4]=explode(":",$po_res['co5']);
+        $po_tar=[];$pso_tar=[];
+        for($i=0;$i<12;$i++)
+        {
+            $po_tar[$i]=$po_res['po'.($i+1)];
+        }
+        $pso_tar[0]=$po_res['pso1'];$pso_tar[1]=$po_res['pso2'];
+    ?>
     <table>
     <h2>&nbsp;ATTAINMENT OF COURSE OUTCOMES(COs)</h2>
     <h2>&nbsp;Attainment through Cumulative Internal Examinations(CIE)</h2>
@@ -87,18 +172,82 @@
         <th>Assignment</th>
         <th>Other<br>Assessments</th>
     </tr>
-    <tr>
-        <td style="background: #dddddd">CO1</td>
-        <td>2.67</td>
+    
+    <?php
+        $co_avg=[];
+        for($i=0;$i<5;$i++){
+        $count=0;
+        $val=0;
+    ?>
+        <tr>
+        <td style="background: #dddddd">CO<?php echo ($i+1);?></td>
+        <?php
+            if($cat1_co[$i]!=0)
+            {
+                $count++;
+                $val+=$cat1_co[$i];
+        ?>
+        <td><?php echo number_format($cat1_co[$i],2);?></td>
+        <?php                
+            }else{
+        ?>
         <td> </td>
+        <?php
+            }
+        ?>
+        <?php
+            if($cat2_co[$i]!=0)
+            {
+                $count++;
+                $val+=$cat2_co[$i];
+        ?>
+        <td><?php echo number_format($cat2_co[$i],2);?></td>
+        <?php                
+            }else{
+        ?>
         <td> </td>
-        <td>4</td>
-        <td>5</td>
-        <td>3.89</td>
-        <td>PO=1,2,3</td>
-        <td>PSO=1,2</td>
-    </tr>
-    <tr>
+        <?php
+            }
+        ?>
+        <?php
+            if($cat3_co[$i]!=0)
+            {
+                $count++;
+                $val+=$cat3_co[$i];
+        ?>
+        <td><?php echo number_format($cat3_co[$i],2);?></td>
+        <?php                
+            }else{
+        ?>
+        <td> </td>
+        <?php
+            }
+        ?>
+        <td><?php echo $assignment_co;?></td>
+        <?php
+            $count++;
+            $val+=$assignment_co;
+            $str=strval($i+1);
+            if(strpos($otherassesment_co_map,$str)!==false)
+            {
+                $count++;
+                $val+=$otherassesment_co;
+        ?>
+        <td><?php echo $otherassesment_co;?></td>
+        <?php                
+            }else{
+        ?>
+        <td> </td>
+        <?php
+            }
+            $co_avg[$i]=number_format(($val/$count),2);
+        ?>
+        <td><?php echo $co_avg[$i];?></td>
+        <td><?php echo $poco[$i][0]; ?></td>
+        <td><?php echo $poco[$i][1]; ?></td>
+        </tr>
+    <?php } ?>
+    <!-- <tr>
         <td style="background: #dddddd">CO2</td>
         <td>2.71</td>
         <td>2</td>
@@ -141,7 +290,7 @@
         <td>2.9</td>
         <td>PO=1</td>
         <td>PSO=1</td>
-    </tr>
+    </tr> -->
     </table>
     <br>
     <table>
@@ -152,7 +301,17 @@
         <th>Mapped COs</th>
         <th>Mapped PSOs</th>
     </tr>
-    <tr>
+    <?php
+        for($i=0;$i<5;$i++){
+    ?>
+        <tr>
+        <td style="background: #dddddd">CO<?php echo ($i+1);?></td>
+        <td><?php echo $sem_co;?></td>
+        <td><?php echo $poco[$i][0]; ?></td>
+        <td><?php echo $poco[$i][1]; ?></td>
+        </tr>
+    <?php } ?>
+    <!-- <tr>
         <td style="background: #dddddd">CO1</td>
         <td>5</td>
         <td>PO=1,2,3</td>
@@ -181,7 +340,7 @@
         <td>5</td>
         <td>PO=1,2</td>
         <td>PSO=1</td>
-    </tr>
+    </tr> -->
     </table>
     <table>
     <br>
@@ -211,7 +370,7 @@
     </tr>
     <tr>
         <th style="background: #dddddd">Attainment<br>level of PO<br>from CIE</th>
-        <td>3.18</td>
+        <!-- <td>3.18</td>
         <td>3.18</td>
         <td>3.25</td>
         <td> </td>
@@ -222,15 +381,73 @@
         <td> </td>
         <td> </td>
         <td> </td>
-        <td> </td>
-        <td>3.18</td>
-        <td>3.18</td>
+        <td> </td> -->
+        <?php
+            $cie=[];
+            for($i=0;$i<12;$i++)
+            {
+                $val=0;$count=0;
+                for($j=0;$j<5;$j++)
+                {
+                    if(strpos($poco[$j][0],strval($i+1))!==false)
+                    {
+                        $val+=$co_avg[$j];
+                        $count++;
+                    }
+                }
+                if($val!=0)
+                {
+                    $cie[$i]=number_format(($val/$count),2);
+                }
+                else
+                {
+                    $cie[$i]=' ';
+                }
+        ?>
+        <td><?php echo $cie[$i];?></td>
+        <?php } ?>
+        <?php
+            $val=0;$count=0;$val1=0;$count1=0;
+            for($j=0;$j<5;$j++)
+            {
+                if(strpos($poco[$j][1],'1')!==false)
+                {
+                    $val+=$co_avg[$j];
+                    $count++;
+                }
+                if(strpos($poco[$j][1],'2')!==false)
+                {
+                    $val1+=$co_avg[$j];
+                    $count1++;
+                }
+            }
+            if($val!=0)
+            {
+                $cie[12]=number_format(($val/$count),2);
+            }
+            else
+            {
+                $cie[12]=' ';
+            }
+            if($val1!=0)
+            {
+                $cie[13]=number_format(($val1/$count1),2);
+            }
+            else
+            {
+                $cie[13]=' ';
+            }
+        ?>
+        <td><?php echo $cie[12];?></td>
+        <td><?php echo $cie[13];?></td>
+        <!-- <td>3.18</td>
+        <td>3.18</td> -->
     </tr>
     <tr>
         <th style="background: #dddddd">Attainment<br>level of PO<br>from SEE</th>
+        <!-- <td>5</td>
         <td>5</td>
         <td>5</td>
-        <td>5</td>
         <td> </td>
         <td> </td>
         <td> </td>
@@ -241,11 +458,47 @@
         <td> </td>
         <td> </td>
         <td>5</td>
-        <td>5</td>
+        <td>5</td> -->
+        <?php
+            $see=[];
+            for($i=0;$i<12;$i++)
+            {
+                if($po_tar[$i]!=0)
+                {
+                    $see[$i]=$sem_co;
+                }
+                else
+                {
+                    $see[$i]=' ';
+                }
+        ?>
+        <td><?php echo $see[$i];?></td>
+        <?php } ?>
+        <?php 
+            if($pso_tar[0]!=0)
+            {
+                $see[12]=$sem_co;
+            }
+            else
+            {
+                $see[12]=' ';
+            }
+            if($pso_tar[1]!=0)
+            {
+                $see[13]=$sem_co;
+            }
+            else
+            {
+                $see[13]=' ';
+            }
+        ?>
+        <td><?php echo $see[12];?></td>
+        <td><?php echo $see[13];?></td>
+        
     </tr>
     <tr>
         <th style="background: #dddddd">Attainment<br>level of PO<br>(50% of CIE<br>50% of SEE)</th>
-        <td>4.1</td>
+        <!-- <td>4.1</td>
         <td>4.1</td>
         <td>4.13</td>
         <td> </td>
@@ -258,8 +511,110 @@
         <td> </td>
         <td> </td>
         <td>4.1</td>
-        <td>4.1</td>
+        <td>4.1</td> -->
+        <?php
+            $att_lvl_po=[];
+            for($i=0;$i<14;$i++)
+            {
+                if($cie[$i]!=' ')
+                {
+                    $att_lvl_po[$i]=number_format((($cie[$i]+$see[$i])/2),2);
+                }
+                else
+                {
+                    $att_lvl_po[$i]=' ';
+                }
+        ?>
+        <td><?php echo $att_lvl_po[$i];?></td> 
+        <?php } ?>
     </tr>
+    </table>
+    <br>
+    <table>
+    <h2>&nbsp;COURSE ASSESMENT REPORT<h2>
+    <tr>
+        <th style="background: #dddddd" colspan="4">POs attainment remarks</th>
+    </tr>
+    <tr>
+        <th>POs</th>
+        <th>Target Level</th>
+        <th>Attainment Level</th>
+        <th>Observations</th>
+    </tr>
+    <?php
+        $att_po=[0,0,0,0,0,0,0,0,0,0,0,0];
+        for($i=0;$i<12;$i++)
+        {
+            $obs=" ";
+            if($po_tar[$i]!=0)
+            {
+                $att_po[$i]=number_format(((($att_lvl_po[$i])/5)*$po_tar[$i]),2);
+                if(round($att_po[$i],2) >= round($po_tar[$i],2))
+                {
+                    $obs="Target was attained";
+                }
+                else{
+                    $obs="Target was not attained";
+                }
+            
+    ?>
+        <tr>
+        <td><?php echo 'PO '.($i+1);?></td>
+        <td><?php echo $po_tar[$i]; ?></td>
+        <td><?php echo $att_po[$i]; ?></td>
+        <td><?php echo $obs;?></td>
+        </tr>
+    <?php } } ?>
+    <tr>
+        <th style="background: #dddddd" colspan="4">PSOs attainment remarks</th>
+    </tr>
+    <tr>
+        <th>PSOs</th>
+        <th>Target Level</th>
+        <th>Attainment Level</th>
+        <th>Observations</th>
+    </tr>
+    <?php
+        $att_pso=[0,0];
+        if($pso_tar[0]!=0)
+        {
+            $obs=" ";
+            $att_pso[0]=number_format(((($att_lvl_po[12])/5)*$pso_tar[0]),2);
+            if(round($att_pso[0],2) >= round($pso_tar[0],2))
+            {
+                $obs="Target was attained";
+            }
+            else{
+                $obs="Target was not attained";
+            }
+    ?>
+        <tr>
+        <td><?php echo 'PSO 1';?></td>
+        <td><?php echo $pso_tar[0]; ?></td>
+        <td><?php echo $att_pso[0]; ?></td>
+        <td><?php echo $obs;?></td>
+        </tr>
+    <?php } ?>
+    <?php
+        if($pso_tar[1]!=0)
+        {
+            $obs=" ";
+            $att_pso[1]=number_format(((($att_lvl_po[13])/5)*$pso_tar[1]),2);
+            if(round($att_pso[1],2) >= round($pso_tar[1],2))
+            {
+                $obs="Target was attained";
+            }
+            else{
+                $obs="Target was not attained";
+            }
+    ?>
+        <tr>
+        <td><?php echo 'PSO 2';?></td>
+        <td><?php echo $pso_tar[1]; ?></td>
+        <td><?php echo $att_pso[1]; ?></td>
+        <td><?php echo $obs;?></td>
+        </tr>
+    <?php } ?>
     </table>
     </div>
     </div>
