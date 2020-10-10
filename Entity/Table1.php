@@ -718,7 +718,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
    
 
                      <?php  
-                        $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
+                        $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Up2ExpLvl".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             
@@ -734,7 +734,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                    
 
                     <?php  
-                        $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
+                        $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Up2ExLvl%".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             
@@ -764,9 +764,9 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
             <?php
                      
-                     $max = $con->query("SELECT `mark` FROM  $_table  WHERE  `rollno` like 'range' ");
+                     $max = $con->query("SELECT `mark` FROM  $_table  WHERE  `rollno` like 'range".$class."' ");
                      $maxmark = $max->fetch_row();
-                     $max = $con->query("SELECT `mark` FROM  $_table  WHERE  `rollno` like 'range1' ");
+                     $max = $con->query("SELECT `mark` FROM  $_table  WHERE  `rollno` like 'range1".$class."' ");
                      $maxmark1 = $max->fetch_row();
  
  
@@ -781,7 +781,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                  </tr>
 
                  <?php  
-                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'ExpAtt' ");
+                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'ExpAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -795,7 +795,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'SatAtt' ");
+                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'SatAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -812,7 +812,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                         
                                 <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>Mapping with CO</para></td>
                                 <?php
-                                    if(substr(strval($_SESSION['exam']),0,5)=="Other")
+                                    if(substr(strval($_SESSION['exam']),0,5)=="other")
                                     {
                                         $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'CO' ");
                                         $maxmark = $max->fetch_row();   
@@ -838,7 +838,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 </tr> 
 
                 <?php  
-                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
+                    $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'AttLvlCo".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -853,12 +853,12 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
                 <?php
-                $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Attco' ");
+                $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Attco".$class."' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
                 <?php
-                    if(substr(strval($_SESSION['exam']),0,5)=="Other")
+                    if(substr(strval($_SESSION['exam']),0,5)=="other")
                     {    
                      ?> 
                      <td style="background-color:#dfedf7;color:black;font-size:15px;" class="center aligned" > <?php echo $co_str_f." = ".$maxmark[0]; ?></td>
@@ -888,20 +888,22 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
            
         $exp = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Exp Mark' ");
         $expmark = $exp->fetch_row();
-        echo $expmark[0];
+        //echo $expmark[0];
         $max = $con->query("SELECT `mark` FROM $_table WHERE  `rollno` like 'Max Mark' ");
         $maxmark = $max->fetch_row();
-        echo $maxmark[0];
-        $sql="SELECT `mark` from $_table WHERE `sec` like 'A' ORDER BY `rollno` ASC ";
+        //echo $maxmark[0];
+        $sql="SELECT `mark` from $_table WHERE `sec` like '".strtolower($class)."' ORDER BY `rollno` ASC ";
         $data1=$con->query($sql);
         $tot_num=0;
         $got=0;
+        //echo $sql;
         while($row1 = $data1->fetch_assoc()){
             if($row1['mark']!=NULL){
                 $tot_num++;
+                //echo $row1['mark']."---";
                 if($row1['mark']>=$expmark[0])
                 {
-                    echo $row1['mark'];
+                    //echo $row1['mark'];
                 $got++;
                 }
             }
@@ -924,6 +926,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
         {
             $range[1]+=1;
         }
+        //echo $exp_att;
         if($exp_att<=$range[0])
         {
             $sat_att=1;
@@ -967,14 +970,14 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
         $range_str1=$range[0].'0'.$range[1];
         $range_str2=$range[2].'0'.$range[3];
         //echo "....".$range_str;
-        $sql2="UPDATE $_table SET `mark` =".$got." WHERE rollno like 'Up2ExpLvl'";
-        $sql3="UPDATE $_table SET `mark` =".$Up2ExpLvl." WHERE rollno like 'Up2ExLvl%'";
-        $sql4="UPDATE $_table SET `mark` =".$exp_att1." WHERE rollno like 'ExpAtt'";
-        $sql5="UPDATE $_table SET `mark` =".$sat_att." WHERE rollno like 'SatAtt'";
-        $sql6="UPDATE $_table SET `mark` =".$AttLvlCo." WHERE rollno like 'AttLvlCo'";
-        $sql7="UPDATE $_table SET `mark` =".intval($range_str1)." WHERE `rollno` LIKE 'range'";
-        $sql8="UPDATE $_table SET `mark` =".intval($range_str2)." WHERE `rollno` LIKE 'range1'";
-        $sql9="UPDATE $_table SET `mark` =".$AttLvlCo." WHERE rollno like 'Attco'";
+        $sql2="UPDATE $_table SET `mark` =".$got." WHERE rollno like 'Up2ExpLvl".$class."'";
+        $sql3="UPDATE $_table SET `mark` =".$Up2ExpLvl." WHERE rollno like 'Up2ExLvl%".$class."'";
+        $sql4="UPDATE $_table SET `mark` =".$exp_att1." WHERE rollno like 'ExpAtt".$class."'";
+        $sql5="UPDATE $_table SET `mark` =".$sat_att." WHERE rollno like 'SatAtt".$class."'";
+        $sql6="UPDATE $_table SET `mark` =".$AttLvlCo." WHERE rollno like 'AttLvlCo".$class."'";
+        $sql7="UPDATE $_table SET `mark` =".intval($range_str1)." WHERE `rollno` LIKE 'range".$class."'";
+        $sql8="UPDATE $_table SET `mark` =".intval($range_str2)." WHERE `rollno` LIKE 'range1".$class."'";
+        $sql9="UPDATE $_table SET `mark` =".$AttLvlCo." WHERE rollno like 'Attco".$class."'";
         $con->query($sql2);
         $con->query($sql3);
         $con->query($sql4);

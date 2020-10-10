@@ -33,27 +33,60 @@
         // echo $sql1;
         // echo $sql2;
 
-        $sql3='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Up2ExpLvl")';
-        // echo $sql3;
-        $sql4='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Up2ExLvl%")';
-        $sql5='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("ExpAtt")';
-        $sql6='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("SatAtt")';
-        $sql7='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("AttLvlCo")';
-        $sql8='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("range")';
-        $sql9='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Attco")';
-
+        // $sql3='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Up2ExpLvl")';
+        // $sql4='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Up2ExLvl%")';
+        // $sql5='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("ExpAtt")';
+        // $sql6='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("SatAtt")';
+        // $sql7='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("AttLvlCo")';
+        // $sql8='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("range")';
+        // $sql9='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`) VALUES ("Attco")';
+        $sql3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlA")';
+        $sql4='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%A")';
+        $sql5='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttA")';
+        $sql6='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttA")';
+        $sql7='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoA")';
+        $sql8='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeA")';
+        $sql9='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoA")';
+        $sql3_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlB")';
+        $sql4_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%B")';
+        $sql5_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttB")';
+        $sql6_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttB")';
+        $sql7_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoB")';
+        $sql8_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeB")';
+        $sql9_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoB")';
+        $sql3_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlC")';
+        $sql4_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%C")';
+        $sql5_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttC")';
+        $sql6_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttC")';
+        $sql7_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoC")';
+        $sql8_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeC")';
+        $sql9_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoC")';
+        $sql3_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlD")';
+        $sql4_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%D")';
+        $sql5_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttD")';
+        $sql6_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttD")';
+        $sql7_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoD")';
+        $sql8_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeD")';
+        $sql9_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoD")';
         if($con->query($sql1))
         {
             if($con->query($sql2))
             {
 
-                $con->query($sql3);
-                $con->query($sql4);
-                $con->query($sql5);
-                $con->query($sql6);
-                $con->query($sql7);
-                $con->query($sql8);
-                $con->query($sql9);
+                // $con->query($sql3);
+                // $con->query($sql4);
+                // $con->query($sql5);
+                // $con->query($sql6);
+                // $con->query($sql7);
+                // $con->query($sql8);
+                // $con->query($sql9);
+                $con->query($sql3);$con->query($sql3_1);$con->query($sql3_2);$con->query($sql3_3);
+                $con->query($sql4);$con->query($sql4_1);$con->query($sql4_2);$con->query($sql4_3);
+                $con->query($sql5);$con->query($sql5_1);$con->query($sql5_2);$con->query($sql5_3);
+                $con->query($sql6);$con->query($sql6_1);$con->query($sql6_2);$con->query($sql6_3);
+                $con->query($sql7);$con->query($sql7_1);$con->query($sql7_2);$con->query($sql7_3);
+                $con->query($sql8);$con->query($sql8_1);$con->query($sql8_2);$con->query($sql8_3);
+                $con->query($sql9);$con->query($sql9_1);$con->query($sql9_2);$con->query($sql9_3);
                
 
                     $sql10='INSERT INTO `'.strval($_POST["test"]).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.$batch.' ';
@@ -84,17 +117,49 @@
     if(isset($_POST["create-assign"]))
     {
 
-        $str="CREATE TABLE ".strval($_SESSION['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL, mark FLOAT NULL, PRIMARY KEY (rollno))";
-        $sql1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Max Mark","'.strval($_POST["max1"]).'")';
-        $sql2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Exp Mark","'.strval($_POST["exp1"]).'")';
-        $sql3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvl")';
-        $sql4='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%")';
-        $sql5='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAtt")';
-        $sql6='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAtt")';
-        $sql7='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCo")';
-        $sql8='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range")';
-        $sql9='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range1")';
-        $sql10='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Attco")';
+        if(substr(strval($_SESSION['exam']),0,3)=="SEM")
+        {
+            $str="CREATE TABLE ".strval($_SESSION['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL, grade varchar(3) NULL, points FLOAT NULL, PRIMARY KEY (rollno))";
+            $sql1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`points`) VALUES ("Max Mark","'.strval($_POST["max1"]).'")';
+            $sql2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`points`) VALUES ("Exp Mark","'.strval($_POST["exp1"]).'")';
+        }
+        else{
+            $str="CREATE TABLE ".strval($_SESSION['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL, mark FLOAT NULL, PRIMARY KEY (rollno))";
+            $sql1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Max Mark","'.strval($_POST["max1"]).'")';
+            $sql2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("Exp Mark","'.strval($_POST["exp1"]).'")';
+        }
+        $sql3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlA")';
+        $sql4='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%A")';
+        $sql5='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttA")';
+        $sql6='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttA")';
+        $sql7='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoA")';
+        $sql8='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeA")';
+        $sql9='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range1A")';
+        $sql10='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoA")';
+        $sql3_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlB")';
+        $sql4_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%B")';
+        $sql5_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttB")';
+        $sql6_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttB")';
+        $sql7_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoB")';
+        $sql8_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeB")';
+        $sql9_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range1B")';
+        $sql10_1='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoB")';
+        $sql3_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlC")';
+        $sql4_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%C")';
+        $sql5_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttC")';
+        $sql6_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttC")';
+        $sql7_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoC")';
+        $sql8_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeC")';
+        $sql9_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range1C")';
+        $sql10_2='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoC")';
+        $sql3_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExpLvlD")';
+        $sql4_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("Up2ExLvl%D")';
+        $sql5_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("ExpAttD")';
+        $sql6_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("SatAttD")';
+        $sql7_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttLvlCoD")';
+        $sql8_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("rangeD")';
+        $sql9_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("range1D")';
+        $sql10_3='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`) VALUES ("AttcoD")';
         $sql11='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`sec`)  SELECT  `rollno`,`sec` FROM `student` WHERE  `batch` LIKE '.($_SESSION['batch']).' ';
         if($con->query($str) and $con->query($sql1) and $con->query($sql2))
         {
@@ -122,14 +187,14 @@
                     $sql_co='INSERT INTO `'.strval($_SESSION['exam']).'` (`rollno`,`mark`) VALUES ("CO","'.$co.'")';
                     $con->query($sql_co);    
                 }
-                $con->query($sql3);
-                $con->query($sql4);
-                $con->query($sql5);
-                $con->query($sql6);
-                $con->query($sql7);
-                $con->query($sql8);
-                $con->query($sql9);
-                $con->query($sql10);
+                $con->query($sql3);$con->query($sql3_1);$con->query($sql3_2);$con->query($sql3_3);
+                $con->query($sql4);$con->query($sql4_1);$con->query($sql4_2);$con->query($sql4_3);
+                $con->query($sql5);$con->query($sql5_1);$con->query($sql5_2);$con->query($sql5_3);
+                $con->query($sql6);$con->query($sql6_1);$con->query($sql6_2);$con->query($sql6_3);
+                $con->query($sql7);$con->query($sql7_1);$con->query($sql7_2);$con->query($sql7_3);
+                $con->query($sql8);$con->query($sql8_1);$con->query($sql8_2);$con->query($sql8_3);
+                $con->query($sql9);$con->query($sql9_1);$con->query($sql9_2);$con->query($sql9_3);
+                $con->query($sql10);$con->query($sql10_1);$con->query($sql10_2);$con->query($sql10_3);
                 if($con->query($sql11))
                 {
                     header("Location: ./index.php");

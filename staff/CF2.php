@@ -101,7 +101,7 @@ span{
              <div class="ui input">
                  <input type="number" name="exp1" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"  
                 type = "number"
-                maxlength = "2"  min="0" required />
+                maxlength = "2"  min="0" step="0.50" required />
             </div>
         
         </td>
