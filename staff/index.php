@@ -80,6 +80,7 @@ font-size:16px;
               <td class="center aligned" ><div class="ui button" onclick="location.href = './CourseFrame.php?code=<?php echo $row1['code']  ?>'" >Frame Pattern</div></td>
               <td class="center aligned" ><div class="ui button" onclick="location.href = './AssignFaculty.php<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
               <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+              <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
               <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
 
           </tr>  
@@ -107,6 +108,7 @@ font-size:16px;
                   <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
                   <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
                   <td class="center aligned" colspan="3" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
 
       
             

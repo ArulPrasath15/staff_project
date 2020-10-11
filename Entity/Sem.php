@@ -687,7 +687,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
         <?php  
-                        $max = $con->query("SELECT `points` FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
+                        $max = $con->query("SELECT `points` FROM $_table WHERE  `rollno` like 'Up2ExpLvl".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             
@@ -704,7 +704,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                    
 
                     <?php  
-                        $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
+                        $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Up2ExLvl%".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             
@@ -736,9 +736,9 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
             <?php
                      
-                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range' ");
+                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range".$class."' ");
                      $maxmark = $max->fetch_row();
-                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range1' ");
+                     $max = $con->query("SELECT points FROM  $_table  WHERE  `rollno` like 'range1".$class."' ");
                      $maxmark1 = $max->fetch_row();
  
  
@@ -754,7 +754,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                  </tr>
 
                  <?php  
-                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'ExpAtt' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'ExpAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -769,7 +769,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'SatAtt' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'SatAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -785,7 +785,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
                 <?php  
-                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
+                    $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'AttLvlCo".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         
@@ -801,7 +801,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
                 <?php
-                $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Attco' ");
+                $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Attco".$class."' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
@@ -833,12 +833,12 @@ if(isset($_POST["submit"]))
 {
        
     $exp = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Exp Mark' ");
-    $expmark = 3;
-    echo $expmark[0];
+    $expmark =$exp->fetch_row();
+    //echo $expmark[0];
     $max = $con->query("SELECT points FROM $_table WHERE  `rollno` like 'Max Mark' ");
-    $maxmark = 10;
-    echo $maxmark[0];
-    $sql="SELECT points from $_table WHERE `sec` like 'A' ORDER BY `rollno` ASC ";
+    $maxmark = $max->fetch_row();
+    //echo $maxmark[0];
+    $sql="SELECT points from $_table WHERE `sec` like '".strtolower($class)."' ORDER BY `rollno` ASC ";
     $data1=$con->query($sql);
     $tot_num=0;
     $got=0;
@@ -847,14 +847,15 @@ if(isset($_POST["submit"]))
             $tot_num++;
             if($row1['points']>=$expmark[0])
             {
-                echo $row1['points'];
+                //echo $expmark[0];
+                //echo $row1['points'].'===';
             $got++;
             }
         }
     }
     $Up2ExpLvl=(int)(($got/$tot_num)*100);
-    $exp_att1=(3/10)*100;
-    $exp_att=(int)((3/10)*100);
+    $exp_att1=($expmark[0]/$maxmark[0])*100;
+    $exp_att=(int)(($expmark[0]/$maxmark[0])*100);
     $sat_att=0;
     $AttLvlCo=0;
     $temp=(int)(($exp_att-50)/3);
@@ -913,14 +914,14 @@ if(isset($_POST["submit"]))
     $range_str1=$range[0].'0'.$range[1];
     $range_str2=$range[2].'0'.$range[3];
     //echo "....".$range_str;
-    $sql2="UPDATE $_table SET points =".$got." WHERE rollno like 'Up2ExpLvl'";
-    $sql3="UPDATE $_table SET points =".$Up2ExpLvl." WHERE rollno like 'Up2ExLvl%'";
-    $sql4="UPDATE $_table SET points =".$exp_att1." WHERE rollno like 'ExpAtt'";
-    $sql5="UPDATE $_table SET points =".$sat_att." WHERE rollno like 'SatAtt'";
-    $sql6="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'AttLvlCo'";
-    $sql7="UPDATE $_table SET points =".intval($range_str1)." WHERE `rollno` LIKE 'range'";
-    $sql8="UPDATE $_table SET points =".intval($range_str2)." WHERE `rollno` LIKE 'range1'";
-    $sql9="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'Attco'";
+    $sql2="UPDATE $_table SET points =".$got." WHERE rollno like 'Up2ExpLvl".$class."'";
+    $sql3="UPDATE $_table SET points =".$Up2ExpLvl." WHERE rollno like 'Up2ExLvl%".$class."'";
+    $sql4="UPDATE $_table SET points =".$exp_att1." WHERE rollno like 'ExpAtt".$class."'";
+    $sql5="UPDATE $_table SET points =".$sat_att." WHERE rollno like 'SatAtt".$class."'";
+    $sql6="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'AttLvlCo".$class."'";
+    $sql7="UPDATE $_table SET points =".intval($range_str1)." WHERE `rollno` LIKE 'range".$class."'";
+    $sql8="UPDATE $_table SET points =".intval($range_str2)." WHERE `rollno` LIKE 'range1".$class."'";
+    $sql9="UPDATE $_table SET points =".$AttLvlCo." WHERE rollno like 'Attco".$class."'";
     $con->query($sql2);
     $con->query($sql3);
     $con->query($sql4);

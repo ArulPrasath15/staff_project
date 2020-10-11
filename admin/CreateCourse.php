@@ -51,7 +51,7 @@ body
     </h2>
     <div class="ui raised segment" style="width:93%;margin:3%;height:67%" id=""><br><br>
 
-        <form class="ui fluid form" id="frm">
+        <form class="ui fluid form" id="frm" method="POST" action="./admin.php">
             <div class="field">
                 <div class="ui two column grid">
                     <div class="row">
@@ -187,7 +187,7 @@ body
     </div>
     <button class="ui circular right floated  blue icon button"name="submit" type="submit"> Assign & Create </button>
     </form>
-    <script>
+    <!-- <script>
         $(document).ready(function(){
 
             $("#frm").on("submit",function(){
@@ -208,7 +208,7 @@ body
 
         });
         
-    </script>
+    </script> -->
 </body>
 
 </html>

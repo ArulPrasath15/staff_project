@@ -847,7 +847,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
    
 
                     <?php  
-                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExpLvl' ");
+                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExpLvl".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             <?php
@@ -870,7 +870,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                    
 
                     <?php  
-                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExLvl%' ");
+                        $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Up2ExLvl%".$class."' ");
                         $maxmark = $max->fetch_row(); ?>
                     <tr  class="maxmarkrow">
                             <?php
@@ -921,7 +921,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
             <?php
                      
-                     $max = $con->query("SELECT * FROM  $_table  WHERE  `rollno` like 'range' ");
+                     $max = $con->query("SELECT * FROM  $_table  WHERE  `rollno` like 'range".$class."' ");
                      $maxmark = $max->fetch_row();
  
  
@@ -957,7 +957,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                  </tr>
 
                  <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'ExpAtt' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'ExpAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
@@ -978,7 +978,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 </tr>
 
                 <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'SatAtt' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'SatAtt".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
@@ -1024,7 +1024,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
                 <?php  
-                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'AttLvlCo' ");
+                    $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'AttLvlCo".$class."' ");
                     $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                         <?php
@@ -1046,7 +1046,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
                 <?php
-                $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Attco' ");
+                $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Attco".$class."' ");
                 $maxmark = $max->fetch_row(); ?>
                 <tr  class="maxmarkrow">
                 <td style="background-color:grey;color:black;font-size:16px;"><para>Attainment level  of All CO  </para></td>
@@ -1199,7 +1199,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
             }
             else if($Up2ExpLvl[$i-2]>$range[1] && $Up2ExpLvl[$i-2]<=$range[2])
             {
-                $AttLvlCo[$i-1]=3;
+                $AttLvlCo[$i-2]=3;
             }
             else if($Up2ExpLvl[$i-2]>$range[2] && $Up2ExpLvl[$i-2]<=$range[3])
             {
@@ -1260,23 +1260,23 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                 $sql6.=" ";
             }
             }
-            $sql2.= "WHERE rollno like 'Up2ExpLvl'";
+            $sql2.= "WHERE rollno like 'Up2ExpLvl".$class."'";
             // echo $sql2;
             $con->query($sql2);
-            $sql3.= "WHERE rollno like 'Up2ExLvl%'";
+            $sql3.= "WHERE rollno like 'Up2ExLvl%".$class."'";
             $con->query($sql3);
-            $sql4.= "WHERE rollno like 'ExpAtt'";
+            $sql4.= "WHERE rollno like 'ExpAtt".$class."'";
             $con->query($sql4);
-            $sql5.= "WHERE rollno like 'SatAtt'";
+            $sql5.= "WHERE rollno like 'SatAtt".$class."'";
             $con->query($sql5);
-            $sql6.= "WHERE rollno like 'AttLvlCo'";
+            $sql6.= "WHERE rollno like 'AttLvlCo".$class."'";
             $con->query($sql6);
 
 
-            $sql7="UPDATE $_table set `Q1` = ".$range[0]." , `Q2`= ".$range[1]." , `Q3`=  ".$range[2].", `Q4`= ".$range[3]." WHERE `rollno` LIKE 'range'";
+            $sql7="UPDATE $_table set `Q1` = ".$range[0]." , `Q2`= ".$range[1]." , `Q3`=  ".$range[2].", `Q4`= ".$range[3]." WHERE `rollno` LIKE 'range".$class."'";
             $con->query($sql7);
 
-            $sql8="UPDATE $_table set `Q1` = ".$Co[0]." , `Q2`= ".$Co[1]." , `Q3`=  ".$Co[2].", `Q4`= ".$Co[3].",`Q5`= ".$Co[4]." WHERE `rollno` LIKE 'Attco'";
+            $sql8="UPDATE $_table set `Q1` = ".$Co[0]." , `Q2`= ".$Co[1]." , `Q3`=  ".$Co[2].", `Q4`= ".$Co[3].",`Q5`= ".$Co[4]." WHERE `rollno` LIKE 'Attco".$class."'";
             $con->query($sql8);
                       
            
