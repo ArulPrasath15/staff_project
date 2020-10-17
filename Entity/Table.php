@@ -897,14 +897,19 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
                   <?php  $i=0;  ?> 
                 <td style="background-color:grey;color:black;font-size:15px;"></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>5 </pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><center>4</center></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;" colspan="0"><pre>3</pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>2</pre></td><?php $i++; ?>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;"></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;"colspan="0"><pre>1</pre></td><?php $i++; ?>
                 <?php
 
-                $t =count($columnArr)-$i+1;
+                $t =count($columnArr)-$i-4;
                 //    echo $t;
                 for($i=1 ;$i<$t;$i++)
                 {    ?>

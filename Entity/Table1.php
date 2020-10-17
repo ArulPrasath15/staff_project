@@ -753,7 +753,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
                   <?php  $i=0;  ?> 
                 <td style="background-color:grey;color:black;font-size:15px;"></td>
-                <td style="background-color:#dfedf7;color:black;font-size:15px;" ><pre>       5 >       < 4      >       3 >       2 >       1  </pre></td>
+                <td style="background-color:#dfedf7;color:black;font-size:15px;" ><pre>  5 >       <   4    >    3   >     2  >    1  </pre></td>
                 <td style="background-color:#dfedf7;color:black;font-size:15px;" ></td>
 
                 
