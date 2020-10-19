@@ -50,10 +50,14 @@
     //echo $sql;
     if($con->query($sql))
     {
-            echo "COPO Mapped successfuly!";
+            //echo "COPO Mapped successfuly!";
+            echo '<script>alert("Course Created successfuly!")<script>';
+            header("Location: ./cc.php");
     }       
     else{
         //echo $sql;
-        echo "Error occurred...Try again!";
+        //echo "Error occurred...Try again!";
+        echo '<script>alert("Error occurred...Try again!")<script>';
+        header("Location: ./CreateCourse.php");
     }
 ?>

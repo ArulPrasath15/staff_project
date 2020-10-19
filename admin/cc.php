@@ -58,7 +58,7 @@ font-size:16px;
       </div>
     </div>
   <br><br><br>
-  <center><h2 style="color:#ffd700" class="animate__animated animate__fadeInDownBig">Welcome Admin!<br>Course Coordinators List </h2></center><br>
+  <center><h2 style="color:#ffd700" class="animate__animated animate__fadeInDownBig">Welcome Admin!<br><br>Course List </h2></center><br>
   <div style="display:flex;justify-content:flex-end">
   <button class="ui positive button" onclick="location.href='CreateCourse.php';">Create</button>
   </div>
