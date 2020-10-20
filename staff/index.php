@@ -118,13 +118,15 @@ font-size:16px;
                   $tb41 = $con->query("SELECT `mark` FROM `assignment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
                   $tb51 = $con->query("SELECT `mark` FROM `otherassesment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
                   $tb61 = $con->query("SELECT `points` FROM `sem_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
+                  //echo "SELECT `points` FROM `sem_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'";
                   $res1 = $tb11->fetch_row();
                   $res2 = $tb21->fetch_row();
                   $res3 = $tb31->fetch_row();
                   $res4 = $tb41->fetch_row();
                   $res5 = $tb51->fetch_row();
                   $res6 = $tb61->fetch_row();
-                  if(gettype($res1)!= 'NULL' && gettype($res2)!= 'NULL' && gettype($res3)[0]!= 'NULL' && gettype($res4)[0]!= 'NULL' &&gettype($res5)[0]!= 'NULL' && gettype($res6)[0]!= 'NULL'){
+                  //echo gettype($res6[0]);
+                  if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
                   //echo "hi";
                   ?>
                   <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
@@ -173,7 +175,7 @@ font-size:16px;
                   <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
                   <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
                   <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
-                  <td class="center aligned" colspan="3" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+                  <td class="center aligned" colspan="3" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
                   <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
                   <?php
                   $class=' ';
@@ -215,7 +217,7 @@ font-size:16px;
                   $res4 = $tb41->fetch_row();
                   $res5 = $tb51->fetch_row();
                   $res6 = $tb61->fetch_row();
-                  if(gettype($res1)!= 'NULL' && gettype($res2)!= 'NULL' && gettype($res3)[0]!= 'NULL' && gettype($res4)[0]!= 'NULL' &&gettype($res5)[0]!= 'NULL' && gettype($res6)[0]!= 'NULL'){
+                  if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
                   //echo "hi";
                   ?>
                   <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
