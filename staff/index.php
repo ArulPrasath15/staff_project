@@ -223,6 +223,11 @@ font-size:16px;
                   <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
                   <?php
                 }
+                else{
+                  ?>
+                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <?php
+                }
               }
                 else{
                   ?>
