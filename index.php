@@ -12,12 +12,7 @@ if(isset($_SESSION['staffid']))
 ?>
 
 <?php
-    
-    $con=new mysqli("localhost","root","","staff");
-    if($con->connect_error)
-    {
-        die("Connection failed:".$con->connect_error);
-    }
+
     if (isset($_POST["sub1"]))
     {
         

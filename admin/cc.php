@@ -50,10 +50,8 @@ b1{
   font-size:18;
 }
 
-
 </style> 
     
-
 <body>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
 
