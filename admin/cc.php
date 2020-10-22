@@ -43,6 +43,14 @@ th{
 
 font-size:16px;
 }
+bi{
+  font-size:25;
+}
+b1{
+  font-size:18;
+}
+
+
 </style> 
     
 
@@ -58,14 +66,15 @@ font-size:16px;
       </div>
     </div>
   <br><br><br>
-  <center><h2 style="color:#ffd700" class="animate__animated animate__fadeInDownBig">Welcome Admin!<br><br>Course List </h2></center><br>
+  <center><h2 style="color:#ffd700" class="animate__animated animate__fadeInDownBig"><u>Welcome Admin !</u><br><br>Course List </h2></center><br>
   <div style="display:flex;justify-content:flex-end">
-  <button class="ui positive button" onclick="location.href='CreateCourse.php';">Create</button>
+ 
   </div>
   <!-- Table start -->
   <div class="animate__animated animate__fadeInUpBig">
   <div class="tablecontent" >
-  <table class="ui selectable celled inverted table">
+  <div align="right" ><button id="createbutton" class="ui positive button" onclick="location.href='CreateCourse.php';"> <bi>+ </bi><b1> Create Course</b1></button></div>
+ <table class="ui selectable celled inverted table">
     <thead>
       <tr>
           <th class="center aligned">No</th>

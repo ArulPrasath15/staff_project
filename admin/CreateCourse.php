@@ -43,10 +43,10 @@ body
     </div>
 <!-- navbar end -->
     <h2 class="ui center aligned icon header" style="margin:3%">
-        <i class="edit icon"></i>
+        <i class="edit icon" style="color:#ffd700"></i>
         <div style="color:#ffd700" class="content">
             Course Creation
-            <div class="sub header">Creating the courses.</div>
+            <div class="sub header" style="color:#ffd700" >Creating the courses.</div>
         </div>
     </h2>
     <div class="ui raised segment" style="width:93%;margin:3%;height:67%" id=""><br><br>
