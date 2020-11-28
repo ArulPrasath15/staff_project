@@ -13,7 +13,7 @@
         $sql="insert into course_list (`code`,`name`,`year`,`batch`,`sem`,`credit`,`cc`) values('$code','$name',' $year','$batch',$sem,$cred,'$staff')";
         if($con->query($sql)){
             $_SESSION['code']=$code;
-            header("Location: ./copo.php");
+            header("Location: ./cc.php");
             // echo "Course created successfuly!";
         } 
         else{

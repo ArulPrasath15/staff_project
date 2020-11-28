@@ -56,7 +56,7 @@ font-size:16px;
           <th class="center aligned">Course Name</th>
           <th class="center aligned">Batch</th>
           <th class="center aligned">Sem</th>
-          <th class="center aligned" colspan="4" >Action</th>
+          <th class="center aligned" colspan="5" >Action</th>
       </tr>
     </thead>
     <tbody>
@@ -70,16 +70,32 @@ font-size:16px;
       {  
           
           if($row1['cc']==$_SESSION['staffid'])
-          { ?>
+          { 
+            $sqlc="SELECT `code` from `copo` ";
+            $datac=$con->query($sqlc);
+            $arr=Array();
+            while($rowc = $datac->fetch_assoc()){
+              $arr[]=$rowc['code'];
+            }
+            ?>
           <tr>
               <td class="center aligned" ><?php  echo $no;            ?> </td>
-              <td class="center aligned" ><?php  echo $row1['code'];  ?> </td>
+              <td class="center aligned" ><?php  echo $row1['code']; $_SESSION['code']=$row1['code']; ?> </td>
               <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
               <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
               <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
               <td class="center aligned" ><div class="ui button" onclick="location.href = './CourseFrame.php?code=<?php echo $row1['code']  ?>'" >Frame Pattern</div></td>
               <td class="center aligned" ><div class="ui button" onclick="location.href = './AssignFaculty.php<?php echo "?cc"."=".$row1['cc']."&"."code"."=".$row1['code'] ?>';">Assign Faculty</div></td>
               <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+              <?php
+              if(in_array($row1['code'],$arr)){
+              ?>
+              <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = './copo.php'">COPO Mapping</div></td>
+              <?php
+              }else{
+              ?>
+              <td class="center aligned" ><div class="ui positive button" onclick="location.href = './copo.php'">COPO Mapping</div></td>
+              <?php } ?>
               <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
               <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
               <?php 
@@ -129,24 +145,24 @@ font-size:16px;
                   if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
                   //echo "hi";
                   ?>
-                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                   <?php
                   }
                   else{
                     ?>
-                    <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                    <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                     <?php
                   }  
               }
                 else{
                   ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                   <?php
                 }
               }
               else{
                 ?>
-                <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                 <?php
               }
               ?>
@@ -175,7 +191,7 @@ font-size:16px;
                   <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
                   <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
                   <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
-                  <td class="center aligned" colspan="3" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+                  <td class="center aligned" colspan="4" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
                   <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
                   <?php
                   $class=' ';
@@ -220,18 +236,18 @@ font-size:16px;
                   if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
                   //echo "hi";
                   ?>
-                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                   <?php
                 }
                 else{
                   ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                   <?php
                 }
               }
                 else{
                   ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
                   <?php
                 }
               ?>
