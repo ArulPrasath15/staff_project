@@ -625,7 +625,11 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 {
     margin-left:58px;
 }
-
+#table-list{
+    overflow-x: scroll;
+    /* width: 300px; */
+    display: flex;
+}
 
 
 </style>
@@ -740,8 +744,8 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     </div>
 
 </form>
-    <table id="table-list" class="ui fixed selectable celled table" >
-    <thead>
+    <table id="table-list" class="ui selectable celled table" >
+    <tbody>
                 <tr>
                     <?php
                     
@@ -750,14 +754,14 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                         {?>
 
                            
-                            <th class="center aligned"><?php echo strtoupper($columnArr[$i]);?> </th> 
+                            <td class="center aligned" style="background-color:grey;color:black;font-size:15px;"><?php echo strtoupper($columnArr[$i]);?> </td> 
                         <?php 
                         }
                         else{
                     ?>
 
 
-                             <th class="center aligned"> <?php echo strtoupper($columnArr[$i]);?></th>
+                             <td class="center aligned" style="background-color:grey;color:black;font-size:15px;"> <?php echo strtoupper($columnArr[$i]);?></td>
 
 
                         <?php } 
@@ -768,9 +772,9 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
                 
                 
-             </thead>
+             <!-- </thead>
      
-      <tbody> 
+      <tbody>  -->
              
       <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");

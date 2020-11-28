@@ -75,22 +75,22 @@
                 // Array of all column names
                 $columnArr = array_column($result, 'COLUMN_NAME');
                 $str2='
-                <div  class="ui raised inverted segment" style="width:94%;margin:3%;">
+                <div  class="ui raised inverted segment" id="tabdiv" style="width:94%;margin:3%;">
                 <form class="ui form" id="frm2" method="POST" action="./SavePage.php">
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
-                <table class="ui fixed inverted selectable celled table" id="table-list">
-                <thead>
+                <table class="ui inverted selectable celled table" id="table-list">
+                <tbody>
                     <tr>';
                         for($i=1;$i<count($columnArr)-1;$i++)
                         { 
 
                             if($i==0)
                             {
-                                $str2.='<th class="center aligned"></th> ';
+                                $str2.='<td class="center aligned"></td> ';
                             }
                             else{
-                                $str2.='<th class="center aligned">'.$columnArr[$i].'</th> ';
+                                $str2.='<td class="center aligned">'.$columnArr[$i].'</td> ';
                             }
 
 
@@ -103,12 +103,11 @@
                         $str2.='<tr>';
                             for($i=1;$i<count($res)-1;$i++)
                             { 
-                                $str2.='<th class="center aligned">'.$res[$i].'</th>';
+                                $str2.='<td class="center aligned">'.$res[$i].'</td>';
                              } 
            
                          $str2.=' </tr> 
-                 </thead>
-                <tbody>
+                 
                     <tr>
                     <th class="center aligned">Expected Mark</th>';
                     $cnt=0;
@@ -169,7 +168,11 @@ height: 40px;
 span{
     font-size:20px;
 }
-
+#table-list{
+    overflow-x: scroll;
+    /* width: 300px; */
+    display: flex;
+}
 
 </style>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
