@@ -80,17 +80,17 @@
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
                 <table class="ui inverted selectable celled table" id="table-list">
-                <thead>
+                <tbody>
                     <tr>';
                         for($i=1;$i<count($columnArr)-1;$i++)
                         { 
 
                             if($i==0)
                             {
-                                $str2.='<th class="center aligned"></th> ';
+                                $str2.='<td class="center aligned"></td> ';
                             }
                             else{
-                                $str2.='<th class="center aligned">'.$columnArr[$i].'</th> ';
+                                $str2.='<td class="center aligned">'.$columnArr[$i].'</td> ';
                             }
 
 
@@ -103,12 +103,11 @@
                         $str2.='<tr>';
                             for($i=1;$i<count($res)-1;$i++)
                             { 
-                                $str2.='<th class="center aligned">'.$res[$i].'</th>';
+                                $str2.='<td class="center aligned">'.$res[$i].'</td>';
                              } 
            
                          $str2.=' </tr> 
-                 </thead>
-                <tbody>
+                 
                     <tr>
                     <th class="center aligned">Expected Mark</th>';
                     $cnt=0;
@@ -169,9 +168,9 @@ height: 40px;
 span{
     font-size:20px;
 }
-#tabdiv{
+#table-list{
     overflow-x: scroll;
-    width: 300px;
+    /* width: 300px; */
     display: flex;
 }
 
