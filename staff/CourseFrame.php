@@ -79,7 +79,7 @@
                 <form class="ui form" id="frm2" method="POST" action="./SavePage.php">
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
-                <table class="ui inverted selectable celled table" id="table-list">
+                <table class="ui inverted celled table" id="table-list">
                 <tbody>
                     <tr>';
                         for($i=1;$i<count($columnArr)-1;$i++)
@@ -118,7 +118,7 @@
         
                         for($j=1+$cnt;$j<=$cnt+$_POST[$c];$j++)
                         {
-                            $str2.='<td class="center aligned"><input type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'" required/></td>';    
+                            $str2.='<td class="center aligned" style="padding-top: 0px;padding-bottom: 0px; padding-right: 5px;padding-left: 5px;"><input style="padding-top: 0px;padding-bottom: 0px; padding-right: 0px;padding-left: 5px;" type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'" required/></td>';    
                         }
                         $cnt+=$_POST[$c];
             
@@ -129,7 +129,7 @@
                     <th class="center aligned">Co</th>';
                     for($i=1;$i<count($res)-2;$i++)
                     { 
-                        $str2.='<td class="center aligned"><input type = "number" name = "c'.$i.'" min="1" max="5" required/></td>';
+                        $str2.='<td class="center aligned" style="padding-top: 0px;padding-bottom: 0px; padding-right: 5px;padding-left: 5px;"><input style="padding-top: 0px;padding-bottom: 0px; padding-right: 0px;padding-left: 5px;" type = "number" name = "c'.$i.'" min="1" max="5" required/></td>';
                      }
                     $str2.='</tr>
                 </tbody>
@@ -173,6 +173,18 @@ span{
     /* width: 300px; */
     display: flex;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 
 </style>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
