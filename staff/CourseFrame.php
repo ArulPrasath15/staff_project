@@ -75,11 +75,11 @@
                 // Array of all column names
                 $columnArr = array_column($result, 'COLUMN_NAME');
                 $str2='
-                <div  class="ui raised inverted segment" style="width:94%;margin:3%;">
+                <div  class="ui raised inverted segment" id="tabdiv" style="width:94%;margin:3%;">
                 <form class="ui form" id="frm2" method="POST" action="./SavePage.php">
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
-                <table class="ui fixed inverted selectable celled table" id="table-list">
+                <table class="ui inverted selectable celled table" id="table-list">
                 <thead>
                     <tr>';
                         for($i=1;$i<count($columnArr)-1;$i++)
@@ -169,7 +169,11 @@ height: 40px;
 span{
     font-size:20px;
 }
-
+#tabdiv{
+    overflow-x: scroll;
+    width: 300px;
+    display: flex;
+}
 
 </style>
 <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
