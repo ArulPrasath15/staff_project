@@ -8,7 +8,7 @@ include_once("../db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Creation</title>
+    <title>COPO Mapping</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
     <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css"/>
     <script src="../assets/js/jquery.min.js"></script> 
@@ -37,8 +37,8 @@ body
     <h2 class="ui center aligned icon header" style="margin:3%">
         <i class="edit icon"></i>
         <div style="color:#ffd700" class="content">
-            Course Creation
-            <div class="sub header">Creating the courses.</div>
+            COPO Mapping
+            <div class="sub header">Mapping COs with POs & PSOs.</div>
         </div>
     </h2>
 
