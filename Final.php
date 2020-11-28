@@ -53,6 +53,8 @@ elseif($rows['staff2']==$_staffid)
     <title>CO PO MAPPING</title>
     <link rel="icon" type="image/png" href="./images/logo.png">
      <link rel="stylesheet" href="./assets/Fomantic/dist/semantic.min.css" type="text/css"/> 
+      <script src="./assets/jquery.min.js"></script>
+      <script src="./assets/Fomantic/dist/semantic.min.js"></script>
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
@@ -101,6 +103,52 @@ elseif($rows['staff2']==$_staffid)
         text-align: center;
         padding: 18px;
     }
+    .darkness,.darkness2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+    transition: .5s ease;
+    z-index: -1;
+    opacity: 0;
+}
+
+.darkness.active,.darkness2.active{
+    opacity: 1;
+    z-index: 2;
+}
+
+.model,.model2{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-width: 450px;
+    padding: 30px;
+    color: #4A5666;
+    background-color: #F8F8F8;
+    visibility: hidden;
+    opacity: 0;
+    transition: .5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.model.active,.model2.active{
+    visibility: visible;
+    opacity: 1;
+    z-index: 3;
+}
+textarea.text1{
+  resize: none;
+  height:100px;
+  width:300px
+}
+textarea.text2{
+  resize: none;
+  height:100px;
+  width:300px
+}
 </style>
 <body>
 <div id="fun">
@@ -533,36 +581,61 @@ elseif($rows['staff2']==$_staffid)
     <table>
     <h2>&nbsp;COURSE ASSESMENT REPORT<h2>
     <tr>
-        <th style="background: #dddddd" colspan="4">POs attainment remarks</th>
+        <th style="background: #dddddd" colspan="5">POs attainment remarks</th>
     </tr>
     <tr>
         <th>POs</th>
         <th>Target Level</th>
         <th>Attainment Level</th>
         <th>Observations</th>
+        <th></th>
     </tr>
     <?php
+        $obsspan=0;
         $att_po=[0,0,0,0,0,0,0,0,0,0,0,0];
+        for($i=0;$i<12;$i++)
+        {
+            if($po_tar[$i]!=0)
+            {
+                $obsspan=$obsspan+1;
+            }
+        }
         for($i=0;$i<12;$i++)
         {
             $obs=" ";
             if($po_tar[$i]!=0)
             {
                 $att_po[$i]=number_format(((($att_lvl_po[$i])/5)*$po_tar[$i]),2);
-                if(round($att_po[$i],2) >= round($po_tar[$i],2))
+                if(round($att_po[$i],2) >= round($po_tar[$i],2) )
                 {
                     $obs="Target was attained";
                 }
                 else{
                     $obs="Target was not attained";
                 }
+                if( $po_res['obs'] != null)
+                {
+                    $obs=$po_res['obs'];
+                }
+
             
     ?>
         <tr>
         <td><?php echo 'PO '.($i+1);?></td>
         <td><?php echo $po_tar[$i]; ?></td>
         <td><?php echo $att_po[$i]; ?></td>
-        <td><?php echo $obs;?></td>
+        <?php
+        if($i==0)
+        {?> 
+        
+            <td rowspan=<?php echo $obsspan; ?>><?php echo $obs; ?></td>
+            <td rowspan=<?php echo $obsspan; ?>><button class="ui positive  button"  id='btn1'>Edit</button></td>
+        
+        <?php
+        }
+        
+        ?>
+        
         </tr>
     <?php } } ?>
     <tr>
@@ -573,6 +646,7 @@ elseif($rows['staff2']==$_staffid)
         <th>Target Level</th>
         <th>Attainment Level</th>
         <th>Observations</th>
+        <th></th>
     </tr>
     <?php
         $att_pso=[0,0];
@@ -585,14 +659,20 @@ elseif($rows['staff2']==$_staffid)
                 $obs="Target was attained";
             }
             else{
+                
                 $obs="Target was not attained";
             }
+            if( $po_res['obs1'] != null)
+                {
+                    $obs=$po_res['obs1'];
+                }
     ?>
         <tr>
         <td><?php echo 'PSO 1';?></td>
         <td><?php echo $pso_tar[0]; ?></td>
         <td><?php echo $att_pso[0]; ?></td>
-        <td><?php echo $obs;?></td>
+        <td rowspan='2'><?php echo $obs;?></td>
+        <td rowspan='2'><button class="ui positive  button"  id='btn2'>Edit</button></td>
         </tr>
     <?php } ?>
     <?php
@@ -612,13 +692,119 @@ elseif($rows['staff2']==$_staffid)
         <td><?php echo 'PSO 2';?></td>
         <td><?php echo $pso_tar[1]; ?></td>
         <td><?php echo $att_pso[1]; ?></td>
-        <td><?php echo $obs;?></td>
+        
         </tr>
     <?php } ?>
     </table>
     </div>
     </div>
+    <!-- Modal -->
+<div class="darkness"></div>
+<div class="model">
+  <h2>Edit Observation</h2>
+  <form id='f1'>
+  <div class="field">
+    <textarea class="text1" name="textarea1" required ></textarea>
+    <input type="hidden"  name="code" value=<?php echo $_code;?>
+
+  </div><br><br>
+  <button class="ui primary green button" id='update1' value='Submit'>Update</button>
+  <div class="ui primary red button" id='close1' value='close'>Close</div>
+
+  </form>
+</div></div><br><br><br><br>
+<!-- -------- -->
+  <!-- Modal -->
+  <div class="darkness2"></div>
+<div class="model2">
+  <h2>Edit Observation 2</h2>
+  <form id='f2'>
+  <div class="field">
+    <textarea class="text1" name="textarea2" required ></textarea>
+    <input type="hidden"  name="code" value=<?php echo $_code;?>
+
+  </div><br><br>
+  <button class="ui primary green button" id='update2' value='Submit'>Update</button>
+  <div class="ui primary red button" id='close2' value='close'>Close</div>
+
+  </form>
+</div></div>
+<!-- -------- -->
     <script>
+
+    
+$( document ).ready(function() {
+    var coursecode='<?php echo $_code ;?>';
+
+        $('#btn1').on('click',function(){
+            $('.darkness, .model').addClass('active');
+        });
+
+        $('#close1').on('click',function(){
+            $('.darkness, .model').removeClass('active');
+        });
+
+        $('#btn2').on('click',function(){
+            console.log('2');
+            $('.darkness2, .model2').addClass('active');
+        });
+
+        $('#close2').on('click',function(){
+            $('.darkness2, .model2').removeClass('active');
+        });
+
+
+
+        $(function () {
+        
+        $('#f1').bind('submit', function () {
+            var d1=$('#f1').serialize();
+            console.log(d1);
+
+          $.ajax({
+            type: 'post',
+            url: './Ajax/handler2.php',
+            data: $('#f1').serialize(),
+            success: function (d) {
+              if(d=='True')
+              {
+                console.log('load');
+                location.reload();
+
+              }
+            }
+          });
+          return false;
+        });
+      });
+      
+      $(function () {
+        
+        $('#f2').bind('submit', function () {
+            var d2=$('#f2').serialize();
+            // console.log(d2);
+
+          $.ajax({
+            type: 'post',
+            url: './Ajax/handler2.php',
+            data: $('#f2').serialize(),
+            success: function (d) {
+              if(d=='True')
+              {
+                console.log('load');
+                location.reload();
+
+              }
+            }
+          });
+          return false;
+        });
+      });
+
+});
+
+        
+
     function Export2Doc(element, filename = ''){
     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
     var postHtml = "</body></html>";
