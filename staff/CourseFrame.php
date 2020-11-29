@@ -118,7 +118,7 @@
         
                         for($j=1+$cnt;$j<=$cnt+$_POST[$c];$j++)
                         {
-                            $str2.='<td class="center aligned" style="padding-top: 0px;padding-bottom: 0px; padding-right: 5px;padding-left: 5px;"><input style="padding-top: 0px;padding-bottom: 0px; padding-right: 0px;padding-left: 5px;" type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'" required/></td>';    
+                            $str2.='<td class="center aligned" style="padding-top: 0px;padding-bottom: 0px; padding-right: 5px;padding-left: 5px;"><input style="padding-top: 0px;padding-bottom: 0px; padding-right: 0px;padding-left: 5px;" type = "number" name = "em'.$j.'" min="0" max="'.($_POST[$m]).'" step="0.50" required/></td>';    
                         }
                         $cnt+=$_POST[$c];
             
@@ -354,7 +354,7 @@ if($count==1)
         <td class="center aligned" >A</td>
         <td class="center aligned">
              <div class="ui input">
-                 <input type="number" name="cnt1" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                 <input type="number" name="cnt1" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"
                 type = "number"
                 maxlength = "2"  required />
             </div>
@@ -362,9 +362,9 @@ if($count==1)
         </td>
         <td class="center aligned">
              <div class="ui input">
-             <input type="number" name="mark1" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+             <input type="number" name="mark1" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"
                 type = "number"
-                maxlength = "2"  required />            
+                maxlength = "2"  min="0" step="0.50"  required />            
                 </div>
         
         </td>
@@ -375,16 +375,16 @@ if($count==1)
         <td class="center aligned" >B</td>
         <td class="center aligned">
             <div class="ui input">
-            <input type="number"  name="cnt2" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            <input type="number"  name="cnt2" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;"
                 type = "number"
                 maxlength = "2"  required />       
             </div>
         </td>
         <td class="center aligned">
             <div class="ui input">
-            <input type="number" name="mark2" style="width:30%;margin-left:30%;margin-right:30%;font-size:20px;"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+            <input type="number" name="mark2" style="width:30%;margin-left:30%;margin-right:30%;font-size:20px;"
                 type = "number"
-                maxlength = "2"  required />   
+                maxlength = "2"  min="0" step="0.50"  required />   
          </div>
         
         </td>
@@ -430,7 +430,7 @@ if($count==1)
         var x=$('table tr:last').find('td:first').html()     
         console.log("Added");
         var char=String.fromCharCode(x.charCodeAt() + 1) 
-        var con='<tr> <td class="center aligned" >'+char+'</td> <td class="center aligned"> <div class="ui input"> <input type="number" name="cnt'+i+'" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "2" required /> </div> </td> <td class="center aligned"> <div class="ui input"> <input type="number" name="mark'+i+'" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "2" required /> </div> </td> </tr>';
+        var con='<tr> <td class="center aligned" >'+char+'</td> <td class="center aligned"> <div class="ui input"> <input type="number" name="cnt'+i+'" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;" type = "number" maxlength = "2" required /> </div> </td> <td class="center aligned"> <div class="ui input"> <input type="number" name="mark'+i+'" style="width:5%;margin-left:30%;margin-right:30%;font-size:20px;" type = "number" maxlength = "2"  min="0" step="0.50" required /> </div> </td> </tr>';
         $('table').append(con);
         
       });
