@@ -1,7 +1,7 @@
 <?php
    
    include_once("../db.php");
-   include_once("./nav.php");
+    session_start();
    if(!isset($_SESSION["staffid"]))
     {
     header("Location: ../index.php");
@@ -152,6 +152,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Frame</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
+    <?php include_once('../assets/notiflix.php'); ?>
+     <link rel="icon" type="image/png" href="../Images/logo.png">
+      <link rel="stylesheet" href="../assets/Fomantic/dist/semantic.min.css" type="text/css" />
+      <script src="../assets/jquery.min.js"></script>
+      <script src="../assets/Fomantic/dist/semantic.min.js"></script>
+      <link rel="stylesheet" href="../assets/animate.min.css" type="text/css" />
  
 </head>
 <style>
@@ -187,11 +193,16 @@ input[type=number] {
 
 
 </style>
-<div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div>
+<!-- <div class="preloader"><body><div class="ui active dimmer" style="position: fixed;"><div class="ui massive active green elastic loader"></div></div></body></div> -->
 
 <body>
     <!-- navbar -->
-    
+    <div class="ui tablet computer only padded grid">
+      <div class="ui borderless fluid  inverted menu" style="font-size:16px">
+        <a href="./index.php" class="active green item" style="font-size:20px">KEC Student +</a>
+        <a  class="right align item"  style="margin-left:1220px"   href="../Logout.php" style="font-size:20px"><i class="share square outline icon"></i>Logout</a>
+      </div>
+    </div>
 <!-- navbar end -->
 <?php 
 $sql="SELECT * FROM `course_list` WHERE code LIKE '$_code' AND cc LIKE '$_staffid' ";
@@ -445,7 +456,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                 // alert(d);
+                 alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });

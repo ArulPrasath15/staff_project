@@ -625,10 +625,11 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 {
     margin-left:58px;
 }
-#table-list{
+#tt{
     overflow-x: scroll;
-    /* width: 300px; */
-    display: flex;
+    width: 100%;
+    margin:auto;
+    /* display: flex; */
 }
 
 
@@ -744,8 +745,9 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     </div>
 
 </form>
-    <table id="table-list" class="ui selectable celled table" >
-    <tbody>
+    <div id="tt">
+    <table id="table-list" class="ui selectable celled table"  >
+    <thead class="ui sticky">
                 <tr>
                     <?php
                     
@@ -754,14 +756,14 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                         {?>
 
                            
-                            <td class="center aligned" style="background-color:grey;color:black;font-size:15px;"><?php echo strtoupper($columnArr[$i]);?> </td> 
+                            <th class="center aligned" style="background-color:grey;color:black;font-size:15px;"><?php echo strtoupper($columnArr[$i]);?> </th> 
                         <?php 
                         }
                         else{
                     ?>
 
 
-                             <td class="center aligned" style="background-color:grey;color:black;font-size:15px;"> <?php echo strtoupper($columnArr[$i]);?></td>
+                             <th class="center aligned" style="background-color:grey;color:black;font-size:15px;"> <?php echo strtoupper($columnArr[$i]);?></th>
 
 
                         <?php } 
@@ -772,9 +774,9 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
                 
                 
-             <!-- </thead>
+        </thead>
      
-      <tbody>  -->
+      <tbody> 
              
       <?php  
                     $max = $con->query("SELECT * FROM $_table WHERE  `rollno` like 'Max Mark' ");
@@ -1101,6 +1103,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
             </tbody>
            
     </table>
+    </div>
 
     <br>
     <center><form class="ui form" action="<?php echo $_SERVER["PHP_SELF"];?>" method="POST" ><button class="ui small positive  button" type="submit" id="b1" name="submit" style="border-radius:5px;"><h2>Submit</h2></button></form></center>
@@ -1300,6 +1303,11 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
   <script  src="../js/Table.js"></script>
+  <script>
+    $(.ui.sticky).sticky();
+
+
+  </script>
     
 </body>
 </html>
