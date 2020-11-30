@@ -625,12 +625,12 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 {
     margin-left:58px;
 }
-#tt{
+/* #tt{
     overflow-x: scroll;
     width: 100%;
     margin:auto;
     /* display: flex; */
-}
+/* } */ 
 
 
 </style>
