@@ -42,7 +42,7 @@
     // print_r($co);
     // print_r($poa);
     // print_r($psoa);
-    $sql="INSERT INTO `copo`(`code`, `co1`, `co2`, `co3`, `co4`, `co5`, `po1`, `po2`, `po3`, `po4`, `po5`, `po6`, `po7`, `po8`, `po9`, `po10`, `po11`, `po12`, `pso1`, `pso2`) VALUES ('".$_SESSION['code']."','".$co[1]."','".$co[2]."','".$co[3]."','".$co[4]."','".$co[5];
+    $sql="INSERT INTO `copo`(`code`, `co1`, `co2`, `co3`, `co4`, `co5`, `po1`, `po2`, `po3`, `po4`, `po5`, `po6`, `po7`, `po8`, `po9`, `po10`, `po11`, `po12`, `pso1`, `pso2`) VALUES ('".$_GET['code']."','".$co[1]."','".$co[2]."','".$co[3]."','".$co[4]."','".$co[5];
     for($j=0;$j<12;$j++){
         $sql.="','".$poa[$j];     
     }

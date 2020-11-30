@@ -80,7 +80,7 @@ font-size:16px;
             ?>
           <tr>
               <td class="center aligned" ><?php  echo $no;            ?> </td>
-              <td class="center aligned" ><?php  echo $row1['code']; $_SESSION['code']=$row1['code']; ?> </td>
+              <td class="center aligned" ><?php  echo $row1['code'];  ?> </td>
               <td class="center aligned" ><?php  echo $row1['name'];  ?> </td>
               <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
               <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
@@ -94,7 +94,7 @@ font-size:16px;
               <?php
               }else{
               ?>
-              <td class="center aligned" ><div class="ui positive button" onclick="location.href = './copo.php'">COPO Mapping</div></td>
+              <td class="center aligned" ><div class="ui positive button" onclick="location.href = './copo.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
               <?php } ?>
               <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
               <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
