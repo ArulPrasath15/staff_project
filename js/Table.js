@@ -214,7 +214,10 @@ function rowAcep(but) {
         //console.log($(this).val());
 
         key=13;
-        if( $(this).val() > parseInt(maxmark) || $(this).val() < 0 )
+        console.log(typeof parseFloat(maxmark));
+        console.log(typeof $(this).val());
+        // console.log( $(this).val());
+        if( $(this).val() > parseFloat(maxmark) || $(this).val() < 0 )
          { 
 
            

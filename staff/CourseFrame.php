@@ -20,7 +20,7 @@
     if(isset($_POST["pattern"]))
     {
         $cnt=0;
-         $_SESSION['exam']= $_POST['exam'];
+        $_SESSION['exam']= $_POST['exam'];
         $str="CREATE TABLE ".($_POST['exam'])." (sec varchar(2) NULL , rollno varchar(10) NOT NULL,";
         $str1="INSERT INTO `".($_POST['exam'])."`(`rollno`, ";
         $cnt=0;
@@ -456,7 +456,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                 alert(d);
+                //  alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });

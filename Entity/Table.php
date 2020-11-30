@@ -883,7 +883,7 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
                             for($i=1;$i<count($maxmark)-1;$i++)
                             { if($i==1)
                                 {?>
-                                    <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above tde attainment level, Total appeared for Test</para></td>
+                                    <td style="background-color:grey;color:black;font-size:15px;" class="center aligned" > <para>% of scoring above the attainment level, Total appeared for Test</para></td>
                                     
                                <?php }else{   
 
