@@ -79,6 +79,7 @@
                 <form class="ui form" id="frm2" method="POST" action="./SavePage.php">
                 <input type = "hidden" name = "test" value="'.($_POST['exam']).'"/>
                 <input type = "hidden" name = "size" value="'.count($columnArr).'"/>
+                <div id="tt">
                 <table class="ui inverted celled table" id="table-list">
                 <tbody>
                     <tr>';
@@ -133,7 +134,7 @@
                      }
                     $str2.='</tr>
                 </tbody>
-                </table><br>
+                </table></div><br>
                 <center><button class="ui small positive button" name="create" type="submit" style="border-radius:5px;"><h2>Confirm</h2></button></form>
                 <form class="ui form" id="frm3" method="POST" action="./SavePage.php">
                    <br> <button class="ui small negative button" name="cancel" type="submit" style="border-radius:5px;"><h2>Cancel</h2></button></center>
@@ -174,10 +175,11 @@ height: 40px;
 span{
     font-size:20px;
 }
-#table-list{
+#tt{
     overflow-x: scroll;
-    /* width: 300px; */
-    display: flex;
+    width: 100%;
+    margin:auto;
+    /* display: flex; */
 }
 
 input::-webkit-outer-spin-button,
@@ -456,7 +458,7 @@ if($count==1)
             data:form,
             type:"POST",
             success:function(d){
-                 alert(d);
+                // alert(d);
                 document.getElementById("content1").innerHTML+=d;
             }
         });
