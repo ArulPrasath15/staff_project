@@ -1,7 +1,7 @@
 <?php
 
 include_once("../db.php");
-
+$_SESSION['cocode']=$_GET['code'];
 ?>
 <html lang="en">
 
@@ -42,7 +42,7 @@ body
         </div>
     </h2>
 
-    <form class="ui form" id="frm" method="POST" action="./sav.php">
+    <form class="ui form" id="frm" method="POST" action="./sav.php?code=<?php echo $_GET['code']; ?>">
     <table class="ui selectable fixed celled inverted table"> 
         <thead>
         <tr>
