@@ -11,7 +11,7 @@ if(isset($_POST['submit']))
      
     $_SESSION['exam']=$_POST['exam'];
     $exam=substr($_POST['exam'],0,3); 
-    if( $exam=="oth" || $exam=="ASS")
+    if( $exam=="Oth" || $exam=="Ass")
     {
 
       header("Location: ../Entity/Table1.php");
