@@ -1177,7 +1177,10 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
             }
             for($i=2;$i<count($columnArr)-1;$i++)
             {
-            $Up2ExpLvl[$i-2]=(($got[$i-2]/$tot_num[$i-2])*100);
+            if($tot_num[$i-2]==0){
+                $Up2ExpLvl[$i-2]=0;
+            }else{    
+            $Up2ExpLvl[$i-2]=(($got[$i-2]/$tot_num[$i-2])*100);}
             if($exp_att_arr[$i-2]<=$range[0])
             {
                 $sat_att_arr[$i-2]=1;
