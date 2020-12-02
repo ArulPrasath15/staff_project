@@ -268,7 +268,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                             } 
                             else
                             {
-                                echo $sql1;
+                                // echo $sql1;
                             }
     
 

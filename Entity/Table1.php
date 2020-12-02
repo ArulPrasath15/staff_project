@@ -138,7 +138,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         // Array of all column names
         $columnArr1 = array_column($result1, 'COLUMN_NAME');
 
-            print_r($columnArr1);
+            // print_r($columnArr1);
         // echo count($columnArr1)-1;
         // echo $_FILES['chooseFile']['tmp_name'];
         
@@ -155,7 +155,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         $res=$data1->fetch_assoc();
         $ques="mark";
         $maxmark=$res[$ques];
-        echo($maxmark);
+        // echo($maxmark);
         
             
 
@@ -221,8 +221,8 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                             
     
                             
-                            print_r($quesarr);
-                            print_r($marksarr);
+                            // print_r($quesarr);
+                            // print_r($marksarr);
                             $sql1='UPDATE '.$_table.' SET ';
                             
                             
@@ -247,12 +247,12 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                                     $error++;
 
                                 }
-                                echo $sql1;
+                                // echo $sql1;
     
                             } 
                             else
                             {
-                                echo $sql1;
+                                // echo $sql1;
                             }
     
 
