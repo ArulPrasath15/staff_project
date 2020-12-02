@@ -2,7 +2,7 @@
 <?php
 
 include_once("../db.php");
-// include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
+include_once("../assets/simplexlsx-master/src/SimpleXLSX.php");
 include_once('../assets/notiflix.php'); 
 session_start();
 if(!isset($_SESSION["staffid"]))
@@ -82,7 +82,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             if($con->query($sql))
             {
     
-                   echo '<script>alert("fwfw")</script>'; 
+                //    echo '<script>alert("fwfw")</script>'; 
                    header('Location: '.$_SERVER['REQUEST_URI']);
     
             }
@@ -138,32 +138,31 @@ $columnArr = array_column($result, 'COLUMN_NAME');
         // Array of all column names
         $columnArr1 = array_column($result1, 'COLUMN_NAME');
 
+            print_r($columnArr1);
         // echo count($columnArr1)-1;
-        // echo $_FILES['ifile']['tmp_name'];
+        // echo $_FILES['chooseFile']['tmp_name'];
         
-        if ( $xlsx = SimpleXLSX::parse( $_FILES['ifile']['tmp_name'] ) )
+        if ( $xlsx = SimpleXLSX::parse( $_FILES['chooseFile']['tmp_name'] ) )
         {
         list( $num_cols, $num_row) = $xlsx->dimension();
         // echo $num_cols."     ";
-        $maxmark=array(); 
+        $maxmark=0; 
         $error=0;
         $success=0;
         $maxfailedroll=array(); 
         $sql1="SELECT * FROM `$_table` WHERE rollno LIKE 'Max Mark' ";
         $data1=$con->query($sql1);
         $res=$data1->fetch_assoc();
-        for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
-        {
-            $ques="Q".$i;
-            $maxmark[$i]=$res[$ques];
-
-        }
-        // print_r($maxmark);     
+        $ques="mark";
+        $maxmark=$res[$ques];
+        echo($maxmark);
+        
+            
 
 
 
 
-            if( $num_cols==count($columnArr1)-1)
+            if( $num_cols==2)
             {
                 $j=0;
                 foreach ( $xlsx->rows() as $k => $r ) {
@@ -174,86 +173,69 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                     $res=$con->query($sql);
                     
                     if($res->num_rows!=0) 
-                     {
+                    {
                         $maxcheck=0;
                         
-                        for ( $i = 1; $i < count($columnArr1)-2; $i ++ )
-                        {
-
-                            if($r[$i]<=$maxmark[$i])
+                        
+                        
+                            if($r[1]<=$maxmark)
                             {
+
+
                             }
                             else
                             {
-
                                 $maxcheck++;
                                 $maxfailedroll[$j]=$r[0];
                                 $j++;
-                             }
+                            }
 
 
 
-                        }
+                        
                         if($maxcheck==0)
                         {
-                            for ( $i = 1; $i < count($columnArr1)-2; $i ++ ) {
-                                $ques="Q".$i;
+                            
+                                $ques="mark";
                                 // echo $ques;
-                                $quesarr[$i]=$ques;
+                                $quesarr[1]=$ques;
                                 // echo $r[$i];
-                                if($r[$i]==strval(0))
+                                if($r[1]==strval(0))
                                 {
-                                    $marksarr[$i]=0;
+                                    $marksarr[1]=0;
                                 }
                                 else
                                 {
-                                    if(empty($r[$i]))
+                                    if(empty($r[1]))
                                     {
-                                    $marksarr[$i]='NULL';
+                                    $marksarr[1]='NULL';
                                     //  echo $ques;
                                     }
                                     else
                                     {
-                                    $marksarr[$i]=$r[$i];
+                                    $marksarr[1]=$r[1];
                                     }
                                     
                                 }
     
-                            }
-    
-                            $quesarr[count($columnArr1)-2]='TOTAL';
-                            if($r[count($columnArr1)-2]==strval(0))
-                            {
-                                $marksarr[count($columnArr)-2]=0;
-                                }
-                                else
-                                {
-                                if(empty($r[count($columnArr1)-2]))
-                                {
-                                    $marksarr[count($columnArr)-2]='NULL';
-                                //  echo $ques;
-                                }
-                                else
-                                {
-                                    $marksarr[count($columnArr)-2]=$r[count($columnArr1)-2];
-                                }
                             
-                             }
-                            // print_r($quesarr);
-                            // print_r($marksarr);
+    
+                            
+                            print_r($quesarr);
+                            print_r($marksarr);
                             $sql1='UPDATE '.$_table.' SET ';
-                            for($i=1;$i<=count($columnArr)-3;$i++)
-                            {
+                            
+                            
     
-                                $sql1.=$quesarr[$i] .'='. $marksarr[$i];
-                                $sql1.=',';
+                                $sql1.=$quesarr[1] .'='. $marksarr[1];
+                                // $sql1.=',';
     
-                            }
+                            
     
-                            $total=count($columnArr)-2;
-                            $sql1.= 'Total'.'='.$marksarr[$total].' ';
+                            // $total=count($columnArr)-2;
+                            // $sql1.= 'Total'.'='.$marksarr[$total].' ';
     
-                            $sql1.= 'WHERE rollno ='."'".$r[0]."'";
+                            $sql1.= ' WHERE rollno ='."'".$r[0]."'";
     
                             if ($con->query($sql1) === TRUE) {
                                 if(count($maxfailedroll)==0)
@@ -265,6 +247,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
                                     $error++;
 
                                 }
+                                echo $sql1;
     
                             } 
                             else
@@ -290,14 +273,14 @@ $columnArr = array_column($result, 'COLUMN_NAME');
             else
             {
 
-                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table1.php');});</script></body>";
                 // for column count
             }
 
 
             if($error==0)
             {
-                echo "<body><script> Notiflix.Report.Success('Imported Successfully ','Please Check the table','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                echo "<body><script> Notiflix.Report.Success('Imported Successfully ','Please Check the table','Okay',function(){ window.location.replace('./Table1.php');});</script></body>";
 
             }
             else
@@ -313,7 +296,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
 
                 }
                 //  print_r($maxfailedroll);
-                echo "<body><script> Notiflix.Report.Warning('Imported Sucessfully ','Please Check the below Rollno $string which their Marks Exceed the Maximum Mark.','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                echo "<body><script> Notiflix.Report.Warning('Imported Sucessfully ','Please Check the below Rollno $string which their Marks Exceed the Maximum Mark.','Okay',function(){ window.location.replace('./Table1.php');});</script></body>";
 
             }
 
@@ -323,7 +306,7 @@ $columnArr = array_column($result, 'COLUMN_NAME');
          else 
             {
               
-                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table.php');});</script></body>";
+                echo "<body><script> Notiflix.Report.Failure('Invalid Excel Format','Please Check the Format','Okay',function(){ window.location.replace('./Table1.php');});</script></body>";
             }
        
     }
@@ -387,20 +370,32 @@ $(document).ready(function() {
 }; 
 
 
+ // file restrict
+ var file = document.getElementById('chooseFile');
+console.log(file);
+file.onchange = function(e) {
+  var ext = this.value.match(/\.([^\.]+)$/)[1];
+  switch (ext) {
+    case 'xlsx':
+       break;
+    default:
+      alert('Not allowed');
+      this.value = '';
+  }
+};
 
-    // file restrict
-// var file = document.getElementById('inputfile');
-// console.log(file);
-// file.onchange = function(e) {
-//   var ext = this.value.match(/\.([^\.]+)$/)[1];
-//   switch (ext) {
-//     case 'xlsx':
-//        break;
-//     default:
-//       alert('Not allowed');
-//       this.value = '';
-//   }
-// };
+$('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen..."); 
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+  }
+});
+
 
 var colcount=$($('#table-list thead tr')[0]).find('th').length;
     col=[];
@@ -524,6 +519,112 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
     margin-left:32%;
     
   }
+  .file-upload {
+  display: block;
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  width:350px;
+}
+.file-upload .file-select {
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select .file-select-button {
+  background: #dce4ec;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+.file-upload .file-select:hover {
+  border-color: #34495e;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select:hover .file-select-button {
+  background: #34495e;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select {
+  border-color: #3fa46a;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload.active .file-select .file-select-button {
+  background: #3fa46a;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+.file-upload .file-select input[type="file"] {
+  z-index: 100;
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.file-upload .file-select.file-select-disabled {
+  opacity: 0.65;
+}
+.file-upload .file-select.file-select-disabled:hover {
+  cursor: default;
+  display: block;
+  border: 2px solid #dce4ec;
+  color: #34495e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 5px;
+  text-align: left;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+  background: #dce4ec;
+  color: #666666;
+  padding: 0 10px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+  line-height: 40px;
+  display: inline-block;
+  padding: 0 10px;
+}
+.importcontent
+{
+    margin-left:58px;
+}
 
 
 
@@ -626,12 +727,25 @@ var colcount=$($('#table-list thead tr')[0]).find('th').length;
 
 
 
-
 <!-- <div class="ui grid"> -->
   <!-- <div id="buttons-menu" class="two wide column"></div> -->
   <div class="tablecontent" id="t1">
-  <!-- <input type="file" id="inputfile"  name="ifile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> -->
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>"   method="POST" enctype="multipart/form-data">    
 
+    <div class="importcontent">
+    <div class="file-upload">
+     <div class="file-select">
+        <div class="file-select-button" id="fileName">Choose File</div>
+        <div class="file-select-name" id="noFile">No file chosen...</div> 
+         <input type="file" name="chooseFile" id="chooseFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        
+      </div>
+    </div>
+
+    <button style="padding-left:150px;padding-right:158px;" class="ui blue button" name="importsubmit"> Import</button>
+    </div>
+
+</form>
 <center>
     <table id="table-list" class="ui selectable celled table" >
     <thead>
