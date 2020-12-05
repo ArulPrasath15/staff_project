@@ -166,31 +166,88 @@ textarea.text2{
     <div class="topic">
         <h1 style="font-size:40px"><center>CO-PO MAPPING</center></h1>
     </div>
-    <?php 
-        $sql = $con->query("SELECT * FROM `cat1_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+    <?php
+        $tb1 = $con->query("SELECT * FROM `cat1_".$rows['code']."_".$rows['batch']."`");
+        if($tb1==true){
+        $tb11 = $con->query("SELECT * FROM `cat1_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb11->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
         $cat1_co=[];
         array_push($cat1_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
-        $sql = $con->query("SELECT * FROM `cat2_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+        }else{
+            $cat1_co=[0,0,0,0,0];
+        }}else{
+            $cat1_co=[0,0,0,0,0];
+        }
+        $tb2 = $con->query("SELECT * FROM `cat2_".$rows['code']."_".$rows['batch']."`");
+        if($tb2==true){
+        $tb21 = $con->query("SELECT * FROM `cat2_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb21->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
         $cat2_co=[];
         array_push($cat2_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
-        $sql = $con->query("SELECT * FROM `cat3_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+        }else{
+            $cat2_co=[0,0,0,0,0];
+        }}else{
+            $cat2_co=[0,0,0,0,0];
+        }
+        $tb3 = $con->query("SELECT * FROM `cat3_".$rows['code']."_".$rows['batch']."`");
+        if($tb3==true){
+        $tb31 = $con->query("SELECT * FROM `cat3_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb31->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
         $cat3_co=[];
         array_push($cat3_co,$res[2],$res[3],$res[4],$res[5],$res[6]);
-        $sql = $con->query("SELECT * FROM `assignment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+        }else{
+            $cat3_co=[0,0,0,0,0];
+        }}else{
+            $cat3_co=[0,0,0,0,0];
+        }
+        $tb4 = $con->query("SELECT * FROM `assignment_".$rows['code']."_".$rows['batch']."`");
+        if($tb4==true){
+        $tb41 = $con->query("SELECT * FROM `assignment_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb41->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
         $assignment_co=$res[2];
-        $sql = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+        }else{
+            $assignment_co=0;
+        }}else{
+            $assignment_co=0;
+        }    
+        $tb5 = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."`");
+        if($tb5==true){
+        $tb51 = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb51->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
         $otherassesment_co=$res[2];
-        $sql = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'CO' ");
-        $res = $sql->fetch_row();
-        $otherassesment_co_map=strval($res[2]);
-        $sql = $con->query("SELECT * FROM `sem_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'Attco".$class."' ");
-        $res = $sql->fetch_row();
+        }else{
+            $otherassesment_co=0;
+        }}else{
+            $otherassesment_co=0;
+        }    
+        $tb55 = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."`");
+        if($tb55==true){
+        $tb551 = $con->query("SELECT * FROM `otherassesment_".$rows['code']."_".$rows['batch']."` WHERE  `rollno` like 'CO' ");
+        $res = $tb551->fetch_row();
+        if(gettype($res[2])!= 'NULL'){
+            $otherassesment_co_map=strval($res[2]);
+        }else{
+            $otherassesment_co_map="";
+        }}else{
+            $otherassesment_co_map="";
+        }
+        $tb6 = $con->query("SELECT * FROM `sem_".$rows['code']."_".$rows['batch']."`");
+        if($tb6==true){
+        $tb61 = $con->query("SELECT * FROM `sem_".$rows['code']."_".$rows['batch']."` where `rollno` like  'Attco".$class."'");
+        $res = $tb61->fetch_row();
+        if(gettype($res[3])!= 'NULL'){
         $sem_co=$res[3];
+        }else{
+            $sem_co=0;
+        }}else{
+            $sem_co=0;
+        }
+
         $sql = $con->query("SELECT * FROM `copo` WHERE  `code` like '".$rows['code']."' ");
         $po_res = $sql->fetch_assoc();
         $poco=[];

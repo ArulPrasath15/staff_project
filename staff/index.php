@@ -91,10 +91,12 @@ font-size:16px;
               if(in_array($row1['code'],$arr)){
               ?>
               <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = './copo.php'">COPO Mapping</div></td>
+              <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
               <?php
               }else{
               ?>
               <td class="center aligned" ><div class="ui positive button" onclick="location.href = './copo.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td>
+              <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
               <?php } ?>
               <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
               <!-- <td class="center aligned" ><div class="ui positive button">Activate</div></td> -->
@@ -119,51 +121,6 @@ font-size:16px;
                 {
                   $class='D';
                 }
-                //echo "SELECT * FROM `cat1_".$row1['code']."_".$row1['batch']."`";
-                $tb1 = $con->query("SELECT * FROM `cat1_".$row1['code']."_".$row1['batch']."`");
-                $tb2 = $con->query("SELECT * FROM `cat2_".$row1['code']."_".$row1['batch']."`");
-                $tb3 = $con->query("SELECT * FROM `cat3_".$row1['code']."_".$row1['batch']."`");
-                $tb4 = $con->query("SELECT * FROM `assignment_".$row1['code']."_".$row1['batch']."`");
-                $tb5 = $con->query("SELECT * FROM `otherassesment_".$row1['code']."_".$row1['batch']."`");
-                $tb6 = $con->query("SELECT * FROM `sem_".$row1['code']."_".$row1['batch']."`");
-                
-                if($tb1==true && $tb2==true && $tb3==true && $tb4==true && $tb5==true && $tb6==true){
-                  $tb11 = $con->query("SELECT `Q1` FROM `cat1_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb21 = $con->query("SELECT `Q1` FROM `cat2_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb31 = $con->query("SELECT `Q1` FROM `cat3_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb41 = $con->query("SELECT `mark` FROM `assignment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb51 = $con->query("SELECT `mark` FROM `otherassesment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb61 = $con->query("SELECT `points` FROM `sem_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  //echo "SELECT `points` FROM `sem_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'";
-                  $res1 = $tb11->fetch_row();
-                  $res2 = $tb21->fetch_row();
-                  $res3 = $tb31->fetch_row();
-                  $res4 = $tb41->fetch_row();
-                  $res5 = $tb51->fetch_row();
-                  $res6 = $tb61->fetch_row();
-                  //echo gettype($res6[0]);
-                  if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
-                  //echo "hi";
-                  ?>
-                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                  <?php
-                  }
-                  else{
-                    ?>
-                    <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                    <?php
-                  }  
-              }
-                else{
-                  ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                  <?php
-                }
-              }
-              else{
-                ?>
-                <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                <?php
               }
               ?>
 
@@ -183,6 +140,12 @@ font-size:16px;
               }
               else
               {
+                $sqlc="SELECT `code` from `copo` ";
+                $datac=$con->query($sqlc);
+                $arr=Array();
+                while($rowc = $datac->fetch_assoc()){
+                  $arr[]=$rowc['code'];
+                }
 
               ?>
               <tr>
@@ -192,6 +155,15 @@ font-size:16px;
                   <td class="center aligned" ><?php  echo $row1['batch']; ?> </td>
                   <td class="center aligned" ><?php  echo $row1['sem'];   ?> </td>
                   <td class="center aligned" colspan="4" ><div class="ui positive  button" onclick="location.href = '../Entity/MarkEntry.php?code=<?php echo $row1['code']; ?>'">Mark Entry</div></td>
+                  <?php
+                  if(in_array($row1['code'],$arr)){
+                  ?>
+                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
+                  <?php
+                  }else{
+                  ?>
+                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
+                  <?php } ?>
                   <!-- <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">COPO Mapping</div></td> -->
                   <?php
                   $class=' ';
@@ -212,45 +184,7 @@ font-size:16px;
                 {
                   $class='D';
                 }
-                //echo "SELECT * FROM `cat1_".$row1['code']."_".$row1['batch']."`";
-                $tb1 = $con->query("SELECT * FROM `cat1_".$row1['code']."_".$row1['batch']."`");
-                $tb2 = $con->query("SELECT * FROM `cat2_".$row1['code']."_".$row1['batch']."`");
-                $tb3 = $con->query("SELECT * FROM `cat3_".$row1['code']."_".$row1['batch']."`");
-                $tb4 = $con->query("SELECT * FROM `assignment_".$row1['code']."_".$row1['batch']."`");
-                $tb5 = $con->query("SELECT * FROM `otherassesment_".$row1['code']."_".$row1['batch']."`");
-                $tb6 = $con->query("SELECT * FROM `sem_".$row1['code']."_".$row1['batch']."`");
-                
-                if($tb1==true && $tb2==true && $tb3==true && $tb4==true && $tb5==true && $tb6==true){
-                  $tb11 = $con->query("SELECT `Q1` FROM `cat1_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb21 = $con->query("SELECT `Q1` FROM `cat2_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb31 = $con->query("SELECT `Q1` FROM `cat3_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb41 = $con->query("SELECT `mark` FROM `assignment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb51 = $con->query("SELECT `mark` FROM `otherassesment_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $tb61 = $con->query("SELECT `points` FROM `sem_".$row1['code']."_".$row1['batch']."` where `rollno` like  'Attco".$class."'");
-                  $res1 = $tb11->fetch_row();
-                  $res2 = $tb21->fetch_row();
-                  $res3 = $tb31->fetch_row();
-                  $res4 = $tb41->fetch_row();
-                  $res5 = $tb51->fetch_row();
-                  $res6 = $tb61->fetch_row();
-                  if(gettype($res1[0])!= 'NULL' && gettype($res2[0])!= 'NULL' && gettype($res3[0])!= 'NULL' && gettype($res4[0])!= 'NULL' && gettype($res5[0])!= 'NULL' && gettype($res6[0])!= 'NULL'){
-                  //echo "hi";
-                  ?>
-                  <td class="center aligned" ><div class="ui positive button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                  <?php
-                }
-                else{
-                  ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                  <?php
-                }
-              }
-                else{
-                  ?>
-                  <td class="center aligned" ><div class="ui positive disabled button" onclick="location.href = '../Final.php?code=<?php echo $row1['code']; ?>'">Course Report</div></td>
-                  <?php
-                }
-              ?>
+                ?>
 
       
             
