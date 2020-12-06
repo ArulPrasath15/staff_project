@@ -266,23 +266,23 @@ function rowEdit(but){
               grade = $(this).find('.mytest').val();
               if(grade=="A")
               {
-                $total=8;
+                $total=4;
               }
               if(grade=="A+")
               {
-                $total=9;
+                $total=4.5;
               }
               if(grade=="B")
               {
-                $total=6;
+                $total=3;
               }
               if(grade=="B+")
               {
-                $total=7;
+                $total=3.5;
               }
               if(grade=="O")
               {
-                $total=10;
+                $total=5;
               }
               if(grade=="WH")
               {
