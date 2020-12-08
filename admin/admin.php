@@ -10,7 +10,7 @@
         $sem=$_POST["sem"];
         $cred=$_POST["cred"];
         $staff=$_POST["staff"];
-        $sql="insert into course_list (`code`,`name`,`year`,`batch`,`sem`,`credit`,`cc`) values('$code','$name',' $year','$batch',$sem,$cred,'$staff')";
+        $sql="insert into `course_list` (`code`,`name`,`year`,`batch`,`sem`,`credit`,`cc`) values('$code','$name',' $year','$batch',$sem,$cred,'$staff')";
         if($con->query($sql)){
             $_SESSION['code']=$code;
             header("Location: ./cc.php");
