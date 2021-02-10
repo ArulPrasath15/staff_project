@@ -25,7 +25,12 @@ if(isset($_POST['submit']))
     }
     else
     {
-      header("Location: ../Entity/Table.php");
+      if($_POST['exam']=="CAT1"){
+        header("Location: ../Entity/Table.php");
+      }
+      else{
+        header("Location: ../Entity/Table3.php");
+      }
       
     }
 
