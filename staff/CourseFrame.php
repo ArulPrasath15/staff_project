@@ -502,7 +502,13 @@ if($count==1)
      
       if(value.slice(0, 3)=="CAT")
       {
-        $("#cat").text("Exam : "+value.slice(0, 4));
+        if(value.slice(0, 4)=="CAT1")
+        {
+            $("#cat").text("Exam : "+value.slice(0, 4));
+        }
+        else{
+            window.location.href='CF3.php?exam='+value;   
+        }
       }
       else
       {
