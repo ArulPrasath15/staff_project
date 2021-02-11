@@ -66,7 +66,7 @@
                 $con->query($sql5);$con->query($sql5_1);$con->query($sql5_2);$con->query($sql5_3);
                 $con->query($sql6);$con->query($sql6_1);$con->query($sql6_2);$con->query($sql6_3);
                 $con->query($sql7);$con->query($sql7_1);$con->query($sql7_2);$con->query($sql7_3);
-                $con->query($sql8);$con->query($sql8_1);$con->query($sql8_2);$con->query($sql8_3);
+                // $con->query($sql8);$con->query($sql8_1);$con->query($sql8_2);$con->query($sql8_3);
                 $con->query($sql9);$con->query($sql91);$con->query($sql92);$con->query($sql93);$con->query($sql94);
                 $con->query($sql9_1);$con->query($sql91_1);$con->query($sql92_1);$con->query($sql93_1);$con->query($sql94_1);
                 $con->query($sql9_2);$con->query($sql91_2);$con->query($sql92_2);$con->query($sql93_2);$con->query($sql94_2);
