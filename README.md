@@ -3,7 +3,7 @@
 Members:
 <ul>
 <li>Arul Prasath V (Arch.)</li>
-<li>Gowthamkrishnan S (Facilitator)</li>
+<li>Gowthamkrishnan S  (Facilitator)</li>
 <li>Deepti R (Backend Engineer)</li>
 </ul><br/>
 Mentorship:
